@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Box from '@material-ui/core/Box';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-import Add from '@material-ui/icons/Add';
-import MenuIcon from '@material-ui/icons/Menu';
+import Add from '@mui/icons-material/Add';
+import MenuIcon from '@mui/icons-material/Menu';
+import PlayArrow from '@mui/icons-material/PlayArrow';
+import SkipNext from '@mui/icons-material/SkipNext';
+import SkipPrevious from '@mui/icons-material/SkipPrevious';
 
-const TopBar = ({addCharacter}) => {
+const TopBar = ({ addCharacter, handleCombatStart }) => {
 
   const [menuAnchor, setMenuAnchor] = useState(null);
   const isMenuOpen = Boolean(menuAnchor);
@@ -45,23 +47,32 @@ const TopBar = ({addCharacter}) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => handleAddMenuClick({type: 'add-pc'})}>Add Player Character</MenuItem>
-      <MenuItem onClick={() => handleAddMenuClick({type: 'add-npc'})}>Add Non-Player Character</MenuItem>
+      <MenuItem onClick={() => handleAddMenuClick({ type: 'add-pc' })}>Add Player Character</MenuItem>
+      <MenuItem onClick={() => handleAddMenuClick({ type: 'add-npc' })}>Add Non-Player Character</MenuItem>
     </Menu>
   )
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" component="div">
-            UESRPG Initiative Tracker
-          </Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'non', md: 'flex' } }}>
+      <AppBar position="fixed">
+        <Toolbar variant="dense" style={{ justifyContent: 'space-between' }}>
+          <Box>
+            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+              <MenuIcon />
+            </IconButton>
+          </Box>
+          <Box>
+            <IconButton color="inherit" disabled>
+              <SkipPrevious />
+            </IconButton>
+            <IconButton color="inherit" onClick={handleCombatStart}>
+              <PlayArrow />
+            </IconButton>
+            <IconButton color="inherit" disabled>
+              <SkipNext />
+            </IconButton>
+          </Box>
+          <Box>
             <IconButton
               edge="end"
               onClick={handleAddMenuOpen}
