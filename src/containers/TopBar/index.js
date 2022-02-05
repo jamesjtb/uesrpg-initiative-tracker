@@ -12,8 +12,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PlayArrow from '@mui/icons-material/PlayArrow';
 import SkipNext from '@mui/icons-material/SkipNext';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
+import Stop from '@mui/icons-material/Stop';
 
-const TopBar = ({ addCharacter, handleCombatStart }) => {
+const TopBar = ({ round, addCharacter, handleCombatStart }) => {
 
   const [menuAnchor, setMenuAnchor] = useState(null);
   const isMenuOpen = Boolean(menuAnchor);
@@ -65,9 +66,15 @@ const TopBar = ({ addCharacter, handleCombatStart }) => {
             <IconButton color="inherit" disabled>
               <SkipPrevious />
             </IconButton>
-            <IconButton color="inherit" onClick={handleCombatStart}>
-              <PlayArrow />
-            </IconButton>
+            {round > 0 ? 
+              <IconButton color="inherit">
+                <Stop />
+              </IconButton> : 
+              <IconButton color="inherit" onClick={handleCombatStart}>
+                <PlayArrow />
+              </IconButton>
+            }
+
             <IconButton color="inherit" disabled>
               <SkipNext />
             </IconButton>
