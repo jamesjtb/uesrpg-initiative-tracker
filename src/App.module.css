@@ -1,7 +1,8 @@
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .InitiativeContainer {
-  padding-top: calc(50px + 3vh);
+  padding-top: calc(50px + 1vh);
 }

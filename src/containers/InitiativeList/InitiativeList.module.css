@@ -1,0 +1,8 @@
+.InitiativeTable td + td {
+  border-left: 2px solid black;
+}
+
+.InitiativeTable td {
+  border-top: 2px solid black;
+  border-bottom: none;
+}

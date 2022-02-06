@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 const rollDice = (sides, qty=1) => {
   const minRoll = 1;
   const rolls = [];
@@ -10,4 +12,4 @@ const rollDice = (sides, qty=1) => {
   return {rolls, total}
 }
 
-export {rollDice}
+export {rollDice, uuid};
