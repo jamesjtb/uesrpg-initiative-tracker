@@ -16,6 +16,7 @@ import parchmentBackground from './assets/parchment.jpg';
 
 function App() {
   const [ characters, setCharacters ] = useState([]);
+  const [ newCharacters, setNewCharacters] = useState([]);
   const [ combatState, setCombatState] = useState({
     round: -1, // Round -1 = out of combat, round 0=rolling initiative, round 1 and up = proper rounds
     turn: 0,
@@ -30,19 +31,37 @@ function App() {
   }
 
   const addCharacter = ({type}) => {
-    setCharacters([...characters, {
+    setNewCharacters([...newCharacters, {
       id: uuid(),
       type: type,
       name: "",
       currentHitPoints: 0,
       maxHitPoints: 0,
-      actionPoints: 3,
+      currentActionPoints: 3,
+      maxActionPoints: 3,
       initiativeRating: 0,
+      currentLuckPoints: 0,
       luckBonus: 0,
       initiativeRoll: 0,
       editing: true
     }]);
-  }
+    console.log(newCharacters);
+  };
+
+  const onNewCharacterChange = (newCharacter, action) => {
+    switch (action) {
+      case 'delete':
+        setNewCharacters(newCharacters.filter(c => c.id !== newCharacter.id));
+        break;
+      case 'edit':
+        setNewCharacters(newCharacters.map(c => c.id === newCharacter.id ? newCharacter : c));
+        break;
+      case 'submit':
+        setNewCharacters(newCharacters.filter(c => c.id !== newCharacter.id));
+        setCharacters([...characters, newCharacter]);
+        break;
+    }
+  };
 
   const handleCombatStart = () => {
     setCharacters(characters.map(character => {
@@ -93,9 +112,20 @@ function App() {
       <TopBar combatState={combatState} addCharacter={addCharacter} handleCombatStart={handleCombatStart} handleCombatStop={handleCombatStop} advanceTurn={advanceTurn} />
       <Box style={{overflowY: 'auto'}}>
         <Container className={classes.InitiativeContainer}>
-          <InitiativeList characters={characters} editCharacter={editCharacter} combatState={combatState} />
+          <InitiativeList
+            characters={characters}
+            newCharacters={newCharacters}
+            editCharacter={editCharacter}
+            combatState={combatState}
+            onNewCharacterChange={onNewCharacterChange}
+          />
         </Container>
-        <InitiativeModal open={combatState.round === 0} onClose={initiativeModalClose} characters={characters} editCharacter={editCharacter} />
+        <InitiativeModal
+          open={combatState.round === 0}
+          onClose={initiativeModalClose}
+          characters={characters}
+          editCharacter={editCharacter}
+        />
       </Box>
     </Box>
   );
