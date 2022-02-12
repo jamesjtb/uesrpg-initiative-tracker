@@ -15,9 +15,9 @@ import { rollDice, uuid } from './util/utils';
 import parchmentBackground from './assets/parchment.jpg';
 
 function App() {
-  const [ combatants, setCombatants ] = useState([]);
-  const [ newCombatants, setNewCombatants] = useState([]);
-  const [ combatState, setCombatState] = useState({
+  const [combatants, setCombatants] = useState([]);
+  const [newCombatants, setNewCombatants] = useState([]);
+  const [combatState, setCombatState] = useState({
     round: -1, // Round -1 = out of combat, round 0=rolling initiative, round 1 and up = proper rounds
     turn: 0,
     activeCharacterId: null, // null until round 1 begins
@@ -26,11 +26,11 @@ function App() {
   const editCharacter = submittedCharacter => {
     setCombatants(combatants.map(character => (
       character.id === submittedCharacter.id ?
-      {...submittedCharacter, editing: false}
-      : character)));
+        { ...submittedCharacter, editing: false }
+        : character)));
   }
 
-  const addCombatant = ({type}) => {
+  const addCombatant = ({ type }) => {
     setNewCombatants([...newCombatants, {
       id: uuid(),
       type: type,
@@ -71,10 +71,10 @@ function App() {
         initiativeTotal: diceRoll + character.initiativeRating
       }
     }));
-    setCombatState({...combatState, round: 0}); // Set round to rolling initiative
+    setCombatState({ ...combatState, round: 0 }); // Set round to rolling initiative
   };
   const handleCombatStop = () => {
-    setCombatState({...combatState, round: -1, activeCharacterId: null, turn: 0});
+    setCombatState({ ...combatState, round: -1, activeCharacterId: null, turn: 0 });
   }
 
   const advanceTurn = (byTurns) => {
@@ -92,11 +92,11 @@ function App() {
 
   const initiativeModalClose = (e, reason) => {
     if (reason === 'escapeKeyDown' || reason === "cancelButtonClick" || reason === "backDropClick") {
-      setCombatState({...combatState, round: -1});
+      setCombatState({ ...combatState, round: -1 });
     } else {
-      const sortedCharacters = arraySort([...combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], {reverse: true})
+      const sortedCharacters = arraySort([...combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], { reverse: true })
       setCombatants(sortedCharacters);
-      setCombatState({...combatState, round: combatState.round === 0 ? 1 : combatState.round, turn: 1, activeCharacterId: sortedCharacters[0].id});
+      setCombatState({ ...combatState, round: combatState.round === 0 ? 1 : combatState.round, turn: 1, activeCharacterId: sortedCharacters[0].id });
     }
   };
 
@@ -107,9 +107,9 @@ function App() {
   };
 
   return (
-    <Box tabIndex="0" onKeyDown={handleKeyPress} className={classes.App} style={{backgroundImage: `url(${parchmentBackground})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center'}}>
+    <Box tabIndex="0" onKeyDown={handleKeyPress} className={classes.App} style={{ backgroundImage: `url(${parchmentBackground})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }}>
       <TopBar combatState={combatState} addCombatant={addCombatant} handleCombatStart={handleCombatStart} handleCombatStop={handleCombatStop} advanceTurn={advanceTurn} />
-      <Box style={{overflowY: 'auto'}}>
+      <Box style={{ overflowY: 'auto' }}>
         <Container className={classes.InitiativeContainer}>
           <InitiativeList
             combatants={combatants}
