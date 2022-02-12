@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography';
 
 import { useTheme, styled } from '@mui/material/styles';
 
-import CharacterListing from './CharacterListing';
-import NewCharacter from '../NewCharacter';
+import CombatantListing from './CombatantListing';
+import NewCombatant from '../NewCombatant';
 
 import classes from './InitiativeList.module.css';
 
@@ -19,12 +19,12 @@ const InitiativeContainer = styled(TableContainer)(({theme}) => ({
   paddingBottom: theme.spacing(4)
 }));
 
-const InitiativeList = ({ characters, newCharacters, editCharacter, combatState, onNewCharacterChange }) => {
+const InitiativeList = ({ combatants, newCombatants, combatState, onNewCombatantChange }) => {
   const theme = useTheme();
   const tableCellStyle = {
     color: theme.palette.secondary.contrastText
   };
-  const activeCharacter = characters.find(character => character.id === combatState.activeCharacterId)
+  const activeCharacter = combatants.find(combatant => combatant.id === combatState.activeCharacterId)
   return (
     <>
       <InitiativeContainer>
@@ -48,14 +48,14 @@ const InitiativeList = ({ characters, newCharacters, editCharacter, combatState,
             </TableRow>
           </TableHead>
           <TableBody>
-            {characters.map((character) => (
-              <CharacterListing key={character.id} character={character} editCharacter={editCharacter} combatState={combatState} />
+            {combatants.map((combatant) => (
+              <CombatantListing key={combatant.id} combatant={combatant} combatState={combatState} />
             ))}
           </TableBody>
         </Table>
       </InitiativeContainer>
-      {newCharacters.map(newCharacter => (
-        <NewCharacter key={newCharacter.id} newCharacter={newCharacter} onNewCharacterChange={onNewCharacterChange} />
+      {newCombatants.map(newCombatant => (
+        <NewCombatant key={newCombatant.id} newCombatant={newCombatant} onNewCombatantChange={onNewCombatantChange} />
       ))}
     </>
   );

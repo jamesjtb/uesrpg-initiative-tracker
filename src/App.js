@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 
 import classes from './App.module.css';
 
@@ -15,8 +15,8 @@ import { rollDice, uuid } from './util/utils';
 import parchmentBackground from './assets/parchment.jpg';
 
 function App() {
-  const [ characters, setCharacters ] = useState([]);
-  const [ newCharacters, setNewCharacters] = useState([]);
+  const [ combatants, setCombatants ] = useState([]);
+  const [ newCombatants, setNewCombatants] = useState([]);
   const [ combatState, setCombatState] = useState({
     round: -1, // Round -1 = out of combat, round 0=rolling initiative, round 1 and up = proper rounds
     turn: 0,
@@ -24,14 +24,14 @@ function App() {
   });
 
   const editCharacter = submittedCharacter => {
-    setCharacters(characters.map(character => (
+    setCombatants(combatants.map(character => (
       character.id === submittedCharacter.id ?
       {...submittedCharacter, editing: false}
       : character)));
   }
 
-  const addCharacter = ({type}) => {
-    setNewCharacters([...newCharacters, {
+  const addCombatant = ({type}) => {
+    setNewCombatants([...newCombatants, {
       id: uuid(),
       type: type,
       name: "",
@@ -45,26 +45,25 @@ function App() {
       initiativeRoll: 0,
       editing: true
     }]);
-    console.log(newCharacters);
   };
 
-  const onNewCharacterChange = (newCharacter, action) => {
+  const onNewCombatantChange = (newCombatant, action) => {
     switch (action) {
       case 'delete':
-        setNewCharacters(newCharacters.filter(c => c.id !== newCharacter.id));
+        setNewCombatants(newCombatants.filter(c => c.id !== newCombatant.id));
         break;
       case 'edit':
-        setNewCharacters(newCharacters.map(c => c.id === newCharacter.id ? newCharacter : c));
+        setNewCombatants(newCombatants.map(c => c.id === newCombatant.id ? newCombatant : c));
         break;
       case 'submit':
-        setNewCharacters(newCharacters.filter(c => c.id !== newCharacter.id));
-        setCharacters([...characters, newCharacter]);
+        setNewCombatants(newCombatants.filter(c => c.id !== newCombatant.id));
+        setCombatants([...combatants, newCombatant]);
         break;
     }
   };
 
   const handleCombatStart = () => {
-    setCharacters(characters.map(character => {
+    setCombatants(combatants.map(character => {
       const diceRoll = rollDice(6).total;
       return {
         ...character,
@@ -81,9 +80,9 @@ function App() {
   const advanceTurn = (byTurns) => {
     if (combatState.round < 1) return;
     if (combatState.turn + byTurns === 0 && combatState.round === 1) return; // Do nothing if it would go to turn 0 in round 1
-    const resultTurn = combatState.turn + byTurns > characters.length ? 1 : combatState.turn + byTurns === 0 ? characters.length : combatState.turn + byTurns;
-    const resultRound = combatState.turn + byTurns === 0 ? combatState.round - 1 : combatState.turn + byTurns > characters.length ? combatState.round + 1 : combatState.round;
-    const resultActiveCharacterId = characters[resultTurn - 1].id;
+    const resultTurn = combatState.turn + byTurns > combatants.length ? 1 : combatState.turn + byTurns === 0 ? combatants.length : combatState.turn + byTurns;
+    const resultRound = combatState.turn + byTurns === 0 ? combatState.round - 1 : combatState.turn + byTurns > combatants.length ? combatState.round + 1 : combatState.round;
+    const resultActiveCharacterId = combatants[resultTurn - 1].id;
     setCombatState({
       round: resultRound,
       turn: resultTurn,
@@ -95,8 +94,8 @@ function App() {
     if (reason === 'escapeKeyDown' || reason === "cancelButtonClick" || reason === "backDropClick") {
       setCombatState({...combatState, round: -1});
     } else {
-      const sortedCharacters = arraySort([...characters], ['initiativeTotal', 'initiativeRating', 'luckBonus'], {reverse: true})
-      setCharacters(sortedCharacters);
+      const sortedCharacters = arraySort([...combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], {reverse: true})
+      setCombatants(sortedCharacters);
       setCombatState({...combatState, round: combatState.round === 0 ? 1 : combatState.round, turn: 1, activeCharacterId: sortedCharacters[0].id});
     }
   };
@@ -109,21 +108,21 @@ function App() {
 
   return (
     <Box tabIndex="0" onKeyDown={handleKeyPress} className={classes.App} style={{backgroundImage: `url(${parchmentBackground})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center'}}>
-      <TopBar combatState={combatState} addCharacter={addCharacter} handleCombatStart={handleCombatStart} handleCombatStop={handleCombatStop} advanceTurn={advanceTurn} />
+      <TopBar combatState={combatState} addCombatant={addCombatant} handleCombatStart={handleCombatStart} handleCombatStop={handleCombatStop} advanceTurn={advanceTurn} />
       <Box style={{overflowY: 'auto'}}>
         <Container className={classes.InitiativeContainer}>
           <InitiativeList
-            characters={characters}
-            newCharacters={newCharacters}
+            combatants={combatants}
+            newCombatants={newCombatants}
             editCharacter={editCharacter}
             combatState={combatState}
-            onNewCharacterChange={onNewCharacterChange}
+            onNewCombatantChange={onNewCombatantChange}
           />
         </Container>
         <InitiativeModal
           open={combatState.round === 0}
           onClose={initiativeModalClose}
-          characters={characters}
+          characters={combatants}
           editCharacter={editCharacter}
         />
       </Box>

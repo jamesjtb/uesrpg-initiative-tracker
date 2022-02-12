@@ -14,7 +14,7 @@ import SkipNext from '@mui/icons-material/SkipNext';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
 import Stop from '@mui/icons-material/Stop';
 
-const TopBar = ({ addCharacter, handleCombatStart, handleCombatStop, combatState, advanceTurn }) => {
+const TopBar = ({ addCombatant, handleCombatStart, handleCombatStop, combatState, advanceTurn }) => {
 
   const [menuAnchor, setMenuAnchor] = useState(null);
   const isMenuOpen = Boolean(menuAnchor);
@@ -28,7 +28,7 @@ const TopBar = ({ addCharacter, handleCombatStart, handleCombatStop, combatState
   };
 
   const handleAddMenuClick = (characterModalSettings) => {
-    addCharacter(characterModalSettings)
+    addCombatant(characterModalSettings)
     handleMenuClose();
   };
 
