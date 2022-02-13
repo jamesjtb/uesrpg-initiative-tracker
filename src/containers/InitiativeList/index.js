@@ -21,7 +21,8 @@ import { CombatContext } from '../../contextProviders/combat';
 import { combatantStatuses } from '../../contextProviders/combatant/values';
 
 const InitiativeContainer = styled(TableContainer)(({theme}) => ({
-  paddingBottom: theme.spacing(4)
+  paddingBottom: theme.spacing(4),
+  userSelect: 'none'
 }));
 
 const InitiativeList = () => {
@@ -38,7 +39,7 @@ const InitiativeList = () => {
   const tableCellStyle = {
     color: theme.palette.secondary.contrastText
   };
-  const activeCharacter = combatants.find(combatant => combatant.id === combatState.activeCharacterId)
+  const activeCombatant = combatants.find(combatant => combatant.id === combatState.activeCombatantId);
   return (
     <>
       <InitiativeContainer>
@@ -48,7 +49,7 @@ const InitiativeList = () => {
               "Out of Combat" :
               combatState.round === 0 ?
                 "Rolling Initiative" :
-                `Round ${combatState.round}, Turn ${combatState.turn} - ${activeCharacter.name}`
+                `Round ${combatState.round}, Turn ${combatState.turn} - ${activeCombatant.name}`
           }
         </Typography>
         <Table className={classes.InitiativeTable} size="small">

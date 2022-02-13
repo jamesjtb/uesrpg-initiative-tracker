@@ -8,7 +8,7 @@ export const CombatProvider = props => {
   const initialState = {
     round: -1, // Round -1 = out of combat, round 0=rolling initiative, round 1 and up = proper rounds
     turn: 0,
-    activeCharacterId: null, // null until round 1 begins
+    activeCombatantId: null, // null until round 1 begins
   };
 
   const [ state, dispatch ] = useReducer(combatReducer, initialState);

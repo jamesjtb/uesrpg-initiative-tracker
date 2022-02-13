@@ -10,14 +10,14 @@ export const combatReducer = (oldState, action) => {
         ...oldState,
         round: 1,
         turn: 1,
-        activeCharacterId: action.payload.startingCharacterId
+        activeCombatantId: action.payload.startingCharacterId
       };
     // Stop Combat
     case combatActions.STOP:
       return {
         ...oldState,
         round: -1,
-        activeCharacterId: null,
+        activeCombatantId: null,
         turn: 0
       };
     case combatActions.ADVANCE_TURN:
@@ -35,7 +35,9 @@ export const combatReducer = (oldState, action) => {
       return {
         round: resultRound,
         turn: resultTurn,
-        activeCharacterId: resultActiveCharacterId
+        activeCombatantId: resultActiveCharacterId
       };
+    default:
+      throw new Error(`Unrecognized combatant action in reducer: ${action.type}`);
   }
 };

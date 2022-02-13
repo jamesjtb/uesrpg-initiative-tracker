@@ -1,6 +1,29 @@
 import { combatantActions, combatantStatuses, defaultCombatant } from './values';
 import { uuid } from '../../util/utils';
 
+// Normalize data types in one place rather than at each edit point
+const correctDataTypes = combatant => {
+  const correctedObject = {};
+  const intFields = [
+    'currentHitPoints',
+    'maxHitPoints',
+    'currentActionPoints',
+    'maxActionPoints',
+    'intiativeRating',
+    'currentLuckPoints',
+    'luckBonus',
+    'initiativeRoll'
+  ];
+  for (const field in combatant) {
+    if (intFields.includes(field)) {
+      correctedObject[field] = parseInt(combatant[field]);
+      continue;
+    };
+    correctedObject[field] = combatant[field];
+  }
+  return correctedObject;
+};
+
 export const combatantReducer = (oldState, action) => {
   switch (action.type) {
     // Complete overwrite
@@ -17,7 +40,7 @@ export const combatantReducer = (oldState, action) => {
     // Edit an existing combatant
     case combatantActions.EDIT:
       return oldState.map(combatant => (
-        combatant.id === action.payload.id ? { ...action.payload } : combatant
+        combatant.id === action.payload.id ? correctDataTypes({ ...action.payload }) : combatant
       ));
     // Commit a combatant in CREATING status
     case combatantActions.COMMIT:
@@ -27,5 +50,7 @@ export const combatantReducer = (oldState, action) => {
     // Delete a combatant
     case combatantActions.DELETE:
       return oldState.filter(combatant => action.payload.id !== combatant.id);
+    default:
+      throw new Error(`Unrecognized combatant action in reducer: ${action.type}`);
   }
 };

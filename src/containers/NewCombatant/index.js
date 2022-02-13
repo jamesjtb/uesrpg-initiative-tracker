@@ -27,6 +27,10 @@ const CharacterInputField = styled(TextField)(({theme}) => ({
   textAlign: 'center'
 }));
 
+const InteractionButtonGroup = styled(ButtonGroup)(({ theme }) => ({
+  marginRight: theme.spacing(1)
+}));
+
 const NewCombatant = ({newCombatant}) => {
 
   const {
@@ -40,13 +44,14 @@ const NewCombatant = ({newCombatant}) => {
   }
   return (
     <Box component={NewCombatantContainer} onKeyPress={keyPress}>
-      <Stack direction="row">
+      <Stack direction="row" justifyContent="space-between">
         <CharacterInputField
           id="newCombatant.name"
           label="Name"
           variant="standard"
           value={newCombatant.name}
           onChange={e => editCombatant({ ...newCombatant, name: e.target.value })}
+          autoFocus
         />
         <CharacterInputField
           id="newCombatant.maxHitPoints"
@@ -84,10 +89,10 @@ const NewCombatant = ({newCombatant}) => {
             { ...newCombatant, luckBonus: e.target.value, currentLuckPoints: e.target.value }
           )}
         />
-        <ButtonGroup>
+        <InteractionButtonGroup>
           <Button onClick={() => deleteCombatant({ id: newCombatant.id })}><DeleteForever /></Button>
           <Button onClick={() => commitCombatant({ id: newCombatant.id })}><Check /></Button>
-        </ButtonGroup>
+        </InteractionButtonGroup>
       </Stack>
     </Box>
   )
