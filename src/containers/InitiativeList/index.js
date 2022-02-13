@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -15,11 +15,25 @@ import NewCombatant from '../NewCombatant';
 
 import classes from './InitiativeList.module.css';
 
+import { CombatantContext } from '../../contextProviders/combatant';
+import { CombatContext } from '../../contextProviders/combat';
+
+import { combatantStatuses } from '../../contextProviders/combatant/values';
+
 const InitiativeContainer = styled(TableContainer)(({theme}) => ({
   paddingBottom: theme.spacing(4)
 }));
 
-const InitiativeList = ({ combatants, newCombatants, combatState, onNewCombatantChange }) => {
+const InitiativeList = () => {
+
+  const {
+    combatants
+  } = useContext(CombatantContext);
+
+  const {
+    combatState
+  } = useContext(CombatContext);
+
   const theme = useTheme();
   const tableCellStyle = {
     color: theme.palette.secondary.contrastText
@@ -49,13 +63,17 @@ const InitiativeList = ({ combatants, newCombatants, combatState, onNewCombatant
           </TableHead>
           <TableBody>
             {combatants.map((combatant) => (
-              <CombatantListing key={combatant.id} combatant={combatant} combatState={combatState} />
+              combatant.status === combatantStatuses.COMITTED ?
+                <CombatantListing key={combatant.id} combatant={combatant} combatState={combatState} />
+                : null
             ))}
           </TableBody>
         </Table>
       </InitiativeContainer>
-      {newCombatants.map(newCombatant => (
-        <NewCombatant key={newCombatant.id} newCombatant={newCombatant} onNewCombatantChange={onNewCombatantChange} />
+      {combatants.map(combatant => (
+        combatant.status === combatantStatuses.CREATING ? 
+          <NewCombatant key={combatant.id} newCombatant={combatant} />
+          : null
       ))}
     </>
   );

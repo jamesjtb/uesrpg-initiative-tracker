@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -6,12 +6,13 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-
+ 
 import Check from '@mui/icons-material/Check';
 import DeleteForever from '@mui/icons-material/DeleteForever';
-import Add from '@mui/icons-material/Add';
 
-import {styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+
+import { CombatantContext } from '../../contextProviders/combatant';
 
 const NewCombatantContainer = styled(Paper)(({ theme }) => ({
   marginBottom: theme.spacing(1),
@@ -26,9 +27,16 @@ const CharacterInputField = styled(TextField)(({theme}) => ({
   textAlign: 'center'
 }));
 
-const NewCombatant = ({newCombatant, onNewCombatantChange}) => {
+const NewCombatant = ({newCombatant}) => {
+
+  const {
+    editCombatant,
+    commitCombatant,
+    deleteCombatant
+  } = useContext(CombatantContext);
+
   const keyPress = e => {
-    if (e.code === 'Enter' || e.code === 'NumpadEnter') onNewCombatantChange(newCombatant, 'submit');
+    if (e.code === 'Enter' || e.code === 'NumpadEnter') commitCombatant(newCombatant);
   }
   return (
     <Box component={NewCombatantContainer} onKeyPress={keyPress}>
@@ -38,7 +46,7 @@ const NewCombatant = ({newCombatant, onNewCombatantChange}) => {
           label="Name"
           variant="standard"
           value={newCombatant.name}
-          onChange={e => onNewCombatantChange({ ...newCombatant, name: e.target.value }, 'edit')}
+          onChange={e => editCombatant({ ...newCombatant, name: e.target.value })}
         />
         <CharacterInputField
           id="newCombatant.maxHitPoints"
@@ -46,10 +54,7 @@ const NewCombatant = ({newCombatant, onNewCombatantChange}) => {
           variant="standard"
           type="number"
           value={newCombatant.maxHitPoints}
-          onChange={e => onNewCombatantChange(
-            { ...newCombatant, maxHitPoints: e.target.value, currentHitPoints: e.target.value }, // Editing both max and current
-            'edit'
-          )}
+          onChange={e => editCombatant({ ...newCombatant, maxHitPoints: e.target.value, currentHitPoints: e.target.value })}
         />
         <CharacterInputField
           id="newCombatant.actionPoints"
@@ -57,9 +62,8 @@ const NewCombatant = ({newCombatant, onNewCombatantChange}) => {
           variant="standard"
           type="number"
           value={newCombatant.maxActionPoints}
-          onChange={e => onNewCombatantChange(
-            { ...newCombatant, maxActionPoints: e.target.value, currentActionPoints: e.target.value },
-            'edit'
+          onChange={e => editCombatant(
+            { ...newCombatant, maxActionPoints: e.target.value, currentActionPoints: e.target.value }
           )}
         />
         <CharacterInputField
@@ -68,7 +72,7 @@ const NewCombatant = ({newCombatant, onNewCombatantChange}) => {
           variant="standard"
           type="number"
           value={newCombatant.initiativeRating}
-          onChange={e => onNewCombatantChange({ ...newCombatant, initiativeRating: e.target.value }, 'edit')}
+          onChange={e => editCombatant({ ...newCombatant, initiativeRating: e.target.value })}
         />
         <CharacterInputField
           id="newCombatant.luckBonus"
@@ -76,14 +80,13 @@ const NewCombatant = ({newCombatant, onNewCombatantChange}) => {
           variant="standard"
           type="number"
           value={newCombatant.luckBonus}
-          onChange={e => onNewCombatantChange(
-            { ...newCombatant, luckBonus: e.target.value, currentLuckPoints: e.target.value },
-            'edit'
+          onChange={e => editCombatant(
+            { ...newCombatant, luckBonus: e.target.value, currentLuckPoints: e.target.value }
           )}
         />
         <ButtonGroup>
-          <Button onClick={() => onNewCombatantChange(newCombatant, 'delete')}><DeleteForever /></Button>
-          <Button onClick={() => onNewCombatantChange(newCombatant, 'submit')}><Check /></Button>
+          <Button onClick={() => deleteCombatant({ id: newCombatant.id })}><DeleteForever /></Button>
+          <Button onClick={() => commitCombatant({ id: newCombatant.id })}><Check /></Button>
         </ButtonGroup>
       </Stack>
     </Box>

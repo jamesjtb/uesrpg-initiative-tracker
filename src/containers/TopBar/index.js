@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,10 +14,27 @@ import SkipNext from '@mui/icons-material/SkipNext';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
 import Stop from '@mui/icons-material/Stop';
 
-const TopBar = ({ addCombatant, handleCombatStart, handleCombatStop, combatState, advanceTurn }) => {
+import { CombatContext } from '../../contextProviders/combat';
+import { CombatantContext } from '../../contextProviders/combatant';
+
+import { combatantTypes } from '../../contextProviders/combatant/values';
+
+const TopBar = () => {
 
   const [menuAnchor, setMenuAnchor] = useState(null);
   const isMenuOpen = Boolean(menuAnchor);
+
+  const {
+    combatants,
+    addCombatant
+  } = useContext(CombatantContext);
+
+  const {
+    combatState,
+    initiateCombat,
+    stopCombat,
+    advanceTurn
+  } = useContext(CombatContext);
 
   const handleAddMenuOpen = (event) => {
     setMenuAnchor(event.currentTarget);
@@ -27,8 +44,8 @@ const TopBar = ({ addCombatant, handleCombatStart, handleCombatStop, combatState
     setMenuAnchor(null);
   };
 
-  const handleAddMenuClick = (characterModalSettings) => {
-    addCombatant(characterModalSettings)
+  const handleAddMenuClick = (type) => {
+    addCombatant(type)
     handleMenuClose();
   };
 
@@ -48,8 +65,8 @@ const TopBar = ({ addCombatant, handleCombatStart, handleCombatStop, combatState
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => handleAddMenuClick({ type: 'add-pc' })}>Add Player Character</MenuItem>
-      <MenuItem onClick={() => handleAddMenuClick({ type: 'add-npc' })}>Add Non-Player Character</MenuItem>
+      <MenuItem onClick={() => handleAddMenuClick(combatantTypes.PC)}>Add Player Character</MenuItem>
+      <MenuItem onClick={() => handleAddMenuClick(combatantTypes.NPC)}>Add Non-Player Character</MenuItem>
     </Menu>
   )
 
@@ -63,22 +80,22 @@ const TopBar = ({ addCombatant, handleCombatStart, handleCombatStop, combatState
             </IconButton>
           </Box>
           <Box>
-            <IconButton color="inherit" disabled={combatState.round < 1 || (combatState.round === 1 && combatState.turn === 1)} onClick={() => advanceTurn(-1)}>
+            <IconButton color="inherit" disabled={combatState.round < 1 || (combatState.round === 1 && combatState.turn === 1)} onClick={() => advanceTurn({ byTurns: -1, combatants })}>
               <SkipPrevious />
             </IconButton>
             {combatState.round > 0 ? 
-              <IconButton color="inherit" onClick={handleCombatStop}>
+              <IconButton color="inherit" onClick={stopCombat}>
                 <Stop />
               </IconButton> : 
               combatState.round === 0 ? 
                 <IconButton disabled>
                   <CircularProgress color="secondary" />
                 </IconButton> :
-                <IconButton color="inherit" onClick={handleCombatStart}>
+                <IconButton color="inherit" onClick={initiateCombat}>
                   <PlayArrow />
                 </IconButton>
             }
-            <IconButton color="inherit" disabled={combatState.round < 1} onClick={() => advanceTurn(1)}>
+            <IconButton color="inherit" disabled={combatState.round < 1} onClick={() => advanceTurn({ byTurns: 1, combatants })}>
               <SkipNext />
             </IconButton>
           </Box>

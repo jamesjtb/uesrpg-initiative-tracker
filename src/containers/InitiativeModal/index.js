@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+
+import arraySort from 'array-sort';
 
 import Modal from '@mui/material/Modal';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const InitiativeModal = ({ open, onClose, characters, editCharacter }) => {
+import { rollDice } from '../../util/utils';
+
+import { CombatContext } from '../../contextProviders/combat';
+import { CombatantContext } from '../../contextProviders/combatant';
+
+const InitiativeModal = () => {
   const style = {
     position: 'absolute',
     top: '50%',
@@ -20,25 +26,63 @@ const InitiativeModal = ({ open, onClose, characters, editCharacter }) => {
     p: 4,
   };
 
+  const {
+    combatants,
+    setCombatants,
+    editCombatant
+  } = useContext(CombatantContext);
+
+  const {
+    combatState,
+    startCombat,
+    stopCombat
+  } = useContext(CombatContext);
+
+  useEffect(() => {
+    if (combatState.round === 0) {
+      setCombatants(combatants.map(combatant => {
+        const diceRoll = rollDice(6).total;
+        return {
+          ...combatant,
+          initiativeRoll: diceRoll,
+          initiativeTotal: diceRoll + combatant.initiativeRating
+        }
+      }));
+    }
+  }, [ combatState.round ]);
+
+  const onClose = (e, reason) => {
+    if (reason === 'escapeKeyDown' || reason === "cancelButtonClick" || reason === "backDropClick") {
+      stopCombat();
+      return;
+    }
+    if (reason === 'submitButtonClick') {
+      const sortedCharacters = arraySort([...combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], { reverse: true })
+      setCombatants(sortedCharacters);
+      startCombat({ startingCharacterId: sortedCharacters[0].id });
+      return;
+    }
+  };
+
   return (
     <Modal
-      open={open}
+      open={combatState.round === 0}
       onClose={onClose}
     >
       <Box sx={style}>
         {
-          characters.map(character => (
+          combatants.map(combatant => (
             <TextField
               style={{ margin: "10px" }}
               inputProps={{ style: { textAlign: 'center' } }}
-              key={character.id}
-              id={`${character.id}`}
+              key={combatant.id}
+              id={`${combatant.id}`}
               variant="standard"
-              label={character.name}
+              label={combatant.name}
               type="number"
               InputLabelProps={{ shrink: true }}
-              value={character.initiativeRoll}
-              onChange={e => editCharacter({ ...character, initiativeRoll: parseInt(e.target.value) || 0, initiativeTotal: parseInt(e.target.value) || 0 + character.initiativeRating })}
+              value={combatant.initiativeRoll}
+              onChange={e => editCombatant({ ...combatant, initiativeRoll: parseInt(e.target.value) || 0, initiativeTotal: parseInt(e.target.value) || 0 + combatant.initiativeRating })}
             />
           ))
         }
