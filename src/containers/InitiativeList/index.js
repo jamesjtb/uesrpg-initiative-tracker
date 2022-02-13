@@ -63,7 +63,7 @@ const InitiativeList = () => {
           </TableHead>
           <TableBody>
             {combatants.map((combatant) => (
-              combatant.status === combatantStatuses.COMITTED ?
+              combatant.status === combatantStatuses.COMMITTED ?
                 <CombatantListing key={combatant.id} combatant={combatant} combatState={combatState} />
                 : null
             ))}

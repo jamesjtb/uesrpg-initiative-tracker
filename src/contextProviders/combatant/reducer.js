@@ -22,7 +22,7 @@ export const combatantReducer = (oldState, action) => {
     // Commit a combatant in CREATING status
     case combatantActions.COMMIT:
       return oldState.map(combatant => (
-        combatant.id === action.payload.id ? { ...combatant, status: combatantStatuses.COMITTED } : combatant
+        combatant.id === action.payload.id ? { ...combatant, status: combatantStatuses.COMMITTED } : combatant
       ));
     // Delete a combatant
     case combatantActions.DELETE:

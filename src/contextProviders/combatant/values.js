@@ -9,7 +9,7 @@ export const combatantActions = {
 
 export const combatantStatuses = {
   CREATING: 'CREATING',
-  COMITTED: 'COMITTED'
+  COMMITTED: 'COMMITTED'
 };
 
 export const combatantTypes = {
