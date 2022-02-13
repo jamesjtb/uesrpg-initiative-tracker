@@ -56,10 +56,10 @@ const InitiativeList = () => {
           <TableHead sx={{ bgcolor: theme.palette.secondary.main }}>
             <TableRow>
               <TableCell sx={tableCellStyle} align="center">Name</TableCell>
-              <TableCell sx={tableCellStyle} align="center">Hit Points</TableCell>
-              <TableCell sx={tableCellStyle} align="center">Action Points</TableCell>
               <TableCell sx={tableCellStyle} align="center">IR</TableCell>
-              <TableCell sx={tableCellStyle} align="center">Luck Points</TableCell>
+              <TableCell sx={tableCellStyle} align="center">Hit Points</TableCell>
+              <TableCell sx={tableCellStyle} align="center">Luck Points</TableCell>              
+              <TableCell sx={tableCellStyle} align="center">Action Points</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
