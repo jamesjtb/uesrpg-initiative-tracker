@@ -55,16 +55,18 @@ const InitiativeList = () => {
         <Table className={classes.InitiativeTable} size="small">
           <TableHead sx={{ bgcolor: theme.palette.secondary.main }}>
             <TableRow>
-              <TableCell sx={tableCellStyle} align="center">Name</TableCell>
-              <TableCell sx={tableCellStyle} align="center">IR</TableCell>
+              <TableCell sx={tableCellStyle} align="left" />
+              <TableCell sx={tableCellStyle} align="left">Name</TableCell>
+              <TableCell sx={tableCellStyle} align="left">IR</TableCell>
               <TableCell sx={tableCellStyle} align="center">Hit Points</TableCell>
               <TableCell sx={tableCellStyle} align="center">Luck Points</TableCell>              
               <TableCell sx={tableCellStyle} align="center">Action Points</TableCell>
+              <TableCell sx={tableCellStyle} align="right" />
             </TableRow>
           </TableHead>
           <TableBody>
             {combatants.map((combatant) => (
-              combatant.status === combatantStatuses.COMMITTED ?
+              combatant.status !== combatantStatuses.CREATING ?
                 <CombatantListing key={combatant.id} combatant={combatant} combatState={combatState} />
                 : null
             ))}
@@ -72,7 +74,7 @@ const InitiativeList = () => {
         </Table>
       </InitiativeContainer>
       {combatants.map(combatant => (
-        combatant.status === combatantStatuses.CREATING ? 
+        [ combatantStatuses.CREATING, combatantStatuses.EDITING ].includes(combatant.status) ? 
           <NewCombatant key={combatant.id} newCombatant={combatant} />
           : null
       ))}

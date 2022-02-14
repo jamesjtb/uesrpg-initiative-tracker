@@ -5,32 +5,45 @@ import TableCell from '@mui/material/TableCell';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 import TextField from '@mui/material/TextField';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 import Remove from '@mui/icons-material/Remove';
 import Add from '@mui/icons-material/Add';
 import Circle from '@mui/icons-material/Circle';
 import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
+import PeopleAlt from '@mui/icons-material/PeopleAlt';
+import MoreVert from '@mui/icons-material/MoreVert'
 
 import { useTheme } from '@mui/material/styles';
 
 import { CombatantContext } from '../../../contextProviders/combatant';
+import { combatantStatuses, combatantTypes } from '../../../contextProviders/combatant/values';
+
+import classes from './CombatantListing.module.css';
 
 const CombatantListing = ({ combatant, combatState }) => {
-  const [popoverAnchorEl, setPopoverAnchorEl] = useState();
-  const openPopover = Boolean(popoverAnchorEl);
+  const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
+  const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState(null);
 
   const {
-    editCombatant
+    editCombatant,
+    deleteCombatant
   } = useContext(CombatantContext);
 
   const theme = useTheme();
 
-  const activePlayerStyle = { backgroundColor: theme.palette.primary.main + '4D' };
+  const activePlayerStyle = { backgroundColor: theme.palette.primary.main + '33' };
 
   const handleHitPointsClick = e => {
     setPopoverAnchorEl(e.currentTarget);
+  };
+
+  const handleMoreMenuClick = e => {
+    setMoreMenuAnchorEl(e.currentTarget);
   };
 
   const handleHitPointsChange = e => {
@@ -43,15 +56,16 @@ const CombatantListing = ({ combatant, combatState }) => {
     setPopoverAnchorEl(null);
   };
 
-  const renderPointTracker = (current, max) => {
+  const renderPointTracker = (current, max, name) => {
     const rendered = [];
     for (let i = 0; i < max; i++) {
       if (i < current) {
-        rendered.push(<Circle fontSize="small" />);
+        rendered.push(<Circle key={`${name}-${i}`} fontSize="small" />);
         continue;
       }
-      rendered.push(<RadioButtonUnchecked fontSize="small" />);
+      rendered.push(<RadioButtonUnchecked key={`${name}-${i}`} fontSize="small" />);
     }
+    if (rendered.length === 0) rendered.push(<Typography key={`${name}-0`} component="span">--</Typography>);
     return rendered;
   };
 
@@ -80,21 +94,25 @@ const CombatantListing = ({ combatant, combatState }) => {
         break;
     }
   };
-
+  
   return (
-    <TableRow style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}>
-      <TableCell align="center"><Typography component="span">{combatant.name}</Typography></TableCell>      
-      <TableCell align="center"><Typography component="span">{combatant.initiativeRating}</Typography></TableCell>
+    <TableRow
+      className={classes.CombatantListing}
+      style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}
+    >
+      <TableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt fontSize="small" /> : null}</TableCell>
+      <TableCell align="left"><Typography component="span">{combatant.name}</Typography></TableCell>      
+      <TableCell align="left"><Typography component="span">{combatant.initiativeRating}</Typography></TableCell>
       <TableCell align="center">
         <Stack direction="row" justifyContent="center">
-          <Button
+          <IconButton
             size="small"
             color="error"
             disabled={combatant.currentHitPoints === 0}
             onClick={() => editCombatant({ ...combatant, currentHitPoints: combatant.currentHitPoints - 1 })}
           >
             <Remove />
-          </Button>
+          </IconButton>
           <Button
             size="small"
             color="secondary"
@@ -105,7 +123,7 @@ const CombatantListing = ({ combatant, combatState }) => {
             </Typography>
           </Button>
           <Popover
-            open={openPopover}
+            open={Boolean(popoverAnchorEl)}
             anchorEl={popoverAnchorEl}
             onClose={handlePopoverClose}
             anchorOrigin={{
@@ -125,14 +143,14 @@ const CombatantListing = ({ combatant, combatState }) => {
               autoFocus
             />
           </Popover>
-          <Button
+          <IconButton
             size="small"
             color="success"
             disabled={combatant.currentHitPoints === combatant.maxHitPoints}
             onClick={() => editCombatant({ ...combatant, currentHitPoints: combatant.currentHitPoints + 1 })}
           >
             <Add />
-          </Button>
+          </IconButton>
         </Stack>
       </TableCell>
       <TableCell align="center">
@@ -141,8 +159,9 @@ const CombatantListing = ({ combatant, combatState }) => {
           color="success"
           onClick={handleLuckPointsClick}
           onContextMenu={handleLuckPointsClick}
+          disabled={combatant.luckBonus === 0}
         >
-          {renderPointTracker(combatant.currentLuckPoints, combatant.luckBonus)}
+          {renderPointTracker(combatant.currentLuckPoints, combatant.luckBonus, 'luckpoints')}
         </Button>
       </TableCell>
       <TableCell align="center">
@@ -151,9 +170,35 @@ const CombatantListing = ({ combatant, combatState }) => {
           color="primary"
           onClick={handleActionPointsClick}
           onContextMenu={handleActionPointsClick}
+          disabled={combatant.maxActionPoints === 0}
         >
-          {renderPointTracker(combatant.currentActionPoints, combatant.maxActionPoints)}
+          {renderPointTracker(combatant.currentActionPoints, combatant.maxActionPoints, 'actionpoints')}
         </Button>
+      </TableCell>
+      <TableCell align="right">
+        <IconButton
+          size="small"
+          color="secondary"
+          onClick={handleMoreMenuClick}
+        >
+          <MoreVert fontSize="small" />
+        </IconButton>
+        <Menu
+          anchorEl={moreMenuAnchorEl}
+          open={Boolean(moreMenuAnchorEl)}
+          onClose={() => setMoreMenuAnchorEl(null)}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+        >
+          <MenuItem onClick={() => editCombatant({ ...combatant, status: combatantStatuses.EDITING })}>Edit</MenuItem>
+          <MenuItem onClick={() => deleteCombatant(combatant)}>Delete</MenuItem>
+        </Menu>
       </TableCell>
     </TableRow>
   )
