@@ -7,6 +7,7 @@ const correctDataTypes = combatant => {
   const intFields = [
     'currentHitPoints',
     'maxHitPoints',
+    'tempHitPoints',
     'currentActionPoints',
     'maxActionPoints',
     'intiativeRating',

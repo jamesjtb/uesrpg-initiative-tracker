@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
@@ -10,6 +10,7 @@ import Popover from '@mui/material/Popover';
 import TextField from '@mui/material/TextField';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
 
 import Remove from '@mui/icons-material/Remove';
 import Add from '@mui/icons-material/Add';
@@ -28,6 +29,10 @@ import classes from './CombatantListing.module.css';
 const CombatantListing = ({ combatant, combatState }) => {
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
   const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState(null);
+  const [editingTempHP, setEditingTempHP] = useState(false);
+  useEffect(() => {
+    if (combatant.tempHitPoints === 0) setEditingTempHP(false);
+  }, [combatant.tempHitPoints])
 
   const {
     editCombatant,
@@ -94,14 +99,14 @@ const CombatantListing = ({ combatant, combatState }) => {
         break;
     }
   };
-  
+
   return (
     <TableRow
       className={classes.CombatantListing}
       style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}
     >
       <TableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt fontSize="small" /> : null}</TableCell>
-      <TableCell align="left"><Typography component="span">{combatant.name}</Typography></TableCell>      
+      <TableCell align="left"><Typography component="span">{combatant.name}</Typography></TableCell>
       <TableCell align="left"><Typography component="span">{combatant.initiativeRating}</Typography></TableCell>
       <TableCell align="center">
         <Stack direction="row" justifyContent="center">
@@ -109,7 +114,9 @@ const CombatantListing = ({ combatant, combatState }) => {
             size="small"
             color="error"
             disabled={combatant.currentHitPoints === 0}
-            onClick={() => editCombatant({ ...combatant, currentHitPoints: combatant.currentHitPoints - 1 })}
+            onClick={() => {combatant.tempHitPoints > 0 ?
+              editCombatant({ ...combatant, tempHitPoints: combatant.tempHitPoints - 1 }) :
+              editCombatant({ ...combatant, currentHitPoints: combatant.currentHitPoints - 1 })}}
           >
             <Remove />
           </IconButton>
@@ -119,11 +126,12 @@ const CombatantListing = ({ combatant, combatState }) => {
             onClick={handleHitPointsClick}
           >
             <Typography component="span">
-              {combatant.currentHitPoints} / {combatant.maxHitPoints}
+              {combatant.currentHitPoints} {combatant.tempHitPoints > 0 ? `+ ${combatant.tempHitPoints}` : null} / {combatant.maxHitPoints}
             </Typography>
           </Button>
           <Popover
             open={Boolean(popoverAnchorEl)}
+            PaperProps={{ style: { padding: theme.spacing(1) } }}
             anchorEl={popoverAnchorEl}
             onClose={handlePopoverClose}
             anchorOrigin={{
@@ -132,16 +140,31 @@ const CombatantListing = ({ combatant, combatState }) => {
             }}
           >
             <TextField
-              sx={{ margin: theme.spacing(1), width: '50px' }}
-              size="small"
+              sx={{ width: '50px', paddingRight: theme.spacing(1) }}
               variant="standard"
               type="number"
               value={combatant.currentHitPoints}
+              label="hitpoints"
               onChange={handleHitPointsChange}
               inputProps={{ style: { textAlign: 'center' } }}
               onKeyPress={e => e.key === 'Enter' || e.key === "NumpadEnter" ? handlePopoverClose() : null}
               autoFocus
             />
+            {editingTempHP ?
+              <TextField
+                sx={{width: '50px'}}
+                variant="standard"
+                label="temp hp"
+                type="number"
+                value={combatant.tempHitPoints}
+                onChange={e => editCombatant({...combatant, tempHitPoints: e.target.value < 0 ? 0 : e.target.value})}
+                onKeyPress={e => e.key === 'Enter' || e.key === 'NumpadEnter' ? handlePopoverClose() : null}
+                autoFocus
+              /> :
+              <Tooltip title="Add Temporary HP">
+                <IconButton color="primary" onClick={() => setEditingTempHP(true)}><Add fontSize="small" /></IconButton>
+              </Tooltip>
+            }
           </Popover>
           <IconButton
             size="small"
@@ -154,26 +177,30 @@ const CombatantListing = ({ combatant, combatState }) => {
         </Stack>
       </TableCell>
       <TableCell align="center">
-        <Button
-          size="small"
-          color="success"
-          onClick={handleLuckPointsClick}
-          onContextMenu={handleLuckPointsClick}
-          disabled={combatant.luckBonus === 0}
-        >
-          {renderPointTracker(combatant.currentLuckPoints, combatant.luckBonus, 'luckpoints')}
-        </Button>
+        <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
+          <Button
+            size="small"
+            color="success"
+            onClick={handleLuckPointsClick}
+            onContextMenu={handleLuckPointsClick}
+            disabled={combatant.luckBonus === 0}
+          >
+            {renderPointTracker(combatant.currentLuckPoints, combatant.luckBonus, 'luckpoints')}
+          </Button>
+        </Tooltip>
       </TableCell>
       <TableCell align="center">
-        <Button
-          size="small"
-          color="primary"
-          onClick={handleActionPointsClick}
-          onContextMenu={handleActionPointsClick}
-          disabled={combatant.maxActionPoints === 0}
-        >
-          {renderPointTracker(combatant.currentActionPoints, combatant.maxActionPoints, 'actionpoints')}
-        </Button>
+        <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
+          <Button
+            size="small"
+            color="primary"
+            onClick={handleActionPointsClick}
+            onContextMenu={handleActionPointsClick}
+            disabled={combatant.maxActionPoints === 0}
+          >
+            {renderPointTracker(combatant.currentActionPoints, combatant.maxActionPoints, 'actionpoints')}
+          </Button>
+        </Tooltip>
       </TableCell>
       <TableCell align="right">
         <IconButton

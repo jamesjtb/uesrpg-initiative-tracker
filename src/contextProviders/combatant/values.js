@@ -22,6 +22,7 @@ export const defaultCombatant = {
   name: "",
   currentHitPoints: 0,
   maxHitPoints: 0,
+  tempHitPoints: 0,
   currentActionPoints: 3,
   maxActionPoints: 3,
   initiativeRating: 0,
