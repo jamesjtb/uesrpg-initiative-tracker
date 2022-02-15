@@ -29,7 +29,13 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+
+  if (process.env.NODE_ENV === 'development') {
+    const { default: installExtension, REACT_DEVELOPER_TOOLS} = require('electron-devtools-installer');
+    await installExtension(REACT_DEVELOPER_TOOLS);
+  }
+
   createWindow()
 
   app.on('activate', function () {
