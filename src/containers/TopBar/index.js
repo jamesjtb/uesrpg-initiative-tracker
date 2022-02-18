@@ -14,15 +14,14 @@ import SkipNext from '@mui/icons-material/SkipNext';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
 import Stop from '@mui/icons-material/Stop';
 
+import AppMenu from './AppMenu';
+
 import { CombatContext } from '../../contextProviders/combat';
 import { CombatantContext } from '../../contextProviders/combatant';
 
 import { combatantTypes } from '../../contextProviders/combatant/values';
 
 const TopBar = () => {
-
-  const [menuAnchor, setMenuAnchor] = useState(null);
-  const isMenuOpen = Boolean(menuAnchor);
 
   const {
     combatants,
@@ -36,22 +35,38 @@ const TopBar = () => {
     advanceTurn
   } = useContext(CombatContext);
 
+  /****************** */
+  const [addMenuAnchor, setAddMenuAnchor] = useState(null);
+  const isAddMenuOpen = Boolean(addMenuAnchor);
+
   const handleAddMenuOpen = (event) => {
-    setMenuAnchor(event.currentTarget);
+    setAddMenuAnchor(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
-    setMenuAnchor(null);
+  const handleAddMenuClose = () => {
+    setAddMenuAnchor(null);
   };
 
   const handleAddMenuClick = (type) => {
     addCombatant(type)
-    handleMenuClose();
+    handleAddMenuClose();
+  };
+
+  /*********** */
+  const [appMenuAnchor, setAppMenuAnchor] = useState(null);
+  const isAppMenuOpen = Boolean(appMenuAnchor);
+
+  const handleAppMenuClose = () => {
+    setAppMenuAnchor(null);
+  };
+
+  const handleAppMenuOpen = e => {
+    setAppMenuAnchor(e.currentTarget);
   };
 
   const addMenu = (
     <Menu
-      anchorEl={menuAnchor}
+      anchorEl={addMenuAnchor}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right'
@@ -62,20 +77,20 @@ const TopBar = () => {
         vertical: 'top',
         horizontal: 'right'
       }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
+      open={isAddMenuOpen}
+      onClose={handleAddMenuClose}
     >
       <MenuItem onClick={() => handleAddMenuClick(combatantTypes.PC)}>Add Player Character</MenuItem>
       <MenuItem onClick={() => handleAddMenuClick(combatantTypes.NPC)}>Add Non-Player Character</MenuItem>
     </Menu>
-  )
+  );
 
   return (
     <>
       <AppBar position="fixed">
         <Toolbar variant="dense" style={{ justifyContent: 'space-between' }}>
           <Box>
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <IconButton onClick={e => handleAppMenuOpen(e)} edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
               <MenuIcon />
             </IconButton>
           </Box>
@@ -111,6 +126,7 @@ const TopBar = () => {
         </Toolbar>
       </AppBar>
       {addMenu}
+      <AppMenu anchorEl={appMenuAnchor} open={isAppMenuOpen} closeAppMenu={handleAppMenuClose} />
     </>
   );
 };

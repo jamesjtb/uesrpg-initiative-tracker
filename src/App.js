@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React from 'react';
 
 import classes from './App.module.css';
 
@@ -15,6 +15,7 @@ import { CombatantProvider } from './contextProviders/combatant';
 import { CombatProvider } from './contextProviders/combat';
 
 function App() {
+
   // const handleKeyPress = (e) => {
   //   if (e.ctrlKey && e.shiftKey && e.key === ' ') return handleCombatStop();
   //   if (e.ctrlKey && e.key === " ") combatState.round < 0 ? handleCombatStart() : advanceTurn(1);
@@ -24,15 +25,15 @@ function App() {
   return (
     // onKeyDown={handleKeyPress}
     <Box tabIndex="0" className={classes.App} style={{ backgroundImage: `url(${parchmentBackground})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }}>
-      <CombatProvider>        
+      <CombatProvider>
         <CombatantProvider>
           <TopBar />
-          <Box style={{ overflowY: 'auto' }}>
-              <Container className={classes.InitiativeContainer}>
-                <InitiativeList />
-              </Container>
-              <InitiativeModal />
-          </Box>      
+          <Box style={{ overflowY: 'auto' }}>            
+            <Container className={classes.InitiativeContainer}>
+              <InitiativeList />
+            </Container>
+            <InitiativeModal />
+          </Box>
         </CombatantProvider>
       </CombatProvider>
     </Box>

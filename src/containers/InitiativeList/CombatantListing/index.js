@@ -27,7 +27,8 @@ import { combatantStatuses, combatantTypes } from '../../../contextProviders/com
 import classes from './CombatantListing.module.css';
 
 const CombatantListing = ({ combatant, combatState }) => {
-  const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
+  const [hitpointPopoverAnchorEl, setHitpointsPopoverAnchorEl] = useState(null);
+  const [magickaPopoverAnchorEl, setMagickaPopoverAnchorEl] = useState(null);
   const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState(null);
   const [editingTempHP, setEditingTempHP] = useState(false);
   useEffect(() => {
@@ -44,8 +45,12 @@ const CombatantListing = ({ combatant, combatState }) => {
   const activePlayerStyle = { backgroundColor: theme.palette.primary.main + '33' };
 
   const handleHitPointsClick = e => {
-    setPopoverAnchorEl(e.currentTarget);
+    setHitpointsPopoverAnchorEl(e.currentTarget);
   };
+
+  const handleMagickaClick = e => {
+    setMagickaPopoverAnchorEl(e.currentTarget);
+  }
 
   const handleMoreMenuClick = e => {
     setMoreMenuAnchorEl(e.currentTarget);
@@ -57,8 +62,18 @@ const CombatantListing = ({ combatant, combatState }) => {
     editCombatant({ ...combatant, currentHitPoints: e.target.value });
   };
 
-  const handlePopoverClose = () => {
-    setPopoverAnchorEl(null);
+  const handleMagickaChange = e => {
+    if (e.target.value == null || e.target.value === '') return editCombatant({ ...combatant, currentMagicka: 0 });
+    if (e.target.value > combatant.maxMagicka || e.target.value === 0) return;
+    editCombatant({ ...combatant, currentMagicka: e.target.value });
+  };
+
+  const handleHitpointsPopoverClose = () => {
+    setHitpointsPopoverAnchorEl(null);
+  };
+
+  const handleMagickaPopoverClose = () => {
+    setMagickaPopoverAnchorEl(null);
   };
 
   const renderPointTracker = (current, max, name) => {
@@ -100,23 +115,40 @@ const CombatantListing = ({ combatant, combatState }) => {
     }
   };
 
+  const handleStaminaPointsClick = e => {
+    switch (e.type) {
+      case 'contextmenu':
+        if (combatant.currentStaminaPoints !== combatant.maxStaminaPoints)
+          editCombatant({ ...combatant, currentStaminaPoints: combatant.currentStaminaPoints + 1 });
+        break;
+      case 'click':
+        if (combatant.currentStaminaPoints !== 0)
+          editCombatant({ ...combatant, currentStaminaPoints: combatant.currentStaminaPoints - 1 });
+        break;
+    }
+  }
+
   return (
     <TableRow
       className={classes.CombatantListing}
       style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}
     >
+      {/* PC Indicator */}
       <TableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt fontSize="small" /> : null}</TableCell>
+      {/* Name */}
       <TableCell align="left"><Typography component="span">{combatant.name}</Typography></TableCell>
-      <TableCell align="left"><Typography component="span">{combatant.initiativeRating}</Typography></TableCell>
+      {/* Hit Points */}
       <TableCell align="center">
         <Stack direction="row" justifyContent="center">
           <IconButton
             size="small"
             color="error"
             disabled={combatant.currentHitPoints === 0}
-            onClick={() => {combatant.tempHitPoints > 0 ?
-              editCombatant({ ...combatant, tempHitPoints: combatant.tempHitPoints - 1 }) :
-              editCombatant({ ...combatant, currentHitPoints: combatant.currentHitPoints - 1 })}}
+            onClick={() => {
+              combatant.tempHitPoints > 0 ?
+                editCombatant({ ...combatant, tempHitPoints: combatant.tempHitPoints - 1 }) :
+                editCombatant({ ...combatant, currentHitPoints: combatant.currentHitPoints - 1 })
+            }}
           >
             <Remove />
           </IconButton>
@@ -130,10 +162,10 @@ const CombatantListing = ({ combatant, combatState }) => {
             </Typography>
           </Button>
           <Popover
-            open={Boolean(popoverAnchorEl)}
+            open={Boolean(hitpointPopoverAnchorEl)}
             PaperProps={{ style: { padding: theme.spacing(1) } }}
-            anchorEl={popoverAnchorEl}
-            onClose={handlePopoverClose}
+            anchorEl={hitpointPopoverAnchorEl}
+            onClose={handleHitpointsPopoverClose}
             anchorOrigin={{
               vertical: 'top',
               horizontal: 'left'
@@ -147,18 +179,18 @@ const CombatantListing = ({ combatant, combatState }) => {
               label="hitpoints"
               onChange={handleHitPointsChange}
               inputProps={{ style: { textAlign: 'center' } }}
-              onKeyPress={e => e.key === 'Enter' || e.key === "NumpadEnter" ? handlePopoverClose() : null}
+              onKeyPress={e => e.key === 'Enter' || e.key === "NumpadEnter" ? handleHitpointsPopoverClose() : null}
               autoFocus
             />
             {editingTempHP ?
               <TextField
-                sx={{width: '50px'}}
+                sx={{ width: '50px' }}
                 variant="standard"
                 label="temp hp"
                 type="number"
                 value={combatant.tempHitPoints}
-                onChange={e => editCombatant({...combatant, tempHitPoints: e.target.value < 0 ? 0 : e.target.value})}
-                onKeyPress={e => e.key === 'Enter' || e.key === 'NumpadEnter' ? handlePopoverClose() : null}
+                onChange={e => editCombatant({ ...combatant, tempHitPoints: e.target.value < 0 ? 0 : e.target.value })}
+                onKeyPress={e => e.key === 'Enter' || e.key === 'NumpadEnter' ? handleHitpointsPopoverClose() : null}
                 autoFocus
               /> :
               <Tooltip title="Add Temporary HP">
@@ -176,6 +208,7 @@ const CombatantListing = ({ combatant, combatState }) => {
           </IconButton>
         </Stack>
       </TableCell>
+      {/* Luck Points */}
       <TableCell align="center">
         <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
           <Button
@@ -189,6 +222,73 @@ const CombatantListing = ({ combatant, combatState }) => {
           </Button>
         </Tooltip>
       </TableCell>
+      {/* Magicka Points */}
+      <TableCell align="center">
+        <Stack direction="row" justifyContent="center">
+          <IconButton
+            size="small"
+            color="error"
+            disabled={combatant.currentMagicka === 0}
+            onClick={() => editCombatant({ ...combatant, currentMagicka: combatant.currentMagicka - 1 })}
+          >
+            <Remove />
+          </IconButton>
+          <Button
+            size="small"
+            color="secondary"
+            onClick={handleMagickaClick}
+          >
+            <Typography component="span">
+              {combatant.currentMagicka} / {combatant.maxMagicka}
+            </Typography>
+          </Button>
+          <Popover
+            open={Boolean(magickaPopoverAnchorEl)}
+            PaperProps={{ style: { padding: theme.spacing(1) } }}
+            anchorEl={magickaPopoverAnchorEl}
+            onClose={handleMagickaPopoverClose}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left'
+            }}
+          >
+            <TextField
+              sx={{ width: '50px', paddingRight: theme.spacing(1) }}
+              variant="standard"
+              type="number"
+              value={combatant.currentMagicka}
+              label="hitpoints"
+              onChange={handleMagickaChange}
+              inputProps={{ style: { textAlign: 'center' } }}
+              onKeyPress={e => e.key === 'Enter' || e.key === "NumpadEnter" ? handleMagickaPopoverClose() : null}
+              autoFocus
+            />
+          </Popover>
+          <IconButton
+            size="small"
+            color="success"
+            disabled={combatant.currentMagicka === combatant.maxMagicka}
+            onClick={() => editCombatant({ ...combatant, currentMagicka: combatant.currentMagicka + 1 })}
+          >
+            <Add />
+          </IconButton>
+        </Stack>
+      </TableCell>
+      {/* Stamina Points */}
+      <TableCell align="center">
+        <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
+          <Button
+            size="small"
+            color="secondary"
+            onClick={handleStaminaPointsClick}
+            onContextMenu={handleStaminaPointsClick}
+            disabled={combatant.maxStaminaPoints === 0}
+          >
+            {renderPointTracker(combatant.currentStaminaPoints, combatant.maxStaminaPoints, 'actionpoints')}
+          </Button>
+        </Tooltip>
+      </TableCell>
+      {/* Action Points */}
       <TableCell align="center">
         <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
           <Button
@@ -202,6 +302,7 @@ const CombatantListing = ({ combatant, combatState }) => {
           </Button>
         </Tooltip>
       </TableCell>
+      {/* More Menu */}
       <TableCell align="right">
         <IconButton
           size="small"
