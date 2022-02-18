@@ -14,15 +14,36 @@ import Save from '@mui/icons-material/Save';
 import Folder from '@mui/icons-material/Folder';
 import Clear from '@mui/icons-material/Clear';
 
+import { CombatContext } from '../../../contextProviders/combat';
 import { CombatantContext } from '../../../contextProviders/combatant';
 import { combatantTypes } from '../../../contextProviders/combatant/values';
 
 const AppMenu = ({ anchorEl, open, closeAppMenu }) => {
 
-  const { combatants } = useContext(CombatantContext);
+  const { combatants, setCombatants } = useContext(CombatantContext);
+  const { combatState } = useContext(CombatContext);
 
   const saveToFile = async (type) => {
-    const result = await window.fs.saveCombatants(type, combatants.filter(c => c.type === combatantTypes.PC));
+    await window.fs.saveCombatants(type, combatants.filter(c => c.type === type));
+    closeAppMenu();
+  };
+
+  const loadFile = async () => {
+    const result = await window.fs.loadFile();
+    if (result.type === 'error') throw new Error(`Error loading file: ${result.errorReason}`); // TODO: inform the user
+    switch (result.type) {
+      case '3e-party':
+        // TODO: Inform the user that any currently tracked player combatants will be removed in loading the file
+        setCombatants([...combatants.filter(c => c.type !== combatantTypes.PC), ...result.data]);
+        break;
+      case '3e-encounter':
+        // TODO: Inform the user that any currently tracked player combatants will be removed in loading the file
+        setCombatants([...combatants.filter(c => c.type !== combatantTypes.NPC), ...result.data]);
+        break;
+      default: 
+        throw new Error('Unknown data type returned from main process.'); // TODO: inform the user
+    }
+    closeAppMenu();
   };
 
   return (
@@ -41,20 +62,20 @@ const AppMenu = ({ anchorEl, open, closeAppMenu }) => {
     >
       <Box>
         <MenuList>
-          <MenuItem>
+          <MenuItem onClick={loadFile}>
             <ListItemIcon><Folder fontSize="small" /></ListItemIcon>
             <ListItemText><Typography>Load from File</Typography></ListItemText>
           </MenuItem>
-          <MenuItem onClick={() => saveToFile('party')}>
+          <MenuItem onClick={() => saveToFile(combatantTypes.PC)}>
             <ListItemIcon><Save fontSize="small" /></ListItemIcon>
             <ListItemText><Typography>Save Party to File</Typography></ListItemText>
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={() => saveToFile(combatantTypes.NPC)}>
             <ListItemIcon><Save fontSize="small" /></ListItemIcon>
             <ListItemText><Typography>Save Encounter to File</Typography></ListItemText>
           </MenuItem>
           <Divider />
-          <MenuItem>
+          <MenuItem onClick={() => window.app.quit()}>
             <ListItemIcon><Clear fontSize="small" /></ListItemIcon>
             <ListItemText><Typography>Exit</Typography></ListItemText>
           </MenuItem>
