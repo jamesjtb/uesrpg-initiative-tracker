@@ -1,8 +1,10 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 const { writeFile, readFile } = require('fs').promises;
-const { url } = require('inspector');
+const url = require('url');
 const path = require('path');
+
+const isDev = require('electron-is-dev');
 
 let mainWindow;
 
@@ -16,18 +18,18 @@ function createWindow () {
       nodeIntegration: true
     }
   });
-  console.log(process.env.ELECTRON_START_URL);
-  const startURL = process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, './index.html'),
+  mainWindow.setMenu(null);
+  const startURL = isDev ? "http://localhost:3000" : url.format({
+    pathname: path.join(__dirname, '../index.html'),
     protocol: 'file:',
     slashes: true
   });
 
   // and load the index.html of the app.
-  mainWindow.loadURL(startURL)
+  mainWindow.loadURL(startURL);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  if (isDev) mainWindow.webContents.openDevTools({ mode: 'detach' });
 }
 
 // This method will be called when Electron has finished
@@ -35,7 +37,7 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
 
-  if (process.env.NODE_ENV === 'development') {
+  if (isDev) {
     const { default: installExtension, REACT_DEVELOPER_TOOLS} = require('electron-devtools-installer');
     await installExtension(REACT_DEVELOPER_TOOLS);
   }
