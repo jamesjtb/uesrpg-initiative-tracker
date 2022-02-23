@@ -86,10 +86,9 @@ ipcMain.handle('loadFile', async (e) => {
   const loadOptions = await dialog.showOpenDialog(mainWindow, {
     title: `Load from file...`,
     filters: [
-      {
-        name: 'UESRPG 3e Combatant Files',
-        extensions: ['3eup', '3eue']
-      }
+      { name: 'UESRPG 3e Combatant Files', extensions: ['3eup', '3eue'] },
+      { name: 'UESRPG 3e Encounter File', extensions: ['3eue'] },
+      { name: 'UESRPG 3e Party File', extensions: ['3eup'] }
     ]
   });
   if (!loadOptions.canceled) {
