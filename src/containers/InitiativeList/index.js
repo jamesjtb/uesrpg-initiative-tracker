@@ -37,7 +37,8 @@ const InitiativeList = () => {
 
   const theme = useTheme();
   const tableCellStyle = {
-    color: theme.palette.secondary.contrastText
+    color: theme.palette.secondary.contrastText,
+    padding: `${theme.spacing(0.5)}`
   };
   const activeCombatant = combatants.find(combatant => combatant.id === combatState.activeCombatantId);
   return (

@@ -19,12 +19,16 @@ import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
 import PeopleAlt from '@mui/icons-material/PeopleAlt';
 import MoreVert from '@mui/icons-material/MoreVert'
 
-import { useTheme } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 
 import { CombatantContext } from '../../../contextProviders/combatant';
 import { combatantStatuses, combatantTypes } from '../../../contextProviders/combatant/values';
 
 import classes from './CombatantListing.module.css';
+
+const CompactTableCell = styled(TableCell)(({ theme }) => ({
+  padding: `0 ${theme.spacing(0.5)}`
+}));
 
 const CombatantListing = ({ combatant, combatState }) => {
   const [hitpointPopoverAnchorEl, setHitpointsPopoverAnchorEl] = useState(null);
@@ -134,11 +138,11 @@ const CombatantListing = ({ combatant, combatState }) => {
       style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}
     >
       {/* PC Indicator */}
-      <TableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt fontSize="small" /> : null}</TableCell>
+      <CompactTableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt fontSize="small" /> : null}</CompactTableCell>
       {/* Name */}
-      <TableCell align="left"><Typography component="span">{combatant.name}</Typography></TableCell>
+      <CompactTableCell align="left"><Typography component="span">{combatant.name}</Typography></CompactTableCell>
       {/* Hit Points */}
-      <TableCell align="center">
+      <CompactTableCell align="center">
         <Stack direction="row" justifyContent="center">
           <IconButton
             size="small"
@@ -207,9 +211,9 @@ const CombatantListing = ({ combatant, combatState }) => {
             <Add />
           </IconButton>
         </Stack>
-      </TableCell>
+      </CompactTableCell>
       {/* Luck Points */}
-      <TableCell align="center">
+      <CompactTableCell align="center">
         <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
           <Button
             size="small"
@@ -221,9 +225,9 @@ const CombatantListing = ({ combatant, combatState }) => {
             {renderPointTracker(combatant.currentLuckPoints, combatant.luckBonus, 'luckpoints')}
           </Button>
         </Tooltip>
-      </TableCell>
+      </CompactTableCell>
       {/* Magicka Points */}
-      <TableCell align="center">
+      <CompactTableCell align="center">
         <Stack direction="row" justifyContent="center">
           <IconButton
             size="small"
@@ -273,9 +277,9 @@ const CombatantListing = ({ combatant, combatState }) => {
             <Add />
           </IconButton>
         </Stack>
-      </TableCell>
+      </CompactTableCell>
       {/* Stamina Points */}
-      <TableCell align="center">
+      <CompactTableCell align="center">
         <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
           <Button
             size="small"
@@ -287,9 +291,9 @@ const CombatantListing = ({ combatant, combatState }) => {
             {renderPointTracker(combatant.currentStaminaPoints, combatant.maxStaminaPoints, 'actionpoints')}
           </Button>
         </Tooltip>
-      </TableCell>
+      </CompactTableCell>
       {/* Action Points */}
-      <TableCell align="center">
+      <CompactTableCell align="center">
         <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
           <Button
             size="small"
@@ -301,9 +305,9 @@ const CombatantListing = ({ combatant, combatState }) => {
             {renderPointTracker(combatant.currentActionPoints, combatant.maxActionPoints, 'actionpoints')}
           </Button>
         </Tooltip>
-      </TableCell>
+      </CompactTableCell>
       {/* More Menu */}
-      <TableCell align="right">
+      <CompactTableCell align="right">
         <IconButton
           size="small"
           color="secondary"
@@ -327,7 +331,7 @@ const CombatantListing = ({ combatant, combatState }) => {
           <MenuItem onClick={() => editCombatant({ ...combatant, status: combatantStatuses.EDITING })}>Edit</MenuItem>
           <MenuItem onClick={() => deleteCombatant(combatant)}>Delete</MenuItem>
         </Menu>
-      </TableCell>
+      </CompactTableCell>
     </TableRow>
   )
 };
