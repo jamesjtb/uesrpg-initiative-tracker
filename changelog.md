@@ -1,4 +1,5 @@
-# 0.2.0 (unreleased)
+# Changelog
+## 0.2.0 (unreleased)
 ### New Features:
 - 
 ### Changes:
@@ -7,7 +8,7 @@
 ### Bug fixes:
 - 
 
-# 0.1.0
+## 0.1.0
 ### Features:
 - Initiative Tracker
 - Basic Player Characters
