@@ -6,6 +6,7 @@ List new features, changes, and bug fixes by version
 ### Changes:
 - Added additional filters to the "load from file" dialog: specific filter for PCs, specific filter for NPCs.
 - Made initiative tracker more compact
+- Moved combatants array into combatState
 ### Bug fixes:
 - 
 

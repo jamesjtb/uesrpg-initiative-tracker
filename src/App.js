@@ -11,7 +11,6 @@ import InitiativeModal from './containers/InitiativeModal';
 
 import parchmentBackground from './assets/parchment.jpg';
 
-import { CombatantProvider } from './contextProviders/combatant';
 import { CombatProvider } from './contextProviders/combat';
 
 function App() {

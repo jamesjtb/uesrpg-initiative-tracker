@@ -89,7 +89,7 @@ export const combatReducer = (oldState, action) => {
       case combatActions.DELETE_COMBATANT:
         return {
           ...oldState,
-          combatants: oldState.Combatants.filter(combatant => action.payload.id !== combatant.id)
+          combatants: oldState.combatants.filter(combatant => action.payload.id !== combatant.id)
         };
     default:
       throw new Error(`Unrecognized combatant action in reducer: ${action.type}`);

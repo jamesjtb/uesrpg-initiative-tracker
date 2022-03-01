@@ -22,7 +22,7 @@ import MoreVert from '@mui/icons-material/MoreVert'
 import { useTheme, styled } from '@mui/material/styles';
 
 import { CombatContext } from '../../../contextProviders/combat';
-import { combatantStatuses, combatantTypes } from '../../../contextProviders/combatant/values';
+import { combatantStatuses, combatantTypes } from '../../../contextProviders/combat/values';
 
 import classes from './CombatantListing.module.css';
 
