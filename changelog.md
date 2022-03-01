@@ -1,4 +1,5 @@
 # Changelog
+List New Features, Changes, and Bug fixes by version
 ## 0.2.0 (unreleased)
 ### New Features:
 - 
@@ -12,7 +13,8 @@
 ### Features:
 - Initiative Tracker
 - Basic Player Characters
-- Basic Non-Player Characters
+- Basic Non-Player Characters 
+
 - Initiate combat and track current round, turn, and active combatant
 - Very basic automated initiative rolls (with option for inputting physical rolls)
 - Track core combat resources (HP, AP, MP, LP)

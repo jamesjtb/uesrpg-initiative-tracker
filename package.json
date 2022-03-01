@@ -30,8 +30,8 @@
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"set BROWSER=none&& npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "build-electron": "mkdir build\\src & robocopy src\\shared build\\src\\shared /s & robocopy electron build\\electron /s",
-    "package": "electron-builder build --win -c.extraMetadata.main=build/electron/electron.js --publish never"
+    "pack": "mkdir build\\src & robocopy src\\shared build\\src\\shared /s & robocopy electron build\\electron /s",
+    "build-electron": "electron-builder build --win -c.extraMetadata.main=build/electron/electron.js --publish never"
   },
   "eslintConfig": {
     "extends": [
