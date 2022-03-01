@@ -11,7 +11,6 @@ import Button from '@mui/material/Button';
 import { rollDice } from '../../util/utils';
 
 import { CombatContext } from '../../contextProviders/combat';
-import { CombatantContext } from '../../contextProviders/combatant';
 
 const InitiativeModal = () => {
   const style = {
@@ -27,20 +26,16 @@ const InitiativeModal = () => {
   };
 
   const {
-    combatants,
-    setCombatants,
-    editCombatant
-  } = useContext(CombatantContext);
-
-  const {
     combatState,
     startCombat,
-    stopCombat
+    stopCombat,
+    setCombatants,
+    editCombatant
   } = useContext(CombatContext);
 
   useEffect(() => {
     if (combatState.round === 0) {
-      setCombatants(combatants.map(combatant => {
+      setCombatants(combatState.combatants.map(combatant => {
         const diceRoll = rollDice(6).total;
         return {
           ...combatant,
@@ -57,7 +52,7 @@ const InitiativeModal = () => {
       return;
     }
     if (reason === 'submitButtonClick') {
-      const sortedCharacters = arraySort([...combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], { reverse: true })
+      const sortedCharacters = arraySort([...combatState.combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], { reverse: true })
       setCombatants(sortedCharacters);
       startCombat({ startingCharacterId: sortedCharacters[0].id });
       return;
@@ -71,7 +66,7 @@ const InitiativeModal = () => {
     >
       <Box sx={style}>
         {
-          combatants.map(combatant => (
+          combatState.combatants.map(combatant => (
             <TextField
               style={{ margin: "10px" }}
               inputProps={{ style: { textAlign: 'center' } }}

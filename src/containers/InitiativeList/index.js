@@ -15,10 +15,9 @@ import NewCombatant from '../NewCombatant';
 
 import classes from './InitiativeList.module.css';
 
-import { CombatantContext } from '../../contextProviders/combatant';
 import { CombatContext } from '../../contextProviders/combat';
 
-import { combatantStatuses } from '../../contextProviders/combatant/values';
+import { combatantStatuses } from '../../contextProviders/combat/values';
 
 const InitiativeContainer = styled(TableContainer)(({theme}) => ({
   paddingBottom: theme.spacing(4),
@@ -26,10 +25,6 @@ const InitiativeContainer = styled(TableContainer)(({theme}) => ({
 }));
 
 const InitiativeList = () => {
-
-  const {
-    combatants
-  } = useContext(CombatantContext);
 
   const {
     combatState
@@ -40,7 +35,7 @@ const InitiativeList = () => {
     color: theme.palette.secondary.contrastText,
     padding: `${theme.spacing(0.5)}`
   };
-  const activeCombatant = combatants.find(combatant => combatant.id === combatState.activeCombatantId);
+  const activeCombatant = combatState.combatants.find(combatant => combatant.id === combatState.activeCombatantId);
   return (
     <>
       <InitiativeContainer>
@@ -67,7 +62,7 @@ const InitiativeList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {combatants.map((combatant) => (
+            {combatState.combatants.map((combatant) => (
               combatant.status !== combatantStatuses.CREATING ?
                 <CombatantListing key={combatant.id} combatant={combatant} combatState={combatState} />
                 : null
@@ -75,7 +70,7 @@ const InitiativeList = () => {
           </TableBody>
         </Table>
       </InitiativeContainer>
-      {combatants.map(combatant => (
+      {combatState.combatants.map(combatant => (
         [ combatantStatuses.CREATING, combatantStatuses.EDITING ].includes(combatant.status) ? 
           <NewCombatant key={combatant.id} newCombatant={combatant} />
           : null

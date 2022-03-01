@@ -8,11 +8,13 @@ export const CombatProvider = props => {
   const initialState = {
     round: -1, // Round -1 = out of combat, round 0=rolling initiative, round 1 and up = proper rounds
     turn: 0,
-    activeCombatantId: null, // null until round 1 begins
+    activeCombatantId: null, // null until round 1 begins,
+    combatants: []
   };
 
   const [ state, dispatch ] = useReducer(combatReducer, initialState);
 
+  /* General Combat functions */
   const initiateCombat = () => {
     dispatch({ type: combatActions.INITIATE });
   };
@@ -29,6 +31,27 @@ export const CombatProvider = props => {
     dispatch({ type: combatActions.ADVANCE_TURN, payload: { byTurns, combatants} })
   };
 
+  /* Combatant Specific Functions */  
+  const setCombatants = newCombatants => {
+    dispatch({ type: combatActions.SET_COMBATANTS, payload: newCombatants });
+  };
+
+  const addCombatant = (type) => {
+    dispatch({ type: combatActions.ADD_NEW_COMBATANT, payload: { type } });
+  };
+
+  const editCombatant = combatant => {
+    dispatch({ type: combatActions.EDIT_COMBATANT, payload: combatant  });
+  };
+
+  const commitCombatant = combatant => {
+    dispatch({ type: combatActions.COMMIT_COMBATANT, payload: combatant });
+  };
+
+  const deleteCombatant = combatant => {
+    dispatch({ type: combatActions.DELETE_COMBATANT, payload: combatant });
+  }
+
   return (
     <CombatContext.Provider
       value={{
@@ -36,7 +59,12 @@ export const CombatProvider = props => {
         initiateCombat,
         startCombat,
         stopCombat,
-        advanceTurn
+        advanceTurn,
+        setCombatants,
+        addCombatant,
+        editCombatant,
+        commitCombatant,
+        deleteCombatant
       }}
     >
       {props.children}

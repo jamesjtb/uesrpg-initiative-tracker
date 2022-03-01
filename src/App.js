@@ -26,15 +26,13 @@ function App() {
     // onKeyDown={handleKeyPress}
     <Box tabIndex="0" className={classes.App} style={{ backgroundImage: `url(${parchmentBackground})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }}>
       <CombatProvider>
-        <CombatantProvider>
-          <TopBar />
-          <Box style={{ overflowY: 'auto' }}>            
-            <Container className={classes.InitiativeContainer}>
-              <InitiativeList />
-            </Container>
-            <InitiativeModal />
-          </Box>
-        </CombatantProvider>
+        <TopBar />
+        <Box style={{ overflowY: 'auto' }}>
+          <Container className={classes.InitiativeContainer}>
+            <InitiativeList />
+          </Container>
+          <InitiativeModal />
+        </Box>
       </CombatProvider>
     </Box>
   );

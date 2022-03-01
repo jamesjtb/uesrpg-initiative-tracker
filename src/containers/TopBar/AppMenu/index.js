@@ -15,16 +15,14 @@ import Folder from '@mui/icons-material/Folder';
 import Clear from '@mui/icons-material/Clear';
 
 import { CombatContext } from '../../../contextProviders/combat';
-import { CombatantContext } from '../../../contextProviders/combatant';
-import { combatantTypes } from '../../../contextProviders/combatant/values';
+import { combatantTypes } from '../../../contextProviders/combat/values';
 
 const AppMenu = ({ anchorEl, open, closeAppMenu }) => {
 
-  const { combatants, setCombatants } = useContext(CombatantContext);
-  const { combatState } = useContext(CombatContext);
+  const { combatState, setCombatants } = useContext(CombatContext);
 
   const saveToFile = async (type) => {
-    await window.fs.saveCombatants(type, combatants.filter(c => c.type === type));
+    await window.fs.saveCombatants(type, combatState.combatants.filter(c => c.type === type));
     closeAppMenu();
   };
 
@@ -34,11 +32,11 @@ const AppMenu = ({ anchorEl, open, closeAppMenu }) => {
     switch (result.type) {
       case '3e-party':
         // TODO: Inform the user that any currently tracked player combatants will be removed in loading the file
-        setCombatants([...combatants.filter(c => c.type !== combatantTypes.PC), ...result.data]);
+        setCombatants([...combatState.combatants.filter(c => c.type !== combatantTypes.PC), ...result.data]);
         break;
       case '3e-encounter':
         // TODO: Inform the user that any currently tracked player combatants will be removed in loading the file
-        setCombatants([...combatants.filter(c => c.type !== combatantTypes.NPC), ...result.data]);
+        setCombatants([...combatState.combatants.filter(c => c.type !== combatantTypes.NPC), ...result.data]);
         break;
       default: 
         throw new Error('Unknown data type returned from main process.'); // TODO: inform the user

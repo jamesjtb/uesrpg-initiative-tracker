@@ -21,7 +21,7 @@ import MoreVert from '@mui/icons-material/MoreVert'
 
 import { useTheme, styled } from '@mui/material/styles';
 
-import { CombatantContext } from '../../../contextProviders/combatant';
+import { CombatContext } from '../../../contextProviders/combat';
 import { combatantStatuses, combatantTypes } from '../../../contextProviders/combatant/values';
 
 import classes from './CombatantListing.module.css';
@@ -35,6 +35,7 @@ const CombatantListing = ({ combatant, combatState }) => {
   const [magickaPopoverAnchorEl, setMagickaPopoverAnchorEl] = useState(null);
   const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState(null);
   const [editingTempHP, setEditingTempHP] = useState(false);
+  
   useEffect(() => {
     if (combatant.tempHitPoints === 0) setEditingTempHP(false);
   }, [combatant.tempHitPoints])
@@ -42,7 +43,7 @@ const CombatantListing = ({ combatant, combatState }) => {
   const {
     editCombatant,
     deleteCombatant
-  } = useContext(CombatantContext);
+  } = useContext(CombatContext);
 
   const theme = useTheme();
 

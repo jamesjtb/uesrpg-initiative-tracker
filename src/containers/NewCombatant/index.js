@@ -12,8 +12,8 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 
 import { styled } from '@mui/material/styles';
 
-import { CombatantContext } from '../../contextProviders/combatant';
-import { combatantTypes } from '../../contextProviders/combatant/values';
+import { CombatContext } from '../../contextProviders/combat';
+import { combatantTypes } from '../../contextProviders/combat/values';
 
 const NewCombatantContainer = styled(Paper)(({ theme }) => ({
   marginBottom: theme.spacing(1),
@@ -38,7 +38,7 @@ const NewCombatant = ({ newCombatant }) => {
     editCombatant,
     commitCombatant,
     deleteCombatant
-  } = useContext(CombatantContext);
+  } = useContext(CombatContext);
 
   const keyPress = e => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') commitCombatant(newCombatant);

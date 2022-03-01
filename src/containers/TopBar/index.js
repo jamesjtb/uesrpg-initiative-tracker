@@ -17,22 +17,17 @@ import Stop from '@mui/icons-material/Stop';
 import AppMenu from './AppMenu';
 
 import { CombatContext } from '../../contextProviders/combat';
-import { CombatantContext } from '../../contextProviders/combatant';
 
-import { combatantTypes } from '../../contextProviders/combatant/values';
+import { combatantTypes } from '../../contextProviders/combat/values';
 
 const TopBar = () => {
-
-  const {
-    combatants,
-    addCombatant
-  } = useContext(CombatantContext);
 
   const {
     combatState,
     initiateCombat,
     stopCombat,
-    advanceTurn
+    advanceTurn,
+    addCombatant
   } = useContext(CombatContext);
 
   /****************** */
@@ -95,7 +90,7 @@ const TopBar = () => {
             </IconButton>
           </Box>
           <Box>
-            <IconButton color="inherit" disabled={combatState.round < 1 || (combatState.round === 1 && combatState.turn === 1)} onClick={() => advanceTurn({ byTurns: -1, combatants })}>
+            <IconButton color="inherit" disabled={combatState.round < 1 || (combatState.round === 1 && combatState.turn === 1)} onClick={() => advanceTurn({ byTurns: -1, combatants: combatState.combatants })}>
               <SkipPrevious />
             </IconButton>
             {combatState.round > 0 ? 
@@ -110,7 +105,7 @@ const TopBar = () => {
                   <PlayArrow />
                 </IconButton>
             }
-            <IconButton color="inherit" disabled={combatState.round < 1} onClick={() => advanceTurn({ byTurns: 1, combatants })}>
+            <IconButton color="inherit" disabled={combatState.round < 1} onClick={() => advanceTurn({ byTurns: 1, combatants: combatState.combatants })}>
               <SkipNext />
             </IconButton>
           </Box>
