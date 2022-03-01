@@ -6,7 +6,7 @@ If you would like to contribute, feel free to reference an [issue](https://githu
 If you're unfamiliar with the process, you can follow the instructions [here](https://gist.github.com/MarcDiethelm/7303312) to make a pull request. In your pull request, make sure to detail which items/issues were addressed as part of your code changes.
 
 ## Setting Up Your Local Dev Environment
-Development is, at this time, only set up for Windows development, specifically in powershell. Elevated permissions (running as Administrator) should not be required. If you would like to set up development (and/or distributable workflow) on a different environment, please leave the existing windows npm scripts intact on the resulting pull request.
+Development is, at this time, only set up for Windows development; specifically in powershell. Elevated permissions (running as Administrator) should not be required. If you would like to set up development (and/or distributable workflow) on a different environment, please leave the existing windows npm scripts intact on the resulting pull request.
 1. You will need to install node.js on your local machine. Make sure to download the LTS version from [nodejs.org](https://nodejs.org).
 2. Once you've cloned the project onto your machine, use `npm install` from the project's root directory to install the dependencies of the project.
 3. To run the UESRPG Companion in development mode, use `npm run dev`.
