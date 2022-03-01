@@ -1,5 +1,5 @@
 # Changelog
-List New Features, Changes, and Bug fixes by version
+List new features, changes, and bug fixes by version
 ## 0.2.0 (unreleased)
 ### New Features:
 - 
