@@ -19,10 +19,11 @@ export const combatReducer = (oldState, action) => {
     /********** General Combat Actions ************/
     // Initiate combat
     case combatActions.INITIATE:
-      return { ...oldState, round: 0 };
+      return { ...oldState, combatants: [...oldState.combatants], round: 0 };
     case combatActions.START:
       return {
         ...oldState,
+        combatants: [...oldState.combatants],
         round: 1,
         turn: 1,
         activeCombatantId: action.payload.startingCharacterId
@@ -31,6 +32,7 @@ export const combatReducer = (oldState, action) => {
     case combatActions.STOP:
       return {
         ...oldState,
+        combatants: [...oldState.combatants],
         round: -1,
         activeCombatantId: null,
         turn: 0
@@ -48,6 +50,8 @@ export const combatReducer = (oldState, action) => {
           oldState.round + 1 : oldState.round;
       const resultActiveCharacterId = action.payload.combatants[resultTurn - 1].id;
       return {
+        ...oldState,
+        combatants: [...oldState.combatants],
         round: resultRound,
         turn: resultTurn,
         activeCombatantId: resultActiveCharacterId
