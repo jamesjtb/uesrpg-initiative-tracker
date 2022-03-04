@@ -20,7 +20,10 @@ function createWindow () {
       nodeIntegration: true
     }
   });
-  mainWindow.setMenu(null);
+  // Remove the appMenu
+  if (!isDev) mainWindow.setMenu(null);
+  
+  // Set the Start URL
   const startURL = isDev ? "http://localhost:3000" : url.format({
     pathname: path.join(__dirname, '../index.html'),
     protocol: 'file:',

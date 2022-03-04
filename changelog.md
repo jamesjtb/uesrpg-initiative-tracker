@@ -2,7 +2,8 @@
 List new features, changes, and bug fixes by version
 ## 0.2.0 (unreleased)
 ### New Features:
-- 
+- Settings Modal
+  - Initiative Version (3e v2 or 3e v3 AP refreshing)
 ### Changes:
 - Added additional filters to the "load from file" dialog: specific filter for PCs, specific filter for NPCs.
 - Made initiative tracker more compact
