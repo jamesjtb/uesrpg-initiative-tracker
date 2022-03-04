@@ -8,10 +8,12 @@ import Box from '@mui/material/Box';
 import TopBar from './containers/TopBar';
 import InitiativeList from './containers/InitiativeList';
 import InitiativeModal from './containers/InitiativeModal';
+import SettingsModal from './containers/SettingsModal';
 
 import parchmentBackground from './assets/parchment.jpg';
 
 import { CombatProvider } from './contextProviders/combat';
+import { SettingsProvider } from './contextProviders/settings';
 
 function App() {
 
@@ -24,15 +26,18 @@ function App() {
   return (
     // onKeyDown={handleKeyPress}
     <Box tabIndex="0" className={classes.App} style={{ backgroundImage: `url(${parchmentBackground})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }}>
-      <CombatProvider>
-        <TopBar />
-        <Box style={{ overflowY: 'auto' }}>
-          <Container className={classes.InitiativeContainer}>
-            <InitiativeList />
-          </Container>
-          <InitiativeModal />
-        </Box>
-      </CombatProvider>
+      <SettingsProvider>
+        <CombatProvider>
+          <TopBar />
+          <Box style={{ overflowY: 'auto' }}>
+            <Container className={classes.InitiativeContainer}>
+              <InitiativeList />
+            </Container>
+            <InitiativeModal />
+            <SettingsModal />
+          </Box>
+        </CombatProvider>
+      </SettingsProvider>
     </Box>
   );
 }

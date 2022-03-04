@@ -13,13 +13,16 @@ import Box from '@mui/material/Box';
 import Save from '@mui/icons-material/Save';
 import Folder from '@mui/icons-material/Folder';
 import Clear from '@mui/icons-material/Clear';
+import Settings from '@mui/icons-material/Settings';
 
+import { SettingsContext } from '../../../contextProviders/settings';
 import { CombatContext } from '../../../contextProviders/combat';
 import { combatantTypes } from '../../../contextProviders/combat/values';
 
 const AppMenu = ({ anchorEl, open, closeAppMenu }) => {
 
   const { combatState, setCombatants } = useContext(CombatContext);
+  const { setSettingsModalOpen } = useContext(SettingsContext);
 
   const saveToFile = async (type) => {
     await window.fs.saveCombatants(type, combatState.combatants.filter(c => c.type === type));
@@ -59,7 +62,7 @@ const AppMenu = ({ anchorEl, open, closeAppMenu }) => {
       }}
     >
       <Box>
-        <MenuList>
+        <MenuList onClick={closeAppMenu}>
           <MenuItem onClick={loadFile}>
             <ListItemIcon><Folder fontSize="small" /></ListItemIcon>
             <ListItemText><Typography>Load from File</Typography></ListItemText>
@@ -71,6 +74,11 @@ const AppMenu = ({ anchorEl, open, closeAppMenu }) => {
           <MenuItem onClick={() => saveToFile(combatantTypes.NPC)}>
             <ListItemIcon><Save fontSize="small" /></ListItemIcon>
             <ListItemText><Typography>Save Encounter to File</Typography></ListItemText>
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={() => setSettingsModalOpen(true)}>
+            <ListItemIcon><Settings fontSize="small" /></ListItemIcon>
+            <ListItemText><Typography>Settings</Typography></ListItemText>
           </MenuItem>
           <Divider />
           <MenuItem onClick={() => window.app.quit()}>
