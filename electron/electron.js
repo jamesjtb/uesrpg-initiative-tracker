@@ -18,7 +18,8 @@ function createWindow () {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true
-    }
+    },
+    title: `UESRPG Companion v${app.getVersion()}`
   });
   // Remove the appMenu
   if (!isDev) mainWindow.setMenu(null);
@@ -69,6 +70,8 @@ app.on('window-all-closed', function () {
 /***********IPC Main***********/
 
 ipcMain.handle('app:quit', () => app.quit());
+
+ipcMain.handle('app:version', () => app.getVersion())
 
 /*************** Initiative Tracker Filesystem **************/
 ipcMain.handle('saveCombatants', async (e, data) => {
