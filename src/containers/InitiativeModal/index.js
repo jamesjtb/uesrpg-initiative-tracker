@@ -59,7 +59,7 @@ const InitiativeModal = () => {
       return;
     }
     if (reason === 'submitButtonClick') {
-      const sortedCharacters = arraySort([...combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], { reverse: true })
+      const sortedCharacters = arraySort([...combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], { reverse: true });
       setCombatants(sortedCharacters);
       startCombat({ startingCharacterId: sortedCharacters[0].id });
       return;
@@ -84,7 +84,7 @@ const InitiativeModal = () => {
               type="number"
               InputLabelProps={{ shrink: true }}
               value={combatant.initiativeRoll}
-              onChange={e => editCombatant({ ...combatant, initiativeRoll: parseInt(e.target.value) || 0, initiativeTotal: parseInt(e.target.value) || 0 + combatant.initiativeRating })}
+              onChange={e => editCombatant({ ...combatant, initiativeRoll: parseInt(e.target.value) || 0, initiativeTotal: (parseInt(e.target.value) || 0) + combatant.initiativeRating })}
             />
           ))
         }

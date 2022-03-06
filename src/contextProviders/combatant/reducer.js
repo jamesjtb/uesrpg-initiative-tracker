@@ -14,7 +14,8 @@ const correctDataTypes = combatant => {
     'maxStaminaPoints',
     'currentActionPoints',
     'maxActionPoints',
-    'intiativeRating',
+    'initiativeRating',
+    'initiativeTotal',
     'currentLuckPoints',
     'luckBonus',
     'initiativeRoll'
@@ -33,8 +34,9 @@ export const combatantReducer = (oldState, action) => {
   switch (action.type) {
     // Complete overwrite
     case combatantActions.SET_COMBATANTS:
+      const normalizedCombatants = action.payload.map(combatant => correctDataTypes({ ...combatant }));
       return [
-        ...action.payload
+        ...normalizedCombatants
       ]
     // Add a new combatant
     case combatantActions.ADD_NEW:
