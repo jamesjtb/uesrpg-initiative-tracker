@@ -49,7 +49,8 @@ export const combatantIntegerFields = [
   'maxStaminaPoints',
   'currentActionPoints',
   'maxActionPoints',
-  'intiativeRating',
+  'initiativeRating',
+  'initiativeTotal',
   'currentLuckPoints',
   'luckBonus',
   'initiativeRoll'

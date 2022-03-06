@@ -60,9 +60,10 @@ export const combatReducer = (oldState, action) => {
       /********* Combatant-specific Actions *********/
       // Complete overwrite of the comabtants array
       case combatActions.SET_COMBATANTS:
+        const normalizedCombatants = action.payload.map(combatant => correctDataTypes({ ...combatant }));
         return {
           ...oldState,
-          combatants: [...action.payload]
+          combatants: [...normalizedCombatants]
         };
       // Add a new combatant
       case combatActions.ADD_NEW_COMBATANT:

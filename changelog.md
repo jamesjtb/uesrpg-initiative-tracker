@@ -11,6 +11,15 @@ List new features, changes, and bug fixes by version
 ### Bug fixes:
 - 
 
+## 0.1.2
+### Bugfixes
+- Resolved an issue where initiative order was not being sorted properly
+
+## 0.1.1
+### Bugfixes:
+- Resolve issue where rolling for initiative overflows outside of window bounds.
+- Also fix the layout of the field input in the initiative rolling modal
+
 ## 0.1.0
 ### Features:
 - Initiative Tracker
