@@ -1,7 +1,7 @@
 # Changelog
 List new features, changes, and bug fixes by version
 ## [0.2.0 (unreleased)](https://github.com/jamesjtb/uesrpg-companion/releases/)
-### New Features:
+### New features:
 - Settings Modal
   - Initiative Version (3e v2 or 3e v3 AP refreshing)
 - Duplicate Character from Initiative Tracker
