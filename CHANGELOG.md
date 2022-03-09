@@ -15,11 +15,11 @@ List new features, changes, and bug fixes by version
 - Rolled over bugfix from v0.1.2, adapting for the new combat state structure.
 
 ## [0.1.2](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.1.2)
-### Bugfixes
+### Bug fixes:
 - Resolved an issue where initiative order was not being sorted properly
 
 ## [0.1.1](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.1.1)
-### Bugfixes:
+### Bug fixes:
 - Resolve issue where rolling for initiative overflows outside of window bounds.
 - Also fix the layout of the field input in the initiative rolling modal
 
