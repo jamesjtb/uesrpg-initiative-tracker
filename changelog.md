@@ -1,6 +1,6 @@
 # Changelog
 List new features, changes, and bug fixes by version
-## 0.2.0 (unreleased)
+## [0.2.0 (unreleased)](https://github.com/jamesjtb/uesrpg-companion/releases/)
 ### New Features:
 - Settings Modal
   - Initiative Version (3e v2 or 3e v3 AP refreshing)
@@ -14,16 +14,16 @@ List new features, changes, and bug fixes by version
 ### Bug fixes:
 - Rolled over bugfix from v0.1.2, adapting for the new combat state structure.
 
-## 0.1.2
+## [0.1.2](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.1.2)
 ### Bugfixes
 - Resolved an issue where initiative order was not being sorted properly
 
-## 0.1.1
+## [0.1.1](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.1.1)
 ### Bugfixes:
 - Resolve issue where rolling for initiative overflows outside of window bounds.
 - Also fix the layout of the field input in the initiative rolling modal
 
-## 0.1.0
+## [0.1.0](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.1.0)
 ### Features:
 - Initiative Tracker
 - Basic Player Characters
