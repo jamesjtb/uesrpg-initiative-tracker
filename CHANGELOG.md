@@ -8,7 +8,7 @@ List new features, changes, and bug fixes by version
 ### Changes:
 - Added additional filters to the "load from file" dialog: specific filter for PCs, specific filter for NPCs.
 - Made initiative tracker more compact
-- (internal) Moved combatants array into combatState
+- (internal data structure) Moved combatants array into combatState
 - Improved character context menu
 - Modified initiative rolling modal to use and automate the initiative total roll (1d6 + Initiative Rating) rather than just the 1d6 roll. This is closer to how the players and GM communicate initiative rolls in practice.
 ### Bug fixes:
