@@ -6,7 +6,9 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 
 import { rollDice } from '../../util/utils';
 
@@ -41,7 +43,6 @@ const InitiativeModal = () => {
         const diceRoll = rollDice(6).total;
         return {
           ...combatant,
-          initiativeRoll: diceRoll,
           initiativeTotal: diceRoll + combatant.initiativeRating
         }
       }));
@@ -67,6 +68,9 @@ const InitiativeModal = () => {
       onClose={onClose}
     >
       <Box sx={style}>
+        <Typography variant="h4" color="primary">Initiative Rolls</Typography>
+        <Typography variant="subtitle2">1d6 + Initiative Rating</Typography>
+        <Divider />
         {
           combatState.combatants.map(combatant => (
             <TextField
@@ -78,8 +82,8 @@ const InitiativeModal = () => {
               label={combatant.name}
               type="number"
               InputLabelProps={{ shrink: true }}
-              value={combatant.initiativeRoll}
-              onChange={e => editCombatant({ ...combatant, initiativeRoll: parseInt(e.target.value) || 0, initiativeTotal: parseInt(e.target.value) || 0 + combatant.initiativeRating })}
+              value={combatant.initiativeTotal}
+              onChange={e => editCombatant({ ...combatant, initiativeTotal: parseInt(e.target.value) })}
             />
           ))
         }

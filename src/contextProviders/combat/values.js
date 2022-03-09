@@ -52,6 +52,5 @@ export const combatantIntegerFields = [
   'initiativeRating',
   'initiativeTotal',
   'currentLuckPoints',
-  'luckBonus',
-  'initiativeRoll'
+  'luckBonus'
 ];
