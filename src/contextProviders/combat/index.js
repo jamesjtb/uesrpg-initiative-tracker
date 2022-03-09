@@ -50,7 +50,11 @@ export const CombatProvider = props => {
 
   const deleteCombatant = combatant => {
     dispatch({ type: combatActions.DELETE_COMBATANT, payload: combatant });
-  }
+  };
+
+  const duplicateCombatant = combatant => {
+    dispatch({ type: combatActions.DUPLICATE_COMBATANT, payload: combatant });
+  };
 
   return (
     <CombatContext.Provider
@@ -64,7 +68,8 @@ export const CombatProvider = props => {
         addCombatant,
         editCombatant,
         commitCombatant,
-        deleteCombatant
+        deleteCombatant,
+        duplicateCombatant
       }}
     >
       {props.children}

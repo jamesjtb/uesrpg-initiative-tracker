@@ -10,14 +10,20 @@ import Popover from '@mui/material/Popover';
 import TextField from '@mui/material/TextField';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
+import Divider from '@mui/material/Divider';
 
 import Remove from '@mui/icons-material/Remove';
 import Add from '@mui/icons-material/Add';
 import Circle from '@mui/icons-material/Circle';
 import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
 import PeopleAlt from '@mui/icons-material/PeopleAlt';
-import MoreVert from '@mui/icons-material/MoreVert'
+import MoreVert from '@mui/icons-material/MoreVert';
+import ContentCopy from '@mui/icons-material/ContentCopy';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import Edit from '@mui/icons-material/Edit';
 
 import { useTheme, styled } from '@mui/material/styles';
 
@@ -42,7 +48,8 @@ const CombatantListing = ({ combatant, combatState }) => {
 
   const {
     editCombatant,
-    deleteCombatant
+    deleteCombatant,
+    duplicateCombatant
   } = useContext(CombatContext);
 
   const theme = useTheme();
@@ -329,8 +336,19 @@ const CombatantListing = ({ combatant, combatState }) => {
             horizontal: 'right'
           }}
         >
-          <MenuItem onClick={() => editCombatant({ ...combatant, status: combatantStatuses.EDITING })}>Edit</MenuItem>
-          <MenuItem onClick={() => deleteCombatant(combatant)}>Delete</MenuItem>
+          <MenuItem onClick={() => editCombatant({ ...combatant, status: combatantStatuses.EDITING })}>
+            <ListItemIcon><Edit fontSize="small" /></ListItemIcon>
+            <ListItemText>Edit</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={() => duplicateCombatant(combatant)}>
+            <ListItemIcon><ContentCopy fontSize="small" /></ListItemIcon>
+            <ListItemText>Duplicate</ListItemText>
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={() => deleteCombatant(combatant)}>
+            <ListItemIcon><DeleteForever color="error" fontSize="small" /></ListItemIcon>
+            <ListItemText><Typography color="error">Delete</Typography></ListItemText>  
+          </MenuItem>
         </Menu>
       </CompactTableCell>
     </TableRow>

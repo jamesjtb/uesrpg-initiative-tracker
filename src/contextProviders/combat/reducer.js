@@ -74,6 +74,15 @@ export const combatReducer = (oldState, action) => {
             { ...defaultCombatant, id: uuid(), type: action.payload.type}
           ]
         };
+      // Duplicate a combatant
+      case combatActions.DUPLICATE_COMBATANT:
+        return {
+          ...oldState,
+          combatants: [
+            ...oldState.combatants,
+            { ...action.payload, id: uuid(), status: combatantStatuses.CREATING }
+          ]
+        }
       // Edit an existing combatant
       case combatActions.EDIT_COMBATANT:
         return {
