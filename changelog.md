@@ -12,7 +12,7 @@ List new features, changes, and bug fixes by version
 - Improved character context menu
 - Modified initiative rolling modal to use and automate the initiative total roll (1d6 + Initiative Rating) rather than just the 1d6 roll. This is closer to how the players and GM communicate initiative rolls in practice.
 ### Bug fixes:
-- Rollover bugfix from v0.1.2, adapting for the new combat state structure.
+- Rolled over bugfix from v0.1.2, adapting for the new combat state structure.
 
 ## 0.1.2
 ### Bugfixes
