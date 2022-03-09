@@ -327,6 +327,7 @@ const CombatantListing = ({ combatant, combatState }) => {
           anchorEl={moreMenuAnchorEl}
           open={Boolean(moreMenuAnchorEl)}
           onClose={() => setMoreMenuAnchorEl(null)}
+          onClick={() => setMoreMenuAnchorEl(null)}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'right'
