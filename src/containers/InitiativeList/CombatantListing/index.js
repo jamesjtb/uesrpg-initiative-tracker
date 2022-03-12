@@ -41,7 +41,7 @@ const CombatantListing = ({ combatant, combatState }) => {
   const [magickaPopoverAnchorEl, setMagickaPopoverAnchorEl] = useState(null);
   const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState(null);
   const [editingTempHP, setEditingTempHP] = useState(false);
-  
+
   useEffect(() => {
     if (combatant.tempHitPoints === 0) setEditingTempHP(false);
   }, [combatant.tempHitPoints])
@@ -223,15 +223,17 @@ const CombatantListing = ({ combatant, combatState }) => {
       {/* Luck Points */}
       <CompactTableCell align="center">
         <Tooltip title="Click to use, left click to replenish." enterDelay={700} leaveDelay={200} disableInteractive>
-          <Button
-            size="small"
-            color="success"
-            onClick={handleLuckPointsClick}
-            onContextMenu={handleLuckPointsClick}
-            disabled={combatant.luckBonus === 0}
-          >
-            {renderPointTracker(combatant.currentLuckPoints, combatant.luckBonus, 'luckpoints')}
-          </Button>
+          <span>
+            <Button
+              size="small"
+              color="success"
+              onClick={handleLuckPointsClick}
+              onContextMenu={handleLuckPointsClick}
+              disabled={combatant.luckBonus === 0}
+            >
+              {renderPointTracker(combatant.currentLuckPoints, combatant.luckBonus, 'luckpoints')}
+            </Button>
+          </span>
         </Tooltip>
       </CompactTableCell>
       {/* Magicka Points */}
@@ -348,7 +350,7 @@ const CombatantListing = ({ combatant, combatState }) => {
           <Divider />
           <MenuItem onClick={() => deleteCombatant(combatant)}>
             <ListItemIcon><DeleteForever color="error" fontSize="small" /></ListItemIcon>
-            <ListItemText><Typography color="error">Delete</Typography></ListItemText>  
+            <ListItemText><Typography color="error">Delete</Typography></ListItemText>
           </MenuItem>
         </Menu>
       </CompactTableCell>
