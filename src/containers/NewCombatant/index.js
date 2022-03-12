@@ -69,6 +69,7 @@ const NewCombatant = ({ newCombatant }) => {
             <MenuItem value={null}>None</MenuItem>
             {combatantColors.map(color => (
               <MenuItem
+                key={color}
                 value={color}
               ><SquareRoundedIcon fontSize="small" htmlColor={color} /></MenuItem>
             ))}
