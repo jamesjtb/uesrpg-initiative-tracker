@@ -5,6 +5,7 @@ List new features, changes, and bug fixes by version
 - Settings Modal
   - Initiative Version (3e v2 or 3e v3 AP refreshing)
 - Duplicate Character from Initiative Tracker
+- Added a color selector to the new/edit combatant component to differentiate between combatants (especially of the same name)
 ### Changes:
 - Added additional filters to the "load from file" dialog: specific filter for PCs, specific filter for NPCs.
 - Made initiative tracker more compact
