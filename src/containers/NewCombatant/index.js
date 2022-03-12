@@ -6,14 +6,17 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import Check from '@mui/icons-material/Check';
 import DeleteForever from '@mui/icons-material/DeleteForever';
+import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
 
 import { styled } from '@mui/material/styles';
 
 import { CombatContext } from '../../contextProviders/combat';
-import { combatantTypes } from '../../contextProviders/combat/values';
+import { combatantTypes, combatantColors } from '../../contextProviders/combat/values';
 
 const NewCombatantContainer = styled(Paper)(({ theme }) => ({
   marginBottom: theme.spacing(1),
@@ -54,6 +57,23 @@ const NewCombatant = ({ newCombatant }) => {
           onChange={e => editCombatant({ ...newCombatant, name: e.target.value })}
           autoFocus
         />
+        {newCombatant.type === combatantTypes.NPC ?
+          <Select
+            id="newCombatant.color"
+            label="Color"
+            variant="standard"
+            value={newCombatant.color || ''}
+            onChange={e => editCombatant({ ...newCombatant, color: e.target.value})}
+            MenuProps={{ style: {maxHeight: '10em'}}}
+          > 
+            <MenuItem value={null}>None</MenuItem>
+            {combatantColors.map(color => (
+              <MenuItem
+                value={color}
+              ><SquareRoundedIcon fontSize="small" htmlColor={color} /></MenuItem>
+            ))}
+          </Select> : null
+        }
         <CharacterInputField
           id="newCombatant.maxHitPoints"
           label="HP"

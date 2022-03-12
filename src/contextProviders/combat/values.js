@@ -1,3 +1,8 @@
+import {
+  red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal, green,
+  lightGreen, lime, yellow, amber, orange, deepOrange, brown, grey, blueGrey
+} from '@mui/material/colors';
+
 export const combatActions = {
   INITIATE: 'INITIATE',
   START: 'START',
@@ -37,6 +42,7 @@ export const defaultCombatant = {
   currentLuckPoints: 0,
   luckBonus: 0,
   initiativeRoll: 0,
+  color: null,
   status: combatantStatuses.CREATING
 };
 
@@ -54,4 +60,26 @@ export const combatantIntegerFields = [
   'initiativeTotal',
   'currentLuckPoints',
   'luckBonus'
+];
+
+export const combatantColors = [
+  red[500],
+  pink[500],
+  purple[500],
+  deepPurple[500],
+  indigo[500],
+  blue[500],
+  lightBlue[500],
+  cyan[500],
+  teal[500],
+  green[500],
+  lightGreen[500],
+  lime[500],
+  yellow[500],
+  amber[500],
+  orange[500],
+  deepOrange[500],
+  brown[500],
+  grey[500],
+  blueGrey[500]
 ];

@@ -24,6 +24,7 @@ import MoreVert from '@mui/icons-material/MoreVert';
 import ContentCopy from '@mui/icons-material/ContentCopy';
 import DeleteForever from '@mui/icons-material/DeleteForever';
 import Edit from '@mui/icons-material/Edit';
+import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
 
 import { useTheme, styled } from '@mui/material/styles';
 
@@ -145,8 +146,8 @@ const CombatantListing = ({ combatant, combatState }) => {
       className={classes.CombatantListing}
       style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}
     >
-      {/* PC Indicator */}
-      <CompactTableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt fontSize="small" /> : null}</CompactTableCell>
+      {/* PC Indicator/NPC Color */}
+      <CompactTableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt fontSize="small" /> : combatant.color ? <SquareRoundedIcon fontSize="small" htmlColor={combatant.color} /> : null}</CompactTableCell>
       {/* Name */}
       <CompactTableCell align="left"><Typography component="span">{combatant.name}</Typography></CompactTableCell>
       {/* Hit Points */}
