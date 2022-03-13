@@ -18,13 +18,19 @@ export const SettingsProvider = props => {
   /* Settings Modal functions */
   const setSettingsModalOpen = (newOpenValue) => {
     dispatch({ type: settingsActions.SET_MODAL_OPEN, payload: { newOpenValue } })
-  }
+  };
+
+  /* Setting Item Functions */
+  const updateSettingItem = (settingsAreaId, settingItem) => {
+    dispatch({ type: settingsActions.UPDATE_SETTING_ITEM, payload: { settingsAreaId, settingItem }});
+  };
 
   return (
     <SettingsContext.Provider
       value={{
         settingsState: state,
-        setSettingsModalOpen
+        setSettingsModalOpen,
+        updateSettingItem
       }}
     >
       {props.children}
