@@ -3,7 +3,8 @@ List new features, changes, and bug fixes by version
 ## [0.2.0 (unreleased)](https://github.com/jamesjtb/uesrpg-companion/releases/)
 ### New features:
 - Settings Modal
-  - Initiative Version (3e v2 or 3e v3 AP refreshing)
+  - Combat Settings Panel
+    - Initiative Version Setting (3e v2 or 3e v3 AP refreshing)
 - Duplicate Character from Initiative Tracker
 - Added a color selector to the new/edit combatant component to differentiate between combatants (especially of the same name)
 ### Changes:
