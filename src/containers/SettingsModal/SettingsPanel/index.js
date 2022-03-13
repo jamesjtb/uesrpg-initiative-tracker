@@ -13,7 +13,6 @@ import { settingItemTypes } from '../../../contextProviders/settings/values';
 const SettingsPanel = ({ active, settingsPanelData }) => {
 
   const { updateSettingItem } = useContext(SettingsContext);
-  console.log(settingsPanelData)
   return (
     <div
       role="tabpanel"
