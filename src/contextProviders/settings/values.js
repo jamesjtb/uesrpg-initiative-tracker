@@ -5,7 +5,7 @@ export const defaultSettings = {
   userSettings: [
     // generalSettings: {
     //   displayName: 'General',
-    //   settingItems: {}
+    //   settingItems: []
     // },
     {
       id: 0, // used to determine exact position in the array when things get mixed. Must fill every value between 0 and length-1
@@ -16,6 +16,7 @@ export const defaultSettings = {
           displayName: 'Initiative Version',
           type: 'ENUM',
           values: [
+            { name: 'Manual AP Refresh', selected: false},
             { name: 'UESRPG 3e v2', selected: false },
             { name: 'UESRPG 3e v3', selected: true }
           ]

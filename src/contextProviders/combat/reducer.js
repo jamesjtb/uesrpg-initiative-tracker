@@ -49,9 +49,21 @@ export const combatReducer = (oldState, action) => {
         oldState.turn + action.payload.byTurns > action.payload.combatants.length ?
           oldState.round + 1 : oldState.round;
       const resultActiveCharacterId = action.payload.combatants[resultTurn - 1].id;
+      const resultCombatants = [ ...oldState.combatants ];
+      if (action.payload.apRefreshType === "UESRPG 3e v2" && resultRound - oldState.round === 1) { // 3e v2 AP refreshing
+        for (const resultCombatant of resultCombatants) {
+          resultCombatant.currentActionPoints = resultCombatant.maxActionPoints;
+        }
+      }
+      if (action.payload.apRefreshType === 'UESRPG 3e v3') { // 3e v3 AP refreshing
+        for (const resultCombatant of resultCombatants) {
+          if (resultCombatant.id === resultActiveCharacterId)
+            resultCombatant.currentActionPoints = resultCombatant.maxActionPoints;
+        }
+      }
       return {
         ...oldState,
-        combatants: [...oldState.combatants],
+        combatants: resultCombatants,
         round: resultRound,
         turn: resultTurn,
         activeCombatantId: resultActiveCharacterId

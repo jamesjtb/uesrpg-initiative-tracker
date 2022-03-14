@@ -17,6 +17,7 @@ import Stop from '@mui/icons-material/Stop';
 import AppMenu from './AppMenu';
 
 import { CombatContext } from '../../contextProviders/combat';
+import { SettingsContext } from '../../contextProviders/settings';
 
 import { combatantTypes } from '../../contextProviders/combat/values';
 
@@ -29,6 +30,10 @@ const TopBar = () => {
     advanceTurn,
     addCombatant
   } = useContext(CombatContext);
+
+  const {
+    settingsState
+  } = useContext(SettingsContext);
 
   /****************** */
   const [addMenuAnchor, setAddMenuAnchor] = useState(null);
@@ -105,7 +110,21 @@ const TopBar = () => {
                   <PlayArrow />
                 </IconButton>
             }
-            <IconButton color="inherit" disabled={combatState.round < 1} onClick={() => advanceTurn({ byTurns: 1, combatants: combatState.combatants })}>
+            <IconButton
+              color="inherit"
+              disabled={combatState.round < 1}
+              onClick={() =>
+                advanceTurn({
+                  byTurns: 1,
+                  combatants: combatState.combatants,
+                  apRefreshType: settingsState
+                    .userSettings.find(settingsArea => settingsArea.displayName === 'Combat')
+                    .settingItems.find(settingItem => settingItem.displayName === 'Initiative Version')
+                    .values.find(valueObject => valueObject.selected === true)
+                    .name
+                })
+              }
+            >
               <SkipNext />
             </IconButton>
           </Box>

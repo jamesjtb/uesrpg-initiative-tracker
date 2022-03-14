@@ -23,7 +23,7 @@ const SettingsPanel = ({ active, settingsPanelData }) => {
           switch (settingItem.type) {
             case settingItemTypes.ENUM:
               return (
-                <Stack key={settingItem.id} direction="row" spacing={4}>
+                <Stack key={settingItem.id} direction="row" spacing={2}>
                   <Typography variant="subtitle1">{settingItem.displayName}</Typography>
                   <Select
                     value={settingItem.values.find(valueObject => valueObject.selected === true).name}

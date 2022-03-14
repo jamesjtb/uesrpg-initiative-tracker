@@ -27,8 +27,8 @@ export const CombatProvider = props => {
     dispatch({ type: combatActions.STOP });
   };
 
-  const advanceTurn = ({ byTurns, combatants }) => {
-    dispatch({ type: combatActions.ADVANCE_TURN, payload: { byTurns, combatants} })
+  const advanceTurn = ({ byTurns, combatants, apRefreshType }) => {
+    dispatch({ type: combatActions.ADVANCE_TURN, payload: { byTurns, combatants, apRefreshType } })
   };
 
   /* Combatant Specific Functions */  
