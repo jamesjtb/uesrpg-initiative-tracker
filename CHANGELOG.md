@@ -5,6 +5,9 @@ List new features, changes, and bug fixes by version
 - Settings Modal
   - Combat Settings Panel
     - Initiative Version Setting (3e v2 or 3e v3 AP refreshing)
+- AP Refreshing
+  - In v2 initiative version, all combatants' AP resets at top of a new round
+  - In v3 initiative version, AP resets at start of a combatant's turn
 - Duplicate Character from Initiative Tracker
 - Added a color selector to the new/edit combatant component to differentiate between combatants (especially of the same name)
 ### Changes:
