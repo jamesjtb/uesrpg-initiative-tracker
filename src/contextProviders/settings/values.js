@@ -32,5 +32,6 @@ export const settingItemTypes = {
 
 export const settingsActions = {
   SET_MODAL_OPEN: 'SET_MODAL_OPEN',
+  SET_USER_SETTINGS: 'SET_USER_SETTINGS',
   UPDATE_SETTING_ITEM: 'UPDATE_SETTING_ITEM'
 };
