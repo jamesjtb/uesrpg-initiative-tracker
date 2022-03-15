@@ -30,9 +30,9 @@ function App() {
         <CombatProvider>
           <TopBar />
           <Box style={{ overflowY: 'auto' }}>
-            <Container className={classes.InitiativeContainer}>
+            <Box className={classes.InitiativeContainer}>
               <InitiativeList />
-            </Container>
+            </Box>
             <InitiativeModal />
             <SettingsModal />
           </Box>

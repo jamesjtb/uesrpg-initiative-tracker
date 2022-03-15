@@ -16,6 +16,7 @@ List new features, changes, and bug fixes by version
 - (internal data structure) Moved combatants array into combatState
 - Improved character context menu
 - Modified initiative rolling modal to use and automate the initiative total roll (1d6 + Initiative Rating) rather than just the 1d6 roll. This is closer to how the players and GM communicate initiative rolls in practice.
+- Made the initiative tracker list wider in the window. This is temporary, and will change if/when full statblocks and/or character sheets have been implemented. This is to make room for the conditions field, which we'll have room for when some fields are moved to their statblock views.
 ### Bug fixes:
 - Rolled over bugfix from v0.1.2, adapting for the new combat state structure.
 

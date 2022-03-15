@@ -4,5 +4,6 @@
 }
 
 .InitiativeContainer {
+  padding: 50px;
   padding-top: calc(50px + 1vh);
 }
