@@ -145,7 +145,7 @@ const CombatantListing = ({ combatant, combatState }) => {
       style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}
     >
       {/* PC Indicator/NPC Color */}
-      <CompactTableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt fontSize="small" /> : combatant.color ? <SquareRoundedIcon fontSize="small" htmlColor={combatant.color} /> : null}</CompactTableCell>
+      <CompactTableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt /> : combatant.color ? <SquareRoundedIcon htmlColor={combatant.color} /> : null}</CompactTableCell>
       {/* Name */}
       <CompactTableCell align="left"><Typography component="span">{combatant.name}</Typography></CompactTableCell>
       {/* Hit Points */}
