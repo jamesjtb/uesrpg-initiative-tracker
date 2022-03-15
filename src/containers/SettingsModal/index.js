@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
 import { SettingsContext } from '../../contextProviders/settings';
 import SettingsPanel from './SettingsPanel';
@@ -52,6 +54,9 @@ const SettingsModal = () => {
         {settingsState.userSettings.map(settingsPanelData => (
           <SettingsPanel settingsPanelData={settingsPanelData} active={currentTab === settingsPanelData.id} key={settingsPanelData.id} />
         ))}
+        <Grid container justifyContent="flex-end">
+          <Button color="secondary" variant="contained" onClick={e => setSettingsModalOpen(false)}>Done</Button>
+        </Grid>
       </Box>
     </Modal>
   );
