@@ -31,8 +31,6 @@ import { useTheme, styled } from '@mui/material/styles';
 import { CombatContext } from '../../../contextProviders/combat';
 import { combatantStatuses, combatantTypes } from '../../../contextProviders/combat/values';
 
-import classes from './CombatantListing.module.css';
-
 const CompactTableCell = styled(TableCell)(({ theme }) => ({
   padding: `0 ${theme.spacing(0.5)}`
 }));
@@ -143,7 +141,7 @@ const CombatantListing = ({ combatant, combatState }) => {
 
   return (
     <TableRow
-      className={classes.CombatantListing}
+      hover
       style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}
     >
       {/* PC Indicator/NPC Color */}
