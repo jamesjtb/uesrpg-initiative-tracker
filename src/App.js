@@ -2,7 +2,6 @@ import React from 'react';
 
 import classes from './App.module.css';
 
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
 import TopBar from './containers/TopBar';

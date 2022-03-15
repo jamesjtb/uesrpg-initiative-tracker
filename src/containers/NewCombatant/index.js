@@ -47,7 +47,7 @@ const NewCombatant = ({ newCombatant }) => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') commitCombatant(newCombatant);
   }
   return (
-    <Box component={NewCombatantContainer} onKeyPress={keyPress}>
+    <Box component={NewCombatantContainer} onKeyPress={keyPress} style={{ margin: '0 10%' }}>
       <Stack direction="row" justifyContent="space-between">
         <CharacterInputField
           id="newCombatant.name"
