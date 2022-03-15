@@ -2,9 +2,11 @@
 List new features, changes, and bug fixes by version
 ## [0.2.0 (unreleased)](https://github.com/jamesjtb/uesrpg-companion/releases/)
 ### New features:
-- Settings Modal
+- Settings
+  - Settings option in app menu
   - Combat Settings Panel
     - Initiative Version Setting (3e v2 or 3e v3 AP refreshing)
+  - Persist settings data between user sessions (saves to `%APPDATA%/userpg-companion/usersettings.json`)
 - AP Refreshing
   - In v2 initiative version, all combatants' AP resets at top of a new round
   - In v3 initiative version, AP resets at start of a combatant's turn
