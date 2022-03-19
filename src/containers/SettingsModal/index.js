@@ -32,7 +32,7 @@ const SettingsModal = () => {
   };
 
   const { settingsState, setSettingsModalOpen } = useContext(SettingsContext);
-  return (
+  return (settingsState.modal.open ?
     <Modal
       open={settingsState.modal.open}
       onClose={() => setSettingsModalOpen(false)}
@@ -44,7 +44,7 @@ const SettingsModal = () => {
           {(() => {
             const tabsToRender = []
             // Render the tabs in position order, since things get jumbled as we update
-            for (let i=0; i < settingsState.userSettings.length; i++ ) {
+            for (let i = 0; i < settingsState.userSettings.length; i++) {
               const tabData = settingsState.userSettings.find(settingsTab => settingsTab.id === i);
               tabsToRender.push(<Tab label={tabData.displayName} value={tabData.id} key={tabData.id} />)
             }
@@ -59,6 +59,7 @@ const SettingsModal = () => {
         </Grid>
       </Box>
     </Modal>
+    : null
   );
 };
 

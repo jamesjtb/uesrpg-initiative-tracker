@@ -30,14 +30,18 @@ import { useTheme, styled } from '@mui/material/styles';
 
 import { CombatContext } from '../../../contextProviders/combat';
 import { combatantStatuses, combatantTypes } from '../../../contextProviders/combat/values';
+import { ConditionInputPopover, ConditionTag } from './Conditions';
 
 const CompactTableCell = styled(TableCell)(({ theme }) => ({
-  padding: `0 ${theme.spacing(0.5)}`
+  padding: `0 ${theme.spacing(0.5)}`,
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis'
 }));
 
 const CombatantListing = ({ combatant, combatState }) => {
   const [hitpointPopoverAnchorEl, setHitpointsPopoverAnchorEl] = useState(null);
   const [magickaPopoverAnchorEl, setMagickaPopoverAnchorEl] = useState(null);
+  const [conditionPopoverAnchorEl, setConditionPopoverAnchorEl] = useState(null);
   const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState(null);
   const [editingTempHP, setEditingTempHP] = useState(false);
 
@@ -85,6 +89,16 @@ const CombatantListing = ({ combatant, combatState }) => {
 
   const handleMagickaPopoverClose = () => {
     setMagickaPopoverAnchorEl(null);
+  };
+
+  const handleConditionPopoverClose = value => {
+    setConditionPopoverAnchorEl(null);
+    if (!value) return;
+    editCombatant({ ...combatant, conditions: [ ...combatant.conditions, value ] });
+  };
+
+  const handleRemoveCondition = index => {
+    editCombatant({ ...combatant, conditions: combatant.conditions.filter((combatant, i) => i !== index)});
   };
 
   const renderPointTracker = (current, max, name) => {
@@ -137,7 +151,7 @@ const CombatantListing = ({ combatant, combatState }) => {
           editCombatant({ ...combatant, currentStaminaPoints: combatant.currentStaminaPoints - 1 });
         break;
     }
-  }
+  };
 
   return (
     <TableRow
@@ -148,6 +162,26 @@ const CombatantListing = ({ combatant, combatState }) => {
       <CompactTableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt /> : combatant.color ? <SquareRoundedIcon htmlColor={combatant.color} /> : null}</CompactTableCell>
       {/* Name */}
       <CompactTableCell align="left"><Typography component="span">{combatant.name}</Typography></CompactTableCell>
+      {/* Conditions */}
+      <CompactTableCell align="left">
+        {combatant.conditions.map((condition, i) =>
+          <ConditionTag
+            key={i}
+            index={i}
+            condition={condition}
+            removeCondition={handleRemoveCondition}
+          />
+        )}
+        <IconButton onClick={e => setConditionPopoverAnchorEl(e.currentTarget)} size="small" color="secondary"><Add /></IconButton>
+        <ConditionInputPopover
+          anchorEl={conditionPopoverAnchorEl}
+          onClose={handleConditionPopoverClose}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left'
+          }}
+        />
+      </CompactTableCell>
       {/* Hit Points */}
       <CompactTableCell align="center">
         <Stack direction="row" justifyContent="center">
@@ -187,7 +221,7 @@ const CombatantListing = ({ combatant, combatState }) => {
               variant="standard"
               type="number"
               value={combatant.currentHitPoints}
-              label="hitpoints"
+              label="Hitpoints"
               onChange={handleHitPointsChange}
               inputProps={{ style: { textAlign: 'center' } }}
               onKeyPress={e => e.key === 'Enter' || e.key === "NumpadEnter" ? handleHitpointsPopoverClose() : null}
@@ -270,7 +304,7 @@ const CombatantListing = ({ combatant, combatState }) => {
               variant="standard"
               type="number"
               value={combatant.currentMagicka}
-              label="hitpoints"
+              label="Magicka"
               onChange={handleMagickaChange}
               inputProps={{ style: { textAlign: 'center' } }}
               onKeyPress={e => e.key === 'Enter' || e.key === "NumpadEnter" ? handleMagickaPopoverClose() : null}

@@ -11,6 +11,7 @@ const correctDataTypes = combatant => {
     };
     correctedObject[field] = combatant[field];
   }
+  if (!Array.isArray(combatant.conditions)) combatant.conditions=[];
   return correctedObject;
 };
 
@@ -23,7 +24,7 @@ export const combatReducer = (oldState, action) => {
     case combatActions.START:
       return {
         ...oldState,
-        combatants: [...oldState.combatants],
+        combatants: [...oldState.combatants.map(oldCombatant => ({ ...oldCombatant, conditions: [ ...oldCombatant.conditions ]}))],
         round: 1,
         turn: 1,
         activeCombatantId: action.payload.startingCharacterId
@@ -32,7 +33,7 @@ export const combatReducer = (oldState, action) => {
     case combatActions.STOP:
       return {
         ...oldState,
-        combatants: [...oldState.combatants],
+        combatants: [...oldState.combatants.map(oldCombatant => ({ ...oldCombatant, conditions: [ ...oldCombatant.conditions ]}))],
         round: -1,
         activeCombatantId: null,
         turn: 0
@@ -49,7 +50,7 @@ export const combatReducer = (oldState, action) => {
         oldState.turn + action.payload.byTurns > action.payload.combatants.length ?
           oldState.round + 1 : oldState.round;
       const resultActiveCharacterId = action.payload.combatants[resultTurn - 1].id;
-      const resultCombatants = [ ...oldState.combatants ];
+      const resultCombatants = [...oldState.combatants.map(oldCombatant => ({ ...oldCombatant, conditions: [ ...oldCombatant.conditions ]}))];
       if (action.payload.apRefreshType === "UESRPG 3e v2" && resultRound - oldState.round === 1) { // 3e v2 AP refreshing
         for (const resultCombatant of resultCombatants) {
           resultCombatant.currentActionPoints = resultCombatant.maxActionPoints;
@@ -72,18 +73,18 @@ export const combatReducer = (oldState, action) => {
       /********* Combatant-specific Actions *********/
       // Complete overwrite of the comabtants array
       case combatActions.SET_COMBATANTS:
-        const normalizedCombatants = action.payload.map(combatant => correctDataTypes({ ...combatant }));
+        const normalizedCombatants = action.payload.map(combatant => correctDataTypes(combatant));
         return {
           ...oldState,
-          combatants: [...normalizedCombatants]
+          combatants: normalizedCombatants.map(normalizedCombatant => ({ ...normalizedCombatant, conditions: [ ...normalizedCombatant.conditions ]}))
         };
       // Add a new combatant
       case combatActions.ADD_NEW_COMBATANT:
         return {
           ...oldState,
           combatants: [
-            ...oldState.combatants,
-            { ...defaultCombatant, id: uuid(), type: action.payload.type}
+            ...oldState.combatants.map(oldCombatant => ({ ...oldCombatant, conditions: [ ...oldCombatant.conditions ]})),
+            { ...defaultCombatant, id: uuid(), type: action.payload.type, conditions: [ ...defaultCombatant.conditions ]}
           ]
         };
       // Duplicate a combatant
@@ -91,8 +92,8 @@ export const combatReducer = (oldState, action) => {
         return {
           ...oldState,
           combatants: [
-            ...oldState.combatants,
-            { ...action.payload, id: uuid(), status: combatantStatuses.CREATING }
+            ...oldState.combatants.map(oldCombatant => ({ ...oldCombatant, conditions: [ ...oldCombatant.conditions ] })),
+            { ...action.payload, id: uuid(), status: combatantStatuses.CREATING, conditions: [ ...action.payload.conditions ] }
           ]
         }
       // Edit an existing combatant
@@ -108,14 +109,18 @@ export const combatReducer = (oldState, action) => {
         return {
           ...oldState,
           combatants: oldState.combatants.map(combatant => (
-            combatant.id === action.payload.id ? { ...combatant, status: combatantStatuses.COMMITTED } : combatant
+            combatant.id === action.payload.id ?
+              { ...combatant, status: combatantStatuses.COMMITTED, conditions: [ ...combatant.conditions ] }
+              : { ...combatant, conditions: [ ...combatant.conditions ] }
           ))
         };
       // Delete a combatant
       case combatActions.DELETE_COMBATANT:
         return {
           ...oldState,
-          combatants: oldState.combatants.filter(combatant => action.payload.id !== combatant.id)
+          combatants: oldState.combatants
+            .filter(combatant => action.payload.id !== combatant.id)
+            .map(combatant => ({ ...combatant, conditions: [ combatant.conditions ] }))
         };
     default:
       throw new Error(`Unrecognized combatant action in reducer: ${action.type}`);

@@ -29,6 +29,7 @@ export const combatantTypes = {
 
 export const defaultCombatant = {
   name: "",
+  conditions: [],
   currentHitPoints: 0,
   maxHitPoints: 0,
   tempHitPoints: 0,

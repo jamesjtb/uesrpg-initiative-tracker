@@ -53,6 +53,7 @@ const InitiativeList = () => {
             <TableRow>
               <TableCell sx={tableCellStyle} align="left" />
               <TableCell sx={tableCellStyle} align="left">Name</TableCell>
+              <TableCell sx={tableCellStyle} align="left">Conditions</TableCell>
               <TableCell sx={tableCellStyle} align="center">Hit Points</TableCell>
               <TableCell sx={tableCellStyle} align="center">Luck Points</TableCell>
               <TableCell sx={tableCellStyle} align="center">Magicka Points</TableCell>

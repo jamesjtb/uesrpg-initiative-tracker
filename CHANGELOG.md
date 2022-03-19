@@ -12,13 +12,16 @@ List new features, changes, and bug fixes by version
   - In v3 initiative version, AP resets at start of a combatant's turn
 - Duplicate Character from Initiative Tracker
 - Added a color selector to the new/edit combatant component to differentiate between combatants (especially of the same name)
+- Conditions, 1st phase 
+  - user can add a condition tag to a combatant which can be removed at any time
 ### Changes:
 - Added additional filters to the "load from file" dialog: specific filter for PCs, specific filter for NPCs.
-- Made initiative tracker more compact
+- Made initiative tracker more compact vertically, but temporarily wider
+  - The wider tracker will be reduced in size once statblocks are introduced, as much of the data will be moved to another element
 - (internal data structure) Moved combatants array into combatState
 - Improved character context menu
 - Modified initiative rolling modal to use and automate the initiative total roll (1d6 + Initiative Rating) rather than just the 1d6 roll. This is closer to how the players and GM communicate initiative rolls in practice.
-- Made the initiative tracker list wider in the window. This is temporary, and will change if/when full statblocks and/or character sheets have been implemented. This is to make room for the conditions field, which we'll have room for when some fields are moved to their statblock views.
+- Made the initiative tracker list wider in the window. This is temporary, and will change if/when full statblocks and/or character sheets have been implemented. This is to make room for the conditions field, which we'll have room in the narrow view when some fields are moved to their statblock views.
 ### Bug fixes:
 - Rolled over bugfix from v0.1.2, adapting for the new combat state structure.
 
