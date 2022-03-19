@@ -1,6 +1,6 @@
 # Changelog
 List new features, changes, and bug fixes by version
-## [0.2.0](https://github.com/jamesjtb/uesrpg-companion/releases/)
+## [0.2.0](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.2.0)
 ### New features:
 - Display the current version in the top bar title
 - Settings
