@@ -223,7 +223,7 @@ const CombatantListing = ({ combatant, combatState }) => {
               value={combatant.currentHitPoints}
               label="Hitpoints"
               onChange={handleHitPointsChange}
-              inputProps={{ style: { textAlign: 'center' } }}
+              inputProps={{ style: { textAlign: 'center' }, min: 0, max: combatant.maxHitPoints }}
               onKeyPress={e => e.key === 'Enter' || e.key === "NumpadEnter" ? handleHitpointsPopoverClose() : null}
               autoFocus
             />
@@ -306,7 +306,7 @@ const CombatantListing = ({ combatant, combatState }) => {
               value={combatant.currentMagicka}
               label="Magicka"
               onChange={handleMagickaChange}
-              inputProps={{ style: { textAlign: 'center' } }}
+              inputProps={{ style: { textAlign: 'center' }, min: 0, max: combatant.maxMagicka }}
               onKeyPress={e => e.key === 'Enter' || e.key === "NumpadEnter" ? handleMagickaPopoverClose() : null}
               autoFocus
             />
