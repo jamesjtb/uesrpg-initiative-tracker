@@ -14,6 +14,7 @@ List new features, changes, and bug fixes by version
 - Added a color selector to the new/edit combatant component to differentiate between combatants (especially of the same name)
 - Conditions, 1st phase 
   - user can add a condition tag to a combatant which can be removed at any time
+- Persist window coordinates and size between sessions
 ### Changes:
 - Added additional filters to the "load from file" dialog: specific filter for PCs, specific filter for NPCs.
 - Made initiative tracker more compact vertically, but temporarily wider

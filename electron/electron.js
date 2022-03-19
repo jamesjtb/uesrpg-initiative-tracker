@@ -4,15 +4,20 @@ const { writeFile, readFile } = require('fs').promises;
 const url = require('url');
 const path = require('path');
 
+const windowStateKeeper = require('electron-window-state');
 const isDev = require('electron-is-dev');
 
 let mainWindow;
 
 function createWindow () {
+  const mainWindowState = windowStateKeeper({ defaultWidth: 1280, defaultHeight: 720});
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
     minWidth: 800,
     minHeight: 600,
     webPreferences: {
@@ -30,6 +35,8 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   });
+
+  mainWindowState.manage(mainWindow);
 
   // and load the index.html of the app.
   mainWindow.loadURL(startURL);
