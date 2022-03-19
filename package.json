@@ -2,7 +2,7 @@
   "name": "uesrpg-companion",
   "description": "Companion app for running UESRPG",
   "author": "jamesj.tb",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "private": true,
   "main": "./electron/electron.js",
   "homepage": "./",
