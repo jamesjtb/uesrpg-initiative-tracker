@@ -38,6 +38,14 @@ export const ConditionInputPopover = ({ anchorEl, onClose, anchorOrigin }) => {
     onClose(value);
   };
 
+  const keyPress = e => {
+    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+      handleClose(conditionValue);
+    } else if ((e.code === 'Enter' || e.code === 'NumpadEnter') && conditionValue === '') {
+      handleClose(null);
+    }
+  };
+
   return (
     <Popover
       open={Boolean(anchorEl)}
@@ -45,6 +53,7 @@ export const ConditionInputPopover = ({ anchorEl, onClose, anchorOrigin }) => {
       anchorEl={anchorEl}
       onClose={() => handleClose(null)}
       anchorOrigin={anchorOrigin}
+      onKeyPress={keyPress}
     >
       <TextField
         variant="standard"
