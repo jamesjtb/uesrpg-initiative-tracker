@@ -120,7 +120,7 @@ export const combatReducer = (oldState, action) => {
           ...oldState,
           combatants: oldState.combatants
             .filter(combatant => action.payload.id !== combatant.id)
-            .map(combatant => ({ ...combatant, conditions: [ combatant.conditions ] }))
+            .map(combatant => ({ ...combatant, conditions: [ ...combatant.conditions ] }))
         };
     default:
       throw new Error(`Unrecognized combatant action in reducer: ${action.type}`);
