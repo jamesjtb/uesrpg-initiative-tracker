@@ -2,6 +2,7 @@
 List new features, changes, and bug fixes by version
 ## [0.2.0 (unreleased)](https://github.com/jamesjtb/uesrpg-companion/releases/)
 ### New features:
+- Display the current version in the top bar title
 - Settings
   - Settings option in app menu
   - Combat Settings Panel
