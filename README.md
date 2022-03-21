@@ -15,7 +15,7 @@ Development is, at this time, only set up for Windows development; specifically 
 2. Once you've cloned the project onto your machine, use `npm install` from the project's root directory to install the dependencies of the project.
 3. To run the UESRPG Companion in development mode, use `npm run dev`.
 
-### Building a Distributable
+## Building From Source
 1. Build the react source code by running `npm run build-react`
 2. Pack the app for building using `npm run pack`. This script may throw a false error due to how robocopy returns on a success. This can be ignored unless robocopy itself reported an error.
 3. Finally, build the distributable for the app using `npm run build-electron`.
