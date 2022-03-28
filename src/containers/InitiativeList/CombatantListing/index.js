@@ -94,11 +94,11 @@ const CombatantListing = ({ combatant, combatState }) => {
   const handleConditionPopoverClose = value => {
     setConditionPopoverAnchorEl(null);
     if (!value) return;
-    editCombatant({ ...combatant, conditions: [ ...combatant.conditions, value ] });
+    editCombatant({ ...combatant, conditions: [...combatant.conditions, value] });
   };
 
   const handleRemoveCondition = index => {
-    editCombatant({ ...combatant, conditions: combatant.conditions.filter((combatant, i) => i !== index)});
+    editCombatant({ ...combatant, conditions: combatant.conditions.filter((combatant, i) => i !== index) });
   };
 
   const renderPointTracker = (current, max, name) => {
@@ -158,8 +158,20 @@ const CombatantListing = ({ combatant, combatState }) => {
       hover
       style={combatState.activeCombatantId === combatant.id ? activePlayerStyle : null}
     >
+      {/* Initiative Total */}
+      <CompactTableCell align="center">
+        <Button
+          size="small"
+          color="secondary"
+          variant="text"
+          sx={{ minWidth: '3em' }}
+          onClick={() => { }}
+        >
+          <Typography component="span">{combatant.initiativeTotal || '--'}</Typography>
+        </Button>
+      </CompactTableCell>
       {/* PC Indicator/NPC Color */}
-      <CompactTableCell align="left">{combatant.type === combatantTypes.PC ? <PeopleAlt /> : combatant.color ? <SquareRoundedIcon htmlColor={combatant.color} /> : null}</CompactTableCell>
+      <CompactTableCell align="right">{combatant.type === combatantTypes.PC ? <PeopleAlt /> : combatant.color ? <SquareRoundedIcon htmlColor={combatant.color} /> : null}</CompactTableCell>
       {/* Name */}
       <CompactTableCell align="left"><Typography component="span">{combatant.name}</Typography></CompactTableCell>
       {/* Conditions */}

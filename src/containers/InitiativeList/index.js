@@ -50,8 +50,9 @@ const InitiativeList = () => {
         </Typography>
         <Table className={classes.InitiativeTable} size="small">
           <TableHead sx={{ bgcolor: theme.palette.secondary.main }}>
-            <TableRow>
-              <TableCell sx={tableCellStyle} align="left" />
+            <TableRow>              
+              <TableCell sx={tableCellStyle} align="center">Initiative</TableCell>
+              <TableCell sx={tableCellStyle} align="right" />
               <TableCell sx={tableCellStyle} align="left">Name</TableCell>
               <TableCell sx={tableCellStyle} align="left">Conditions</TableCell>
               <TableCell sx={tableCellStyle} align="center">Hit Points</TableCell>

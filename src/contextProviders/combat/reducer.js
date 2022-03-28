@@ -33,7 +33,7 @@ export const combatReducer = (oldState, action) => {
     case combatActions.STOP:
       return {
         ...oldState,
-        combatants: [...oldState.combatants.map(oldCombatant => ({ ...oldCombatant, conditions: [ ...oldCombatant.conditions ]}))],
+        combatants: [...oldState.combatants.map(oldCombatant => ({ ...oldCombatant, initiativeTotal: null, conditions: [ ...oldCombatant.conditions ]}))],
         round: -1,
         activeCombatantId: null,
         turn: 0
