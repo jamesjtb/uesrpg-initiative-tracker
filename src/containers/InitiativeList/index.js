@@ -66,7 +66,7 @@ const InitiativeList = () => {
           <TableBody>
             {combatState.combatants.map((combatant) => (
               combatant.status !== combatantStatuses.CREATING ?
-                <CombatantListing key={combatant.id} combatant={combatant} combatState={combatState} />
+                <CombatantListing key={combatant.id} combatant={combatant} />
                 : null
             ))}
           </TableBody>

@@ -47,7 +47,7 @@ const InitiativeModal = () => {
         }
       }));
     }
-  }, [ combatState.round ]);
+  }, [combatState.round]);
 
   const onClose = (e, reason) => {
     if (reason === 'escapeKeyDown' || reason === "cancelButtonClick" || reason === "backDropClick") {
@@ -71,22 +71,20 @@ const InitiativeModal = () => {
         <Typography variant="h4" color="primary">Initiative Rolls</Typography>
         <Typography variant="subtitle2">1d6 + Initiative Rating</Typography>
         <Divider />
-        {
-          combatState.combatants.map(combatant => (
-            <TextField
-              style={{ margin: "10px" }}
-              inputProps={{ style: { textAlign: 'center' } }}
-              key={combatant.id}
-              id={`${combatant.id}`}
-              variant="standard"
-              label={combatant.name}
-              type="number"
-              InputLabelProps={{ shrink: true }}
-              value={combatant.initiativeTotal}
-              onChange={e => editCombatant({ ...combatant, initiativeTotal: parseInt(e.target.value) })}
-            />
-          ))
-        }
+        {combatState.combatants.map(combatant => (
+          <TextField
+            style={{ margin: "10px" }}
+            inputProps={{ style: { textAlign: 'center' } }}
+            key={combatant.id}
+            id={`${combatant.id}`}
+            variant="standard"
+            label={combatant.name}
+            type="number"
+            InputLabelProps={{ shrink: true }}
+            value={combatant.initiativeTotal}
+            onChange={e => editCombatant({ ...combatant, initiativeTotal: parseInt(e.target.value) })}
+          />
+        ))}
         <Grid container justifyContent="flex-end">
           <Button variant="outlined" color="error" onClick={e => onClose(e, 'cancelButtonClick')}>Cancel</Button>
           <Button variant="contained" color="success" onClick={e => onClose(e, 'submitButtonClick')}>Submit Rolls</Button>

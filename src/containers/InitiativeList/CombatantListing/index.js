@@ -31,6 +31,7 @@ import { useTheme, styled } from '@mui/material/styles';
 import { CombatContext } from '../../../contextProviders/combat';
 import { combatantStatuses, combatantTypes } from '../../../contextProviders/combat/values';
 import { ConditionInputPopover, ConditionTag } from './Conditions';
+import arraySort from 'array-sort';
 
 const CompactTableCell = styled(TableCell)(({ theme }) => ({
   padding: `0 ${theme.spacing(0.5)}`,
@@ -38,7 +39,8 @@ const CompactTableCell = styled(TableCell)(({ theme }) => ({
   textOverflow: 'ellipsis'
 }));
 
-const CombatantListing = ({ combatant, combatState }) => {
+const CombatantListing = ({ combatant }) => {
+  const [initiativePopoverAnchorEl, setInitiativePopoverAnchorEl] = useState(null);
   const [hitpointPopoverAnchorEl, setHitpointsPopoverAnchorEl] = useState(null);
   const [magickaPopoverAnchorEl, setMagickaPopoverAnchorEl] = useState(null);
   const [conditionPopoverAnchorEl, setConditionPopoverAnchorEl] = useState(null);
@@ -52,12 +54,18 @@ const CombatantListing = ({ combatant, combatState }) => {
   const {
     editCombatant,
     deleteCombatant,
-    duplicateCombatant
+    duplicateCombatant,
+    setCombatants,
+    combatState
   } = useContext(CombatContext);
 
   const theme = useTheme();
 
   const activePlayerStyle = { backgroundColor: theme.palette.primary.main + '33' };
+
+  const handleInitiativeTotalClick = e => {
+    setInitiativePopoverAnchorEl(e.currentTarget);
+  }
 
   const handleHitPointsClick = e => {
     setHitpointsPopoverAnchorEl(e.currentTarget);
@@ -71,6 +79,12 @@ const CombatantListing = ({ combatant, combatState }) => {
     setMoreMenuAnchorEl(e.currentTarget);
   };
 
+  const handleInitiativeTotalChange = e => {
+    if (e.target.value == null || e.target.value === '') return editCombatant({ ...combatant, initiativeTotal: 0 });
+    if (e.target.value > combatant.maxHitPoints || e.target.value === 0) return;
+    editCombatant({ ...combatant, initiativeTotal: e.target.value });
+  };
+
   const handleHitPointsChange = e => {
     if (e.target.value == null || e.target.value === '') return editCombatant({ ...combatant, currentHitPoints: 0 });
     if (e.target.value > combatant.maxHitPoints || e.target.value === 0) return;
@@ -81,6 +95,12 @@ const CombatantListing = ({ combatant, combatState }) => {
     if (e.target.value == null || e.target.value === '') return editCombatant({ ...combatant, currentMagicka: 0 });
     if (e.target.value > combatant.maxMagicka || e.target.value === 0) return;
     editCombatant({ ...combatant, currentMagicka: e.target.value });
+  };
+  
+  const handleInitiativeTotalPopoverClose = () => {
+    setInitiativePopoverAnchorEl(null);
+    const sortedCharacters = arraySort([...combatState.combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], { reverse: true });
+    setCombatants(sortedCharacters);
   };
 
   const handleHitpointsPopoverClose = () => {
@@ -165,10 +185,30 @@ const CombatantListing = ({ combatant, combatState }) => {
           color="secondary"
           variant="text"
           sx={{ minWidth: '3em' }}
-          onClick={() => { }}
+          onClick={handleInitiativeTotalClick}
         >
           <Typography component="span">{combatant.initiativeTotal || '--'}</Typography>
         </Button>
+        <Popover
+          open={Boolean(initiativePopoverAnchorEl)}
+          PaperProps={{ style: { padding: theme.spacing(1) } }}
+          anchorEl={initiativePopoverAnchorEl}
+          onClose={handleInitiativeTotalPopoverClose}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left'
+          }}
+        >
+          <TextField
+            sx={{ width: '50px', paddingRight: theme.spacing(1) }}
+            variant="standard"
+            type="number"
+            value={combatant.initiativeTotal}
+            onChange={handleInitiativeTotalChange}
+            inputProps={{ style: { textAlign: 'center' }, min: 0, max: combatant.maxMagicka }}
+            onKeyPress={e => e.key === 'Enter' || e.key === 'NumpadEnter' ? handleInitiativeTotalPopoverClose() : null}
+          />
+        </Popover>
       </CompactTableCell>
       {/* PC Indicator/NPC Color */}
       <CompactTableCell align="right">{combatant.type === combatantTypes.PC ? <PeopleAlt /> : combatant.color ? <SquareRoundedIcon htmlColor={combatant.color} /> : null}</CompactTableCell>
