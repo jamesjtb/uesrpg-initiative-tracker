@@ -81,7 +81,7 @@ const CombatantListing = ({ combatant }) => {
 
   const handleInitiativeTotalChange = e => {
     if (e.target.value == null || e.target.value === '') return editCombatant({ ...combatant, initiativeTotal: 0 });
-    if (e.target.value > combatant.maxHitPoints || e.target.value === 0) return;
+    if (e.target.value === 0) return;
     editCombatant({ ...combatant, initiativeTotal: e.target.value });
   };
 
@@ -186,6 +186,7 @@ const CombatantListing = ({ combatant }) => {
           variant="text"
           sx={{ minWidth: '3em' }}
           onClick={handleInitiativeTotalClick}
+          disabled={combatState.round < 1}
         >
           <Typography component="span">{combatant.initiativeTotal || '--'}</Typography>
         </Button>
@@ -205,8 +206,9 @@ const CombatantListing = ({ combatant }) => {
             type="number"
             value={combatant.initiativeTotal}
             onChange={handleInitiativeTotalChange}
-            inputProps={{ style: { textAlign: 'center' }, min: 0, max: combatant.maxMagicka }}
+            inputProps={{ style: { textAlign: 'center' }, min: 1 }}
             onKeyPress={e => e.key === 'Enter' || e.key === 'NumpadEnter' ? handleInitiativeTotalPopoverClose() : null}
+            autoFocus
           />
         </Popover>
       </CompactTableCell>
