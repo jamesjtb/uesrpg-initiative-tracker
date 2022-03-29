@@ -31,6 +31,10 @@ export const CombatProvider = props => {
     dispatch({ type: combatActions.ADVANCE_TURN, payload: { byTurns, combatants, apRefreshType } })
   };
 
+  const setActiveCombatant = (combatantId) => {
+    dispatch({ type: combatActions.SET_ACTIVE_COMBATANT, payload: { combatantId } });
+  };
+
   /* Combatant Specific Functions */  
   const setCombatants = newCombatants => {
     dispatch({ type: combatActions.SET_COMBATANTS, payload: newCombatants });
@@ -64,6 +68,7 @@ export const CombatProvider = props => {
         startCombat,
         stopCombat,
         advanceTurn,
+        setActiveCombatant,
         setCombatants,
         addCombatant,
         editCombatant,

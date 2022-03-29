@@ -55,6 +55,7 @@ const CombatantListing = ({ combatant }) => {
     editCombatant,
     deleteCombatant,
     duplicateCombatant,
+    setActiveCombatant,
     setCombatants,
     combatState
   } = useContext(CombatContext);
@@ -99,6 +100,15 @@ const CombatantListing = ({ combatant }) => {
   
   const handleInitiativeTotalPopoverClose = () => {
     setInitiativePopoverAnchorEl(null);
+    // Get the next combatant in the list if this combatant is active
+    if (combatState.activeCombatantId === combatant.id) {
+      for (let i = 0; i < combatState.combatants.length; i++) {
+        if (combatState.combatants[i].id === combatant.id) {
+          const nextCombatantIndex = i + 1 === combatState.combatants.length ? 0 : i+1
+          setActiveCombatant(combatState.combatants[nextCombatantIndex].id);
+        }
+      }
+    }
     const sortedCharacters = arraySort([...combatState.combatants], ['initiativeTotal', 'initiativeRating', 'luckBonus'], { reverse: true });
     setCombatants(sortedCharacters);
   };
