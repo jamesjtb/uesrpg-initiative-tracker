@@ -1,11 +1,13 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain, dialog} = require('electron');
-const { writeFile, readFile } = require('fs').promises;
+const { app, BrowserWindow, dialog } = require('electron');
 const url = require('url');
 const path = require('path');
+const { readdirSync } = require('fs');
 
 const windowStateKeeper = require('electron-window-state');
 const isDev = require('electron-is-dev');
+
+const ipcMainRegistrar = require('./ipc-main');
 
 let mainWindow;
 
@@ -26,6 +28,10 @@ function createWindow () {
     },
     title: `UESRPG Companion v${app.getVersion()}`
   });
+
+  // Register Main Listeners
+  ipcMainRegistrar.register(mainWindow);
+
   // Remove the appMenu
   if (!isDev) mainWindow.setMenu(null);
   
@@ -69,67 +75,4 @@ app.whenReady().then(async () => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
-})
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
-/***********IPC Main***********/
-
-ipcMain.handle('app:quit', () => app.quit());
-
-ipcMain.handle('app:version', () => app.getVersion());
-
-ipcMain.handle('app:usersettings:save', async (e, { userSettings }) => {
-  const writeResult = await writeFile(`${app.getPath('userData')}/usersettings.json`, JSON.stringify(userSettings), 'utf8');
-  return writeResult;
 });
-
-ipcMain.handle('app:usersettings:load', async (e) => {
-  try {
-    const fileContents = await readFile(`${app.getPath('userData')}/usersettings.json`, 'utf8');
-    return JSON.parse(fileContents);
-  } catch (e) {
-    console.log(`Error loading user settings: ${e.message}`);
-    return null;
-  }
-});
-
-/*************** Initiative Tracker Filesystem **************/
-ipcMain.handle('saveCombatants', async (e, data) => {
-  const fileFiltersMap = {
-    'PC': [{ name: 'UESRPG 3e Party File', extensions: ['3eup'] }],
-    'NPC': [{ name: 'UESRPG 3e Encounter File', extensions: ['3eue']}]
-  }
-  const saveOptions = await dialog.showSaveDialog(mainWindow, {
-    title: `Select path to save ${data.type} to file...`,
-    filters: fileFiltersMap[data.type]
-  });
-
-  if (!saveOptions.canceled) {
-    const writeResult = await writeFile(saveOptions.filePath.toString(), JSON.stringify(data.combatants), 'utf8');
-    return writeResult;
-  }
-});
-
-ipcMain.handle('loadFile', async (e) => {
-  const loadOptions = await dialog.showOpenDialog(mainWindow, {
-    title: `Load from file...`,
-    filters: [
-      { name: 'UESRPG 3e Combatant Files', extensions: ['3eup', '3eue'] },
-      { name: 'UESRPG 3e Encounter File', extensions: ['3eue'] },
-      { name: 'UESRPG 3e Party File', extensions: ['3eup'] }
-    ]
-  });
-  if (!loadOptions.canceled) {
-    const extensionMap = {
-      '.3eup': '3e-party',
-      '.3eue': '3e-encounter'
-    };
-    const dataType = extensionMap[path.extname(loadOptions.filePaths[0])];
-    if (!dataType) return {type: 'error', errorReason: 'invalid-extension'};
-    const fileContents = await readFile(loadOptions.filePaths[0], 'utf8');
-    const loadedData = JSON.parse(fileContents);
-    return {type: dataType, data: loadedData};
-  }
-})
