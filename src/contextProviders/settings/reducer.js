@@ -1,44 +1,55 @@
+import { produce } from 'immer';
 import { settingsActions } from './values';
+
+// Broken for no discernable reason
+// export const settingsReducer = produce((draftState, action) => {
+//   switch (action.type) {
+//     case settingsActions.SET_MODAL_OPEN:
+//       draftState.modal.open = action.payload.newOpenValue;
+//       break;
+//     case settingsActions.SET_USER_SETTINGS:
+//       draftState.userSettings = action.payload.userSettings;
+//       break;
+//     case settingsActions.UPDATE_SETTING_ITEM: 
+//       console.log(action);
+//       const settingsArea = draftState.userSettings.find(area => area.id === action.payload.settingsAreaId);
+//       console.log(settingsArea);
+//       for (const [i, settingItem] of settingsArea.settingItems.entries) {
+//         if (settingItem.id === action.payload.settingItem.id) {
+//           settingsArea.settingItems[i] = action.payload.settingItem;
+//           break;
+//         }
+//       }
+//       break;
+//     default:
+//       throw new Error(`Unrecognized settings action in reducer: ${action.type}`);
+//   }
+// })
 
 export const settingsReducer = (oldState, action) => {
   switch (action.type) {
     case settingsActions.SET_MODAL_OPEN:
-      return {
-        ...oldState,
-        modal: {
-          ...oldState.settingsModal,
-          open: action.payload.newOpenValue
-        }
-      };
+      return produce(oldState, draftState => {
+        draftState.modal.open = action.payload.newOpenValue;
+      });
     case settingsActions.SET_USER_SETTINGS:
-      return {
-        ...oldState,
-        modal: { ...oldState.settingsModal },
-        userSettings: action.payload.userSettings.map(settingsArea => ({
-          ...settingsArea,
-          settingItems: settingsArea.settingItems.map(settingItem => ({
-            ...settingItem, 
-            values: settingItem.values.map(valueObject => ({ ...valueObject }))
-          }))
-        }))
-      };
+      return produce(oldState, draftState => {
+        draftState.userSettings = action.payload.userSettings;
+      });
     case settingsActions.UPDATE_SETTING_ITEM:
-      return {
-        ...oldState,
-        modal: { ...oldState.modal },
-        userSettings: oldState.userSettings.map(oldSettingsArea => (
-          oldSettingsArea.id === action.payload.settingsAreaId ?
-            {
-              ...oldSettingsArea, settingItems: oldSettingsArea.settingItems.map(oldSettingItem => (
-                oldSettingItem.id === action.payload.settingItem.id ?
-                  { ...action.payload.settingItem, values: [...action.payload.settingItem.values] } :
-                  { ...oldSettingItem, values: [...oldSettingItem.values] }
-              ))
-            } :
-            { ...oldSettingsArea, settingItems: oldSettingsArea.settingItems.map(oldSettingItem => ({ ...oldSettingItem, values: [...oldSettingItem.values] })) }
-        ))
-      };
-    default:
-      throw new Error(`Unrecognized settings action in reducer: ${action.type}`);
+      return produce(oldState, draftState => {
+        for (const [i, settingsArea] of draftState.userSettings.entries()) {
+          if (settingsArea.id === action.payload.settingsAreaId) {
+            for (const [j, settingItem] of draftState.userSettings[i].settingItems.entries()) {
+              if (settingItem.id === action.payload.settingItem.id) {
+                draftState.userSettings[i].settingItems[j] = action.payload.settingItem;
+                break;
+              }
+            }
+            break;
+          }
+        }
+      });
+
   }
 };

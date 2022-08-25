@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -43,6 +44,13 @@ const SettingsPanel = ({ active, settingsPanelData }) => {
                       </MenuItem>
                     ))}
                   </Select>
+                </Stack>
+              );
+            case settingItemTypes.BOOL:
+              return (
+                <Stack key={settingItem.id} direction="row" spacing={2}>
+                  <Typography variant="subtitle1">{settingItem.displayName}</Typography>
+                  <Checkbox checked={settingItem.value} onChange={e => updateSettingItem(settingsPanelData.id, { ...settingItem, value: e.target.checked })} />
                 </Stack>
               );
             default:

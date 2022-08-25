@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import classes from './App.module.css';
 
@@ -8,6 +8,7 @@ import TopBar from './containers/TopBar';
 import InitiativeList from './containers/InitiativeList';
 import InitiativeModal from './containers/InitiativeModal';
 import SettingsModal from './containers/SettingsModal';
+import Updater from './containers/Updater';
 
 import parchmentBackground from './assets/parchment.jpg';
 
@@ -15,6 +16,9 @@ import { CombatProvider } from './contextProviders/combat';
 import { SettingsProvider } from './contextProviders/settings';
 
 function App() {
+  useEffect(() => {
+
+  }, []);
 
   // const handleKeyPress = (e) => {
   //   if (e.ctrlKey && e.shiftKey && e.key === ' ') return handleCombatStop();
@@ -34,7 +38,8 @@ function App() {
             </Box>
             <InitiativeModal />
             <SettingsModal />
-          </Box>
+          </Box>               
+          <Updater />
         </CombatProvider>
       </SettingsProvider>
     </Box>

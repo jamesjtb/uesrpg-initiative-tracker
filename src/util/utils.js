@@ -12,4 +12,6 @@ const rollDice = (sides, qty=1) => {
   return {rolls, total}
 }
 
-export {rollDice, uuid};
+const delay = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export {rollDice, uuid, delay};

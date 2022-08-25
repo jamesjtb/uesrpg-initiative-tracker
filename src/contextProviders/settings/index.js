@@ -13,19 +13,22 @@ export const SettingsProvider = props => {
   const [ state, dispatch ] = useReducer(settingsReducer, initialState);
 
   useEffect(() => {
-    window.fs.loadSettings().then(userSettings => {
+    const loadFromFile = async () => {
+      const userSettings = await window.fs.loadSettings();
       if (userSettings) {
         dispatch({ type: settingsActions.SET_USER_SETTINGS, payload: { userSettings }});
         console.log("Loaded User Settings from file");
       } else {
         dispatch({ type: settingsActions.SET_USER_SETTINGS, payload: { userSettings: [ ...defaultSettings.userSettings ] } });
+        console.log('Set settings to default');
       }
       initialLoadDone.current = true;
-    });
+    };
+    loadFromFile();
   }, []);
 
   useEffect(() => {
-    if (initialLoadDone.current) {  
+    if (initialLoadDone.current) {
       window.fs.saveSettings(state.userSettings).then(() => console.log('Saved user settings'));
     }
   }, [ state.userSettings ]);
@@ -45,7 +48,8 @@ export const SettingsProvider = props => {
       value={{
         settingsState: state,
         setSettingsModalOpen,
-        updateSettingItem
+        updateSettingItem,
+        initialLoadDone
       }}
     >
       {props.children}
