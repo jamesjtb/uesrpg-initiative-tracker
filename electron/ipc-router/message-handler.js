@@ -22,6 +22,13 @@ class MessageHandler {
                 return await this.filestoreController.saveCombatants(action.payload, this.mainWindow);
             case this.ipcActions.FILESTORE.LOAD_FILE:
                 return await this.filestoreController.loadFile(this.mainWindow);
+            // Settings Actions
+            case this.ipcActions.SETTINGS.GET_AREAS:
+                return await this.settingsController.getAreas();
+            case this.ipcActions.SETTINGS.GET:
+                return await this.settingsController.get(action.payload);
+            case this.ipcActions.SETTINGS.UPDATE:
+                return await this.settingsController.update(action.payload);
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }
