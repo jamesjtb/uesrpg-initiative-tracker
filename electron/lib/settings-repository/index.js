@@ -48,7 +48,7 @@ class SettingsRepository {
       fs.writeFileSync(SETTINGS_FILE_LOCATION, JSON.stringify(this.#settings), 'utf8');
     }
     const settings = fs.readFileSync(SETTINGS_FILE_LOCATION, 'utf8');
-    return JSON.parse(settings);
+    this.#settings = JSON.parse(settings);
   }
 
   #persistSettings () {
