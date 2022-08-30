@@ -17,34 +17,31 @@ const settingsIpc = window.settings;
 const Updater = () => {
   const [ latestVersion, setLatestVersion ] = useState(null);
   const [ checkForUpdatesValue, setCheckForUpdatesValue ] = useState(null);
-  
-  const  updateState = useRef(updateStates.STARTUP);
-
-  const checkForUpdates = () => {
-    updateState.current = updateStates.CHECKING;
-  };
+  const [ updateState, setUpdateState ] = useState(updateStates.STARTUP);
 
   useEffect(() => {
     (async () => {
-      if (updateState.current !== updateStates.STARTUP) return;
-      updateState.current = updateState.INITIALIZING;
+      if (updateState !== updateStates.STARTUP) return;
+      setUpdateState(updateState.INITIALIZING);
       const returnedSettings = await settingsIpc.get('general');
       setCheckForUpdatesValue(returnedSettings.checkForUpdates.value);
     })();
-  }, []);
+  }, [updateState, setUpdateState]);
 
   useEffect(() => {
-    if (checkForUpdatesValue === true) checkForUpdates();
-  }, [checkForUpdatesValue])
+    if (checkForUpdatesValue === true) {
+        setUpdateState(updateStates.CHECKING);
+    }
+  }, [checkForUpdatesValue, setUpdateState])
 
   return (
     <Snackbar
-      open={[ updateStates.CHECKING, updateStates.OUTDATED, updateStates.CURRENT ].includes(updateState.current)}
+      open={[ updateStates.CHECKING, updateStates.OUTDATED, updateStates.CURRENT ].includes(updateState)}
       autoHideDuration={6000}
-      onClose={() => updateState.current = updateStates.ALERTCLOSED}
+      onClose={() => setUpdateState(updateStates.ALERTCLOSED)}
     >
       <Alert
-        onClose={() => updateState.current = updateStates.ALERTCLOSED}
+        onClose={() => setUpdateState(updateStates.ALERTCLOSED)}
       />
     </Snackbar>
   );

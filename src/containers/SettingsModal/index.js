@@ -44,7 +44,7 @@ const SettingsModal = ({ open, setOpen }) => {
                 <Tabs value={currentTab} onChange={(e, newTab) => setCurrentTab(newTab)}>
                     {settingAreas.map((settingArea, i) => <Tab label={settingArea} value={i} key={i} />)}
                 </Tabs>
-                {settingAreas.map((settingArea, i) => <SettingsPanel active={i === currentTab} settingArea={settingArea} />)}
+                {settingAreas.map((settingArea, i) => <SettingsPanel active={i === currentTab} settingArea={settingArea} key={i} />)}
                 <Grid container justifyContent="flex-end">
                     <Button color="secondary" variant="contained" onClick={e => setOpen(false)}>Done</Button>
                 </Grid>
