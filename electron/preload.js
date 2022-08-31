@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld('fs', {
 
 contextBridge.exposeInMainWorld('app', {
   quit: () => ipcRenderer.invoke('message', { type: ipcActions.APP.QUIT }),
+  getVersion: () => ipcRenderer.invoke('message', { type: ipcActions.APP.GETVERSION}),
 });
 
 contextBridge.exposeInMainWorld('settings', {

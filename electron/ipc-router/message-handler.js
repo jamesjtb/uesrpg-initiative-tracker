@@ -11,7 +11,7 @@ class MessageHandler {
             // App Actions
             case this.ipcActions.APP.QUIT:
                 return this.appController.quitApp();
-            case this.ipcActions.APP.VERSION:
+            case this.ipcActions.APP.GETVERSION:
                 return this.appController.getAppVersion();
             case this.ipcActions.APP.USERSETTINGS.LOAD:
                 return await this.appController.loadUserSettings();

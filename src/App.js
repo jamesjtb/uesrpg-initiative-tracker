@@ -44,8 +44,8 @@ function App() {
                     <InitiativeModal />
                     <SettingsModal open={settingsModalOpen} setOpen={setSettingsModalOpen} />
                 </Box>
-                <Updater />
             </CombatProvider>
+            <Updater />
         </Box>
     );
 }

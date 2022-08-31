@@ -45,6 +45,12 @@ function createWindow() {
 
   mainWindowState.manage(mainWindow);
 
+  // Open new window links in browser
+  mainWindow.webContents.on('new-window', function(e, url) {
+    e.preventDefault();
+    require('electron').shell.openExternal(url);
+  });
+
   // and load the index.html of the app.
   mainWindow.loadURL(startURL);
 
