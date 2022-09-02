@@ -1,3 +1,5 @@
+const isDev = require('electron-is-dev');
+
 class MessageHandler {
     ipcActions = require('../../src/shared/ipc-actions');
     appController = require('./controllers/app-controller');
@@ -7,6 +9,7 @@ class MessageHandler {
         this.mainWindow = mainWindow;
     }
     async handle (action) {
+        if (isDev) console.log(`Handling message type: ${action.type}`);
         switch(action.type) {
             // App Actions
             case this.ipcActions.APP.QUIT:
