@@ -20,5 +20,6 @@ contextBridge.exposeInMainWorld('settings', {
     get: (settingArea) => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.GET, payload: settingArea }),
     update: (settingUpdate) => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.UPDATE, payload: settingUpdate }),
     getTypes: () => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.GET_TYPES }),
-    getAreas: () => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.GET_AREAS })
+    getAreas: () => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.GET_AREAS }),
+    onUpdate: (handler) => ipcRenderer.on(ipcActions.SETTINGS.ON_UPDATE, (event, ...args) => handler(...args)),
 });

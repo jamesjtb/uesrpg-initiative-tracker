@@ -15,6 +15,7 @@ module.exports = {
         GET: 'settings:get',
         UPDATE: 'settings:update',
         GET_TYPES: 'settings:get-types',
-        GET_AREAS: 'settings:get-areas'
+        GET_AREAS: 'settings:get-areas',
+        ON_UPDATE: 'settings:on-update'
     }
 };

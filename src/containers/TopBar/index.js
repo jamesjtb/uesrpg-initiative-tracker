@@ -31,11 +31,18 @@ const TopBar = ({ setSettingsModalOpen }) => {
     const [combatSettings, setCombatSettings] = useState(null);
     const isAddMenuOpen = Boolean(addMenuAnchor);
 
+    settingsIpc.onUpdate(() => {
+        (async () => {
+            const newCombatSettings = await settingsIpc.get('combat');
+            setCombatSettings({ ...newCombatSettings });
+        })();
+    });
+
     useEffect(() => {
         (async () => {
-            const returnedSettings = settingsIpc.get('combat');
-            setCombatSettings({ ...returnedSettings });
-        })()
+            const newCombatSettings = await settingsIpc.get('combat');
+            setCombatSettings({ ...newCombatSettings });
+        })();
     }, []);
 
     const handleAddMenuOpen = event => {

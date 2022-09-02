@@ -28,7 +28,7 @@ class MessageHandler {
             case this.ipcActions.SETTINGS.GET:
                 return await this.settingsController.get(action.payload);
             case this.ipcActions.SETTINGS.UPDATE:
-                return await this.settingsController.update(action.payload);
+                return await this.settingsController.update(action.payload, this.mainWindow);
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }
