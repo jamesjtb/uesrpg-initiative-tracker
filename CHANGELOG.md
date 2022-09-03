@@ -2,7 +2,10 @@
 
 List new features, changes, and bug fixes by version
 
-## 0.2.2 (In Progress)
+## [0.3.0](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.3.0)
+
+### Notes:
+This version uses a new settings format in the backend. As a result, your setting for the initiative version will be reset.
 
 ### New features:
 
