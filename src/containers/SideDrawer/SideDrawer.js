@@ -6,8 +6,6 @@ import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -17,6 +15,7 @@ import Save from '@mui/icons-material/Save';
 import Folder from '@mui/icons-material/Folder';
 import Settings from '@mui/icons-material/Settings';
 import Replay from '@mui/icons-material/Replay';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import { CombatContext } from '../../contextProviders/combat';
 import { combatantTypes } from '../../contextProviders/combat/values';
@@ -45,10 +44,12 @@ const closedMixin = theme => ({
 });
 
 const DrawerHeader = styled('div')(({ theme }) => ({
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
+    padding: theme.spacing(0, 1.5),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
 }));
@@ -72,8 +73,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'open' })
 
 const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
     const { combatState, setCombatants } = useContext(CombatContext);
-
-    const theme = useTheme();
 
     const saveToFile = async type => {
         await window.fs.saveCombatants(
@@ -108,8 +107,8 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
     return (
         <Drawer variant="permanent" open={open}>
             <DrawerHeader>
-                <IconButton onClick={toggle}>
-                    {theme.direction === 'rt1' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                <IconButton color="inherit" onClick={toggle}>
+                    <MenuIcon />
                 </IconButton>
             </DrawerHeader>
             <Divider />

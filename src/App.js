@@ -4,7 +4,7 @@ import classes from './App.module.css';
 
 import Box from '@mui/material/Box';
 
-import TopBar from './containers/TopBar';
+import InitiativeControlCard from './containers/InitiativeControlCard/InitiativeControlCard';
 import SideDrawer from './containers/SideDrawer/SideDrawer';
 import InitiativeList from './containers/InitiativeList';
 import InitiativeModal from './containers/InitiativeModal';
@@ -40,10 +40,6 @@ function App() {
             }}
         >
             <CombatProvider>
-                <TopBar
-                    toggleSideDrawer={() => setSideDrawerOpen(!sideDrawerOpen)}
-                    isSideDrawerOpen={sideDrawerOpen}
-                />
                 <SideDrawer
                     open={sideDrawerOpen}
                     toggle={() => setSideDrawerOpen(!sideDrawerOpen)}
@@ -56,6 +52,7 @@ function App() {
                     component="main"
                     sx={{ flexGrow: 1, overflowY: 'auto' }}
                 >
+                    <InitiativeControlCard />
                     <InitiativeList />
                 </Box>
                 <InitiativeModal />

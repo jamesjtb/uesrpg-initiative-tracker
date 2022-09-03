@@ -41,7 +41,7 @@ export const CombatProvider = props => {
   };
 
   const addCombatant = (type) => {
-    dispatch({ type: combatActions.ADD_NEW_COMBATANT, payload: { type } });
+    dispatch({ type: combatActions.ADD_NEW_COMBATANT });
   };
 
   const editCombatant = combatant => {

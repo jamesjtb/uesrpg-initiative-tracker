@@ -1,5 +1,5 @@
 import { uuid } from '../../util/utils';
-import { combatActions, combatantStatuses, defaultCombatant, combatantIntegerFields } from './values';
+import { combatActions, combatantStatuses, defaultCombatant, combatantIntegerFields, combatantTypes } from './values';
 
 // Normalize data types in one place rather than at each edit point
 const correctDataTypes = combatant => {
@@ -92,7 +92,7 @@ export const combatReducer = (oldState, action) => {
         ...oldState,
         combatants: [
           ...oldState.combatants.map(oldCombatant => ({ ...oldCombatant, conditions: [...oldCombatant.conditions] })),
-          { ...defaultCombatant, id: uuid(), type: action.payload.type, conditions: [...defaultCombatant.conditions] }
+          { ...defaultCombatant, id: uuid(), type: combatantTypes.NPC, conditions: [...defaultCombatant.conditions] }
         ]
       };
     // Duplicate a combatant
