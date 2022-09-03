@@ -5,6 +5,7 @@ import classes from './App.module.css';
 import Box from '@mui/material/Box';
 
 import TopBar from './containers/TopBar';
+import SideDrawer from './containers/SideDrawer/SideDrawer';
 import InitiativeList from './containers/InitiativeList';
 import InitiativeModal from './containers/InitiativeModal';
 import SettingsModal from './containers/SettingsModal';
@@ -16,6 +17,7 @@ import { CombatProvider } from './contextProviders/combat';
 
 function App() {
     const [settingsModalOpen, setSettingsModalOpen] = useState(false);
+    const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
     // const handleKeyPress = (e) => {
     //   if (e.ctrlKey && e.shiftKey && e.key === ' ') return handleCombatStop();
@@ -28,22 +30,34 @@ function App() {
         <Box
             tabIndex="0"
             className={classes.App}
-            style={{
+            sx={{
                 backgroundImage: `url(${parchmentBackground})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center center',
+                display: 'flex',
             }}
         >
             <CombatProvider>
-                <TopBar setSettingsModalOpen={setSettingsModalOpen} />
-                <Box style={{ overflowY: 'auto' }}>
-                    <Box className={classes.InitiativeContainer}>
-                        <InitiativeList />
-                    </Box>
-                    <InitiativeModal />
-                    <SettingsModal open={settingsModalOpen} setOpen={setSettingsModalOpen} />
+                <TopBar
+                    toggleSideDrawer={() => setSideDrawerOpen(!sideDrawerOpen)}
+                    isSideDrawerOpen={sideDrawerOpen}
+                />
+                <SideDrawer
+                    open={sideDrawerOpen}
+                    toggle={() => setSideDrawerOpen(!sideDrawerOpen)}
+                    setSettingsModalOpen={setSettingsModalOpen}
+                />
+
+                <Box
+                    className={classes.InitiativeContainer}
+                    component="main"
+                    sx={{ flexGrow: 1, overflowY: 'auto' }}
+                >
+                    <InitiativeList />
                 </Box>
+                <InitiativeModal />
+                <SettingsModal open={settingsModalOpen} setOpen={setSettingsModalOpen} />
             </CombatProvider>
             <Updater />
         </Box>

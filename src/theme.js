@@ -13,9 +13,8 @@ const theme = createTheme({
       main: '#f44336',
     },
     background: {
-      default: '#DCD5C5',
-      // paper: '#F4F1E8',
-      paper: '#FFF'
+      default: '#FFF',
+      paper: '#DCD5C5'
     },
     divider: 'rgba(0,0,0,0.3)',
   },
@@ -26,6 +25,11 @@ const theme = createTheme({
     fontWeightRegular: 500,
     fontWeightMedium: 700,
     fontWeightBold: 800
+  },
+  mixins: {
+    toolbar: {
+        minHeight: 48
+    }
   }
 });
 

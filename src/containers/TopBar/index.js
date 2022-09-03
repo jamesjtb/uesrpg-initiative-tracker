@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-
-import AppBar from '@mui/material/AppBar';
+import { styled, useTheme } from '@mui/material/styles';
+import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
@@ -14,15 +14,32 @@ import SkipNext from '@mui/icons-material/SkipNext';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
 import Stop from '@mui/icons-material/Stop';
 
-import AppMenu from './AppMenu';
-
 import { CombatContext } from '../../contextProviders/combat';
 
 import { combatantTypes } from '../../contextProviders/combat/values';
 
 const settingsIpc = window.settings;
+const drawerWidth = 240;
 
-const TopBar = ({ setSettingsModalOpen }) => {
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
+
+const TopBar = ({ toggleSideDrawer, isSideDrawerOpen }) => {
     const { combatState, initiateCombat, stopCombat, advanceTurn, addCombatant } =
         useContext(CombatContext);
 
@@ -59,16 +76,6 @@ const TopBar = ({ setSettingsModalOpen }) => {
     };
 
     /*********** */
-    const [appMenuAnchor, setAppMenuAnchor] = useState(null);
-    const isAppMenuOpen = Boolean(appMenuAnchor);
-
-    const handleAppMenuClose = () => {
-        setAppMenuAnchor(null);
-    };
-
-    const handleAppMenuOpen = e => {
-        setAppMenuAnchor(e.currentTarget);
-    };
 
     const addMenu = (
         <Menu
@@ -97,11 +104,11 @@ const TopBar = ({ setSettingsModalOpen }) => {
 
     return (
         <>
-            <AppBar position="fixed">
-                <Toolbar variant="dense" style={{ justifyContent: 'space-between' }}>
+            <AppBar position="fixed" open={isSideDrawerOpen}>
+                <Toolbar style={{ justifyContent: 'space-between' }}>
                     <Box>
                         <IconButton
-                            onClick={e => handleAppMenuOpen(e)}
+                            onClick={toggleSideDrawer}
                             edge="start"
                             color="inherit"
                             aria-label="menu"
@@ -158,12 +165,6 @@ const TopBar = ({ setSettingsModalOpen }) => {
                 </Toolbar>
             </AppBar>
             {addMenu}
-            <AppMenu
-                anchorEl={appMenuAnchor}
-                open={isAppMenuOpen}
-                closeAppMenu={handleAppMenuClose}
-                setSettingsModalOpen={setSettingsModalOpen}
-            />
         </>
     );
 };
