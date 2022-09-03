@@ -7,7 +7,7 @@ List new features, changes, and bug fixes by version
 ### New features:
 
 -   Checking for updates
-    -   Added a setting for automatic update checking on startup
+    -   Added a setting for automatic update checking on startup (turned off by default)
     -   Added a button to manually trigger an update from the side drawer
 -   Added an initiative controls card
 -   Added a button to add a combatant at the initiative table's footer
