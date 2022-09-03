@@ -13,8 +13,8 @@ const theme = createTheme({
       main: '#f44336',
     },
     background: {
-      default: '#FFF',
-      paper: '#DCD5C5'
+      default: '#DCD5C5',
+      paper: '#FFF'
     },
     divider: 'rgba(0,0,0,0.3)',
   },
