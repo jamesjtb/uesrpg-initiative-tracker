@@ -1,5 +1,13 @@
 # Changelog
 List new features, changes, and bug fixes by version
+## 0.2.2 (In Progress)
+### New features:
+- Checking for updates
+    - Added a setting for automatic update checking on startup
+    - Added a button to manually trigger an update from the side drawer
+### Changes
+- Changed the app menu to a collapsing "side drawer". Making way for changes in how PCs, NPCs, and Encounters will be created and saved in 0.3.x
+- Changed a ton of background code in how settings are saved. More stability, more realtime updates (changing initiative type mid round, etc)
 ## [0.2.1](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.2.1)
 ### Changes:
 - Added Initiative Total to Combatant Listing if combat is running

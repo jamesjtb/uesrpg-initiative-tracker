@@ -18,6 +18,7 @@ import { CombatProvider } from './contextProviders/combat';
 function App() {
     const [settingsModalOpen, setSettingsModalOpen] = useState(false);
     const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+    const [triggerUpdate, setTriggerUpdate] = useState(false);
 
     // const handleKeyPress = (e) => {
     //   if (e.ctrlKey && e.shiftKey && e.key === ' ') return handleCombatStop();
@@ -47,6 +48,7 @@ function App() {
                     open={sideDrawerOpen}
                     toggle={() => setSideDrawerOpen(!sideDrawerOpen)}
                     setSettingsModalOpen={setSettingsModalOpen}
+                    onTriggerUpdate={() => setTriggerUpdate(true)}
                 />
 
                 <Box
@@ -59,7 +61,7 @@ function App() {
                 <InitiativeModal />
                 <SettingsModal open={settingsModalOpen} setOpen={setSettingsModalOpen} />
             </CombatProvider>
-            <Updater />
+            <Updater triggerUpdate={triggerUpdate} onUpdateComplete={() => setTriggerUpdate(false)} />
         </Box>
     );
 }

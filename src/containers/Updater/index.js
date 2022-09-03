@@ -19,7 +19,7 @@ const updateStates = {
 const settingsIpc = window.settings;
 const appIpc = window.app;
 
-const Updater = () => {
+const Updater = ({ triggerUpdate, onUpdateComplete }) => {
     const [latestVersion, setLatestVersion] = useState({ tag: null, url: null });
     const [checkForUpdatesValue, setCheckForUpdatesValue] = useState(null);
     const [updateState, setUpdateState] = useState(updateStates.STARTUP);
@@ -29,6 +29,7 @@ const Updater = () => {
         const gitHubApiRepository = new GitHubApiRepository();
         const latestRelease = await gitHubApiRepository.getLatestRelease();
         setLatestVersion({ tag: latestRelease?.tag_name, url: latestRelease?.html_url });
+        onUpdateComplete();
     };
 
     useEffect(() => {
@@ -43,14 +44,14 @@ const Updater = () => {
     }, [updateState, setUpdateState]);
 
     useEffect(() => {
-        if (checkForUpdatesValue === true) {
+        if (checkForUpdatesValue === true || triggerUpdate) {
             setUpdateState(updateStates.CHECKING);
             setIsOpen(true);
             checkForUpdates();
             return;
         }
         setUpdateState(updateStates.DISABLED);
-    }, [ checkForUpdatesValue, setUpdateState ]);
+    }, [ checkForUpdatesValue, setUpdateState, triggerUpdate ]);
 
     useEffect(() => {
         (async () => {

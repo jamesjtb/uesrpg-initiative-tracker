@@ -70,7 +70,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'open' })
     })
 );
 
-const AppDrawer = ({ open, toggle, setSettingsModalOpen }) => {
+const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
     const { combatState, setCombatants } = useContext(CombatContext);
 
     const theme = useTheme();
@@ -186,7 +186,7 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen }) => {
                 <ListItem
                     disablePadding
                     sx={{ display: 'block' }}
-                    onClick={() => console.log('boop')}
+                    onClick={onTriggerUpdate}
                 >
                     <ListItemButton
                         sx={{
