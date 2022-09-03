@@ -15,7 +15,6 @@ import ListItemText from '@mui/material/ListItemText';
 
 import Save from '@mui/icons-material/Save';
 import Folder from '@mui/icons-material/Folder';
-import Clear from '@mui/icons-material/Clear';
 import Settings from '@mui/icons-material/Settings';
 import Replay from '@mui/icons-material/Replay';
 
@@ -234,30 +233,6 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen }) => {
                     </ListItemButton>
                 </ListItem>
                 <Divider />
-                {/* <ListItem
-                    disablePadding
-                    sx={{ display: 'block' }}
-                    onClick={() => window.app.quit()}
-                >
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}
-                    >
-                        <ListItemIcon
-                            sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <Clear />
-                        </ListItemIcon>
-                        <ListItemText primary="Exit" sx={{ opacity: open ? 1 : 0 }} />
-                    </ListItemButton>
-                </ListItem> */}
             </List>
         </Drawer>
     );
