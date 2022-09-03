@@ -390,6 +390,7 @@ const CombatantListing = ({ combatant }) => {
                 <Tooltip
                     title="Click to use, left click to replenish."
                     enterDelay={700}
+                    enterNextDelay={700}
                     leaveDelay={200}
                     disableInteractive
                 >
@@ -480,7 +481,8 @@ const CombatantListing = ({ combatant }) => {
             <CompactTableCell align="center">
                 <Tooltip
                     title="Click to use, left click to replenish."
-                    enterDelay={700}
+                    enterDelay={700}                    
+                    enterNextDelay={700}
                     leaveDelay={200}
                     disableInteractive
                 >
@@ -504,6 +506,7 @@ const CombatantListing = ({ combatant }) => {
                 <Tooltip
                     title="Click to use, left click to replenish."
                     enterDelay={700}
+                    enterNextDelay={700}
                     leaveDelay={200}
                     disableInteractive
                 >
