@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -9,62 +9,58 @@ import GitHubApiRepository from '../../util/github-client';
 
 const updateStates = {
     STARTUP: 'STARTUP',
-    INITIALIZING: 'INITIALIZING',
     CHECKING: 'CHECKING',
     OUTDATED: 'OUTDATED',
     CURRENT: 'CURRENT',
-    DISABLED: 'DISABLED',
+    DORMANT: 'DORMANT',
 };
 
 const settingsIpc = window.settings;
 const appIpc = window.app;
 
 const Updater = ({ triggerUpdate, onUpdateComplete }) => {
-    const [latestVersion, setLatestVersion] = useState({ tag: null, url: null });
-    const [checkForUpdatesValue, setCheckForUpdatesValue] = useState(null);
     const [updateState, setUpdateState] = useState(updateStates.STARTUP);
     const [isOpen, setIsOpen] = useState(false);
+    const [latestRelease, setLatestRelease] = useState({ tag: null, url: null });
 
-    const checkForUpdates = async () => {
+    const getLatestRelease = useCallback(async () => {
         const gitHubApiRepository = new GitHubApiRepository();
         const latestRelease = await gitHubApiRepository.getLatestRelease();
-        setLatestVersion({ tag: latestRelease?.tag_name, url: latestRelease?.html_url });
-        onUpdateComplete();
+        return { tag: latestRelease?.tag_name, url: latestRelease?.html_url };
+    }, []);
+
+    const handleClose = () => {
+        setUpdateState(updateStates.DORMANT);
+        setIsOpen(false);
     };
 
     useEffect(() => {
         (async () => {
-            if (updateState === updateStates.STARTUP) {
-                setUpdateState(updateState.INITIALIZING);
+            if (updateState === updateStates.STARTUP || (triggerUpdate && updateState === updateStates.DORMANT)) {
                 const returnedSettings = await settingsIpc.get('general');
-                setCheckForUpdatesValue(returnedSettings.checkForUpdates.value);
+                if (returnedSettings.checkForUpdates.value) {
+                    setUpdateState(updateStates.CHECKING);
+                    setIsOpen(true);
+                    return;                    
+                }
+                setUpdateState(updateStates.DORMANT);
+                return;
+            }
+
+            if (updateState === updateStates.CHECKING) {
+                const latest = await getLatestRelease();
+                const localVersion = await appIpc.getVersion();
+                if (`v${localVersion}` === latest.tag) {
+                    setUpdateState(updateStates.CURRENT);
+                } else {                    
+                    setLatestRelease(latest);
+                    setUpdateState(updateStates.OUTDATED);
+                }
+                onUpdateComplete();
                 return;
             }
         })();
-    }, [updateState, setUpdateState]);
-
-    useEffect(() => {
-        if (checkForUpdatesValue === true || triggerUpdate) {
-            setUpdateState(updateStates.CHECKING);
-            setIsOpen(true);
-            checkForUpdates();
-            return;
-        }
-        setUpdateState(updateStates.DISABLED);
-    }, [ checkForUpdatesValue, setUpdateState, triggerUpdate ]);
-
-    useEffect(() => {
-        (async () => {
-            if (latestVersion.tag && updateState === updateStates.CHECKING) {
-                const localVersion = await appIpc.getVersion();
-                if (`v${localVersion}` === latestVersion.tag) {
-                    setUpdateState(updateStates.CURRENT);
-                    return;
-                }
-                setUpdateState(updateStates.OUTDATED);
-            }
-        })();
-    }, [latestVersion, updateState]);
+    }, [ updateState, getLatestRelease, triggerUpdate, onUpdateComplete ]);
 
     return (
         <Snackbar
@@ -82,15 +78,16 @@ const Updater = ({ triggerUpdate, onUpdateComplete }) => {
                     <CircularProgress size="1em" />
                 </Alert>
             ) : updateState === updateStates.CURRENT ? (
-                <Alert severity="success" onClose={() => setIsOpen(false)}>
-                    <Typography component="span">
-                        Up to Date
-                    </Typography>
+                <Alert severity="success" onClose={handleClose}>
+                    <Typography component="span">Up to Date</Typography>
                 </Alert>
-            ): updateState === updateStates.OUTDATED ? (
-                <Alert severity="warning" onClose={() => setIsOpen(false)}>
+            ) : updateState === updateStates.OUTDATED ? (
+                <Alert severity="warning" onClose={handleClose}>
                     <Typography>
-                        Local verison out of date. Latest Version: <a href={latestVersion.url} target="_blank" rel="noreferrer">{latestVersion.tag}</a>
+                        Local version out of date. Latest Version:{' '}
+                        <a href={latestRelease.url} target="_blank" rel="noreferrer">
+                            {latestRelease.tag}
+                        </a>
                     </Typography>
                 </Alert>
             ) : null}
