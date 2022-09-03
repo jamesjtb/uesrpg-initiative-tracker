@@ -10,6 +10,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Tooltip from '@mui/material/Tooltip';
 
 import Save from '@mui/icons-material/Save';
 import Folder from '@mui/icons-material/Folder';
@@ -114,97 +115,138 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
             <Divider />
             <List>
                 <ListItem disablePadding sx={{ display: 'block' }} onClick={loadFile}>
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}
+                    <Tooltip
+                        title="Load from File"
+                        enterDelay={700}
+                        enterNextDelay={700}
+                        leaveDelay={200}
+                        disableInteractive
+                        disableHoverListener={open}
                     >
-                        <ListItemIcon
+                        <ListItemButton
                             sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
                             }}
                         >
-                            <Folder />
-                        </ListItemIcon>
-                        <ListItemText primary="Load from File" sx={{ opacity: open ? 1 : 0 }} />
-                    </ListItemButton>
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Folder />
+                            </ListItemIcon>
+                            <ListItemText primary="Load from File" sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </Tooltip>
                 </ListItem>
                 <ListItem
                     disablePadding
                     sx={{ display: 'block' }}
                     onClick={() => saveToFile(combatantTypes.PC)}
                 >
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}
+                    <Tooltip
+                        title="Save Party to File"
+                        enterDelay={700}
+                        enterNextDelay={700}
+                        leaveDelay={200}
+                        disableInteractive
+                        disableHoverListener={open}
                     >
-                        <ListItemIcon
+                        <ListItemButton
                             sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
                             }}
                         >
-                            <Save />
-                        </ListItemIcon>
-                        <ListItemText primary="Save Party to File" sx={{ opacity: open ? 1 : 0 }} />
-                    </ListItemButton>
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Save />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary="Save Party to File"
+                                sx={{ opacity: open ? 1 : 0 }}
+                            />
+                        </ListItemButton>
+                    </Tooltip>
                 </ListItem>
                 <ListItem
                     disablePadding
                     sx={{ display: 'block' }}
                     onClick={() => saveToFile(combatantTypes.NPC)}
                 >
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}
+                    <Tooltip
+                        title="Save Encounter to File"
+                        enterDelay={700}
+                        enterNextDelay={700}
+                        leaveDelay={200}
+                        disableInteractive
+                        disableHoverListener={open}
                     >
-                        <ListItemIcon
+                        <ListItemButton
                             sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
                             }}
                         >
-                            <Save />
-                        </ListItemIcon>
-                        <ListItemText primary="Save Encounter to File" sx={{ opacity: open ? 1 : 0 }} />
-                    </ListItemButton>
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Save />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary="Save Encounter to File"
+                                sx={{ opacity: open ? 1 : 0 }}
+                            />
+                        </ListItemButton>
+                    </Tooltip>
                 </ListItem>
                 <Divider />
-                <ListItem
-                    disablePadding
-                    sx={{ display: 'block' }}
-                    onClick={onTriggerUpdate}
-                >
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}
+                <ListItem disablePadding sx={{ display: 'block' }} onClick={onTriggerUpdate}>
+                    <Tooltip
+                        title="Check for Updates"
+                        enterDelay={700}
+                        enterNextDelay={700}
+                        leaveDelay={200}
+                        disableInteractive
+                        disableHoverListener={open}
                     >
-                        <ListItemIcon
+                        <ListItemButton
                             sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
                             }}
                         >
-                            <Replay />
-                        </ListItemIcon>
-                        <ListItemText primary="Check for Updates" sx={{ opacity: open ? 1 : 0 }} />
-                    </ListItemButton>
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Replay />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary="Check for Updates"
+                                sx={{ opacity: open ? 1 : 0 }}
+                            />
+                        </ListItemButton>
+                    </Tooltip>
                 </ListItem>
                 <Divider />
                 <ListItem
@@ -212,24 +254,33 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
                     sx={{ display: 'block' }}
                     onClick={() => setSettingsModalOpen(true)}
                 >
-                    <ListItemButton
-                        sx={{
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                            px: 2.5,
-                        }}
+                    <Tooltip
+                        title="Settings"
+                        enterDelay={700}
+                        enterNextDelay={700}
+                        leaveDelay={200}
+                        disableInteractive
+                        disableHoverListener={open}
                     >
-                        <ListItemIcon
+                        <ListItemButton
                             sx={{
-                                minWidth: 0,
-                                mr: open ? 3 : 'auto',
-                                justifyContent: 'center',
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
                             }}
                         >
-                            <Settings />
-                        </ListItemIcon>
-                        <ListItemText primary="Settings" sx={{ opacity: open ? 1 : 0 }} />
-                    </ListItemButton>
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Settings />
+                            </ListItemIcon>
+                            <ListItemText primary="Settings" sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </Tooltip>
                 </ListItem>
                 <Divider />
             </List>
