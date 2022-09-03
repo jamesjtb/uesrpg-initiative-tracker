@@ -67,7 +67,7 @@ const Updater = ({ triggerUpdate, onUpdateComplete }) => {
             open={isOpen}
             autoHideDuration={updateState === updateStates.CURRENT ? 10000 : null}
             onClose={(e, reason) => {
-                if (reason !== 'clickaway') setIsOpen(false);
+                if (reason !== 'clickaway') handleClose();
             }}
         >
             {updateState === updateStates.CHECKING ? (
