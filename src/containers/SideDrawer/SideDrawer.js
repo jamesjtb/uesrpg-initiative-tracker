@@ -234,7 +234,7 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen }) => {
                     </ListItemButton>
                 </ListItem>
                 <Divider />
-                <ListItem
+                {/* <ListItem
                     disablePadding
                     sx={{ display: 'block' }}
                     onClick={() => window.app.quit()}
@@ -257,7 +257,7 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen }) => {
                         </ListItemIcon>
                         <ListItemText primary="Exit" sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
-                </ListItem>
+                </ListItem> */}
             </List>
         </Drawer>
     );
