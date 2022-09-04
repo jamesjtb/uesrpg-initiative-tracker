@@ -7,7 +7,7 @@ The scope of this companion is to help facilitate smooth gameplay at the physica
 ## Contributing
 If you would like to contribute, feel free to reference an [issue](https://github.com/jamesjtb/uesrpg-companion/issues) or an item in the "Selected for Development" column in the [v1 project](https://github.com/jamesjtb/uesrpg-companion/projects/1). If you're looking to work on a larger feature or change request, you may want to check in with @SupaBeardyMan#6062 on discord to discuss a vision for the feature/change.
 
-If you're unfamiliar with the process, you can follow the instructions [here](https://gist.github.com/MarcDiethelm/7303312) to make a pull request. In your pull request, make sure to detail which items/issues were addressed and how they were addressed in your code changes.
+If you're unfamiliar with the process of contributing, you can follow the instructions [here](https://gist.github.com/MarcDiethelm/7303312) to make a pull request. In your pull request, make sure to detail which items/issues were addressed and how they were addressed in your code changes.
 
 ### Setting Up Your Local Dev Environment
 Development is, at this time, only set up for Windows development; specifically in powershell. Elevated permissions (running as Administrator) should not be required. If you would like to set up development (and/or distributable workflow) on a different environment, please leave the existing windows npm scripts intact on the resulting pull request.
