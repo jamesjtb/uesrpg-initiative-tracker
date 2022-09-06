@@ -5,7 +5,7 @@ import classes from './App.module.css';
 import Box from '@mui/material/Box';
 
 import InitiativeControlCard from './containers/InitiativeControlCard/InitiativeControlCard';
-import SideDrawer from './containers/SideDrawer/SideDrawer';
+import AppMenu from './containers/AppMenu/AppMenu';
 import InitiativeList from './containers/InitiativeList';
 import InitiativeModal from './containers/InitiativeModal';
 import SettingsModal from './containers/SettingsModal';
@@ -17,7 +17,7 @@ import { CombatProvider } from './contextProviders/combat';
 
 function App() {
     const [settingsModalOpen, setSettingsModalOpen] = useState(false);
-    const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+    const [appMenuOpen, setAppMenuOpen] = useState(false);
     const [triggerUpdate, setTriggerUpdate] = useState(false);
 
     // const handleKeyPress = (e) => {
@@ -40,9 +40,9 @@ function App() {
             }}
         >
             <CombatProvider>
-                <SideDrawer
-                    open={sideDrawerOpen}
-                    toggle={() => setSideDrawerOpen(!sideDrawerOpen)}
+                <AppMenu
+                    open={appMenuOpen}
+                    toggle={() => setAppMenuOpen(!appMenuOpen)}
                     setSettingsModalOpen={setSettingsModalOpen}
                     onTriggerUpdate={() => setTriggerUpdate(true)}
                 />

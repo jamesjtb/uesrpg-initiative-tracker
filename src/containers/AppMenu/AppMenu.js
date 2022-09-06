@@ -18,6 +18,8 @@ import Settings from '@mui/icons-material/Settings';
 import Replay from '@mui/icons-material/Replay';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import { SpiderFace } from '../../components/rpg-awesome/creatures-and-animals';
+
 import { CombatContext } from '../../contextProviders/combat';
 import { combatantTypes } from '../../contextProviders/combat/values';
 
@@ -212,6 +214,40 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
                                 primary="Save Encounter to File"
                                 sx={{ opacity: open ? 1 : 0 }}
                             />
+                        </ListItemButton>
+                    </Tooltip>
+                </ListItem>
+                <Divider />
+                <ListItem
+                    disablePadding
+                    sx={{ display: 'block' }}
+                    onClick={() => console.log('Bestiary')}
+                >
+                    <Tooltip
+                        title="Bestiary"
+                        enterDelay={700}
+                        enterNextDelay={700}
+                        leaveDelay={200}
+                        disableInteractive
+                        disableHoverListener={open}
+                    >
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <SpiderFace />
+                            </ListItemIcon>
+                            <ListItemText primary="Bestiary" sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </Tooltip>
                 </ListItem>
