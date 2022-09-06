@@ -9,13 +9,14 @@ import IconButton from '@mui/material/IconButton';
 
 import Save from '@mui/icons-material/Save';
 import Folder from '@mui/icons-material/Folder';
-import Settings from '@mui/icons-material/Settings';
 import Replay from '@mui/icons-material/Replay';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import AppMenuItem from './AppMenuItem/AppMenuItem';
 
 import { SpiderFace } from '../../components/rpg-awesome/creatures-and-animals';
+import { CrossedSwords } from '../../components/rpg-awesome/weapons-and-armor';
+import { Gears } from '../../components/rpg-awesome/electronics';
 
 import { CombatContext } from '../../contextProviders/combat';
 import { combatantTypes } from '../../contextProviders/combat/values';
@@ -125,6 +126,9 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
                 <Divider />
                 <AppMenuItem appMenuOpen={open} onClick={() => console.log('Bestiary')} displayText="Bestiary">
                     <SpiderFace />
+                </AppMenuItem>                
+                <AppMenuItem appMenuOpen={open} onClick={() => console.log('Encounters')} displayText="Encounters">
+                    <CrossedSwords />
                 </AppMenuItem>
                 <Divider />
                 <AppMenuItem appMenuOpen={open} onClick={onTriggerUpdate} displayText="Check for Updates">
@@ -132,7 +136,7 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
                 </AppMenuItem>
                 <Divider />
                 <AppMenuItem appMenuOpen={open} onClick={() => setSettingsModalOpen(true)} displayText="Settings">
-                    <Settings />
+                    <Gears />
                 </AppMenuItem>
                 <Divider />
             </List>
