@@ -56,8 +56,8 @@ function App() {
                 >
                     <Routes>
                         <Route path="/" element={<InitiativeList />} />
-                        <Route path="/bestiary" element={<Bestiary />} />
-                        <Route path="/party" element={<PartyManager />} />
+                        <Route path="bestiary" element={<Bestiary />} />
+                        <Route path="party" element={<PartyManager />} />
                     </Routes>
                 </Box>
                 <InitiativeModal />

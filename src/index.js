@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, HashRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 
 // import '@fontsource/roboto/300.css';
@@ -12,6 +12,7 @@ import '@fontsource/alegreya/700.css';
 import '@fontsource/alegreya/800.css';
 
 import App from './App';
+import Views from './views/Views';
 
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -27,7 +28,10 @@ root.render(
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Router>
-                <App />
+                <Routes>
+                    <Route path="/*" element={<App />} />
+                    <Route path="views/*" element={<Views />} />
+                </Routes>
             </Router>
         </ThemeProvider>
     </React.StrictMode>
