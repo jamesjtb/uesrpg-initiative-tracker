@@ -15,6 +15,7 @@ import { useTheme, styled } from '@mui/material/styles';
 
 import CombatantListing from './CombatantListing';
 import NewCombatant from '../NewCombatant';
+import InitiativeControlCard from '../InitiativeControlCard/InitiativeControlCard';
 
 import classes from './InitiativeList.module.css';
 
@@ -48,6 +49,7 @@ const InitiativeList = () => {
     return (
         <>
             <InitiativeContainer>
+                <InitiativeControlCard />
                 <Typography variant="h4" color="primary">
                     {combatState.round === -1
                         ? 'Out of Combat'

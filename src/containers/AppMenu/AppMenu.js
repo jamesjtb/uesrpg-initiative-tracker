@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
 
@@ -9,14 +10,14 @@ import IconButton from '@mui/material/IconButton';
 
 import Save from '@mui/icons-material/Save';
 import Folder from '@mui/icons-material/Folder';
-import Replay from '@mui/icons-material/Replay';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import AppMenuItem from './AppMenuItem/AppMenuItem';
 
-import { SpiderFace } from '../../components/rpg-awesome/creatures-and-animals';
+import { Skull, Cycle } from '../../components/rpg-awesome/rpg-icons';
 import { CrossedSwords } from '../../components/rpg-awesome/weapons-and-armor';
 import { Gears } from '../../components/rpg-awesome/electronics';
+import { DoubleTeam } from '../../components/rpg-awesome/players';
 
 import { CombatContext } from '../../contextProviders/combat';
 import { combatantTypes } from '../../contextProviders/combat/values';
@@ -117,25 +118,50 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
                 <AppMenuItem appMenuOpen={open} onClick={loadFile} displayText="Load from File">
                     <Folder />
                 </AppMenuItem>
-                <AppMenuItem appMenuOpen={open} onClick={() => saveToFile(combatantTypes.PC)} displayText="Save Party To File">
+                <AppMenuItem
+                    appMenuOpen={open}
+                    onClick={() => saveToFile(combatantTypes.PC)}
+                    displayText="Save Party To File"
+                >
                     <Save />
                 </AppMenuItem>
-                <AppMenuItem appMenuOpen={open} onClick={() => saveToFile(combatantTypes.NPC)} displayText="Save Encounter To File">
+                <AppMenuItem
+                    appMenuOpen={open}
+                    onClick={() => saveToFile(combatantTypes.NPC)}
+                    displayText="Save Encounter To File"
+                >
                     <Save />
                 </AppMenuItem>
                 <Divider />
-                <AppMenuItem appMenuOpen={open} onClick={() => console.log('Bestiary')} displayText="Bestiary">
-                    <SpiderFace />
-                </AppMenuItem>                
-                <AppMenuItem appMenuOpen={open} onClick={() => console.log('Encounters')} displayText="Encounters">
-                    <CrossedSwords />
+                <NavLink to="/">
+                    <AppMenuItem appMenuOpen={open} displayText="Encounters">
+                        <CrossedSwords />
+                    </AppMenuItem>
+                </NavLink>
+                <NavLink to="/party">
+                    <AppMenuItem appMenuOpen={open} displayText="Party">
+                        <DoubleTeam />
+                    </AppMenuItem>
+                </NavLink>
+                <NavLink to="/bestiary">
+                    <AppMenuItem appMenuOpen={open} displayText="Bestiary">
+                        <Skull />
+                    </AppMenuItem>
+                </NavLink>
+                <Divider />
+                <AppMenuItem
+                    appMenuOpen={open}
+                    onClick={onTriggerUpdate}
+                    displayText="Check for Updates"
+                >
+                    <Cycle />
                 </AppMenuItem>
                 <Divider />
-                <AppMenuItem appMenuOpen={open} onClick={onTriggerUpdate} displayText="Check for Updates">
-                    <Replay />
-                </AppMenuItem>
-                <Divider />
-                <AppMenuItem appMenuOpen={open} onClick={() => setSettingsModalOpen(true)} displayText="Settings">
+                <AppMenuItem
+                    appMenuOpen={open}
+                    onClick={() => setSettingsModalOpen(true)}
+                    displayText="Settings"
+                >
                     <Gears />
                 </AppMenuItem>
                 <Divider />

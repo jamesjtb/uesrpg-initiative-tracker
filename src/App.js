@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import classes from './App.module.css';
 
 import Box from '@mui/material/Box';
 
-import InitiativeControlCard from './containers/InitiativeControlCard/InitiativeControlCard';
 import AppMenu from './containers/AppMenu/AppMenu';
 import InitiativeList from './containers/InitiativeList';
+import Bestiary from './containers/Bestiary/Bestiary';
+import PartyManager from './containers/PartyManager/PartyManager';
 import InitiativeModal from './containers/InitiativeModal';
 import SettingsModal from './containers/SettingsModal';
 import Updater from './containers/Updater';
@@ -48,17 +50,23 @@ function App() {
                 />
 
                 <Box
-                    className={classes.InitiativeContainer}
+                    className={classes.ContentContainer}
                     component="main"
                     sx={{ flexGrow: 1, overflowY: 'auto' }}
                 >
-                    <InitiativeControlCard />
-                    <InitiativeList />
+                    <Routes>
+                        <Route path="/" element={<InitiativeList />} />
+                        <Route path="/bestiary" element={<Bestiary />} />
+                        <Route path="/party" element={<PartyManager />} />
+                    </Routes>
                 </Box>
                 <InitiativeModal />
                 <SettingsModal open={settingsModalOpen} setOpen={setSettingsModalOpen} />
             </CombatProvider>
-            <Updater triggerUpdate={triggerUpdate} onUpdateComplete={() => setTriggerUpdate(false)} />
+            <Updater
+                triggerUpdate={triggerUpdate}
+                onUpdateComplete={() => setTriggerUpdate(false)}
+            />
         </Box>
     );
 }

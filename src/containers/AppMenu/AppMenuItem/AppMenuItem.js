@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -6,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Tooltip from '@mui/material/Tooltip';
 
-const AppMenuItem = ({ appMenuOpen, displayText, children, onClick }) => {
+const AppMenuItem = ({ appMenuOpen, displayText, children, onClick, linkTo }) => {
     return (
         <ListItem disablePadding sx={{ display: 'block' }} onClick={onClick}>
             <Tooltip

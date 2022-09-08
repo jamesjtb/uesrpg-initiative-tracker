@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge, ipcRenderer, shell } = require('electron');
 const ipcActions = require('../src/shared/ipc-actions');
 
 contextBridge.exposeInMainWorld('fs', {
@@ -12,14 +12,21 @@ contextBridge.exposeInMainWorld('fs', {
 });
 
 contextBridge.exposeInMainWorld('app', {
-  quit: () => ipcRenderer.invoke('message', { type: ipcActions.APP.QUIT }),
-  getVersion: () => ipcRenderer.invoke('message', { type: ipcActions.APP.GETVERSION}),
+    quit: () => ipcRenderer.invoke('message', { type: ipcActions.APP.QUIT }),
+    getVersion: () => ipcRenderer.invoke('message', { type: ipcActions.APP.GETVERSION }),
 });
 
 contextBridge.exposeInMainWorld('settings', {
-    get: (settingArea) => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.GET, payload: settingArea }),
-    update: (settingUpdate) => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.UPDATE, payload: settingUpdate }),
+    get: settingArea =>
+        ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.GET, payload: settingArea }),
+    update: settingUpdate =>
+        ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.UPDATE, payload: settingUpdate }),
     getTypes: () => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.GET_TYPES }),
     getAreas: () => ipcRenderer.invoke('message', { type: ipcActions.SETTINGS.GET_AREAS }),
-    onUpdate: (handler) => ipcRenderer.on(ipcActions.SETTINGS.ON_UPDATE, (event, ...args) => handler(...args)),
+    onUpdate: handler =>
+        ipcRenderer.on(ipcActions.SETTINGS.ON_UPDATE, (event, ...args) => handler(...args)),
+});
+
+contextBridge.exposeInMainWorld('system', {
+    openInBrowser: (url) => shell.openExternal(url),
 });

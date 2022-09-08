@@ -4,6 +4,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 
 import GitHubApiRepository from '../../util/github-client';
 
@@ -85,9 +86,9 @@ const Updater = ({ triggerUpdate, onUpdateComplete }) => {
                 <Alert severity="warning" onClose={handleClose}>
                     <Typography>
                         Local version out of date. Latest Version:{' '}
-                        <a href={latestRelease.url} target="_blank" rel="noreferrer">
+                        <Link sx={{ cursor: 'pointer' }} onClick={() => window.system.openInBrowser(latestRelease.url)}>
                             {latestRelease.tag}
-                        </a>
+                        </Link>
                     </Typography>
                 </Alert>
             ) : null}
