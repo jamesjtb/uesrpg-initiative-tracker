@@ -34,7 +34,7 @@ const Party = () => {
                         <Tooltip
                             title="Add New Player Character"
                         >
-                            <IconButton onClick={() => window.open('/views/pceditor', '_blank', 'top=0,left=0,frame=false')} size="large">
+                            <IconButton onClick={() => window.open('/views/pceditor', '_blank', 'top=0,left=0,height=325,width=675,frame=false,resizable=false')} size="large">
                                 <Add fontSize="inherit" />
                             </IconButton>
                         </Tooltip>

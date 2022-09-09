@@ -100,15 +100,14 @@ const InitiativeModal = () => {
                 ))}
                 <Grid container justifyContent="flex-end">
                     <Button
+                        sx={{ mr: 2 }}
                         variant="outlined"
-                        color="error"
                         onClick={e => onClose(e, 'cancelButtonClick')}
                     >
                         Cancel
                     </Button>
                     <Button
                         variant="contained"
-                        color="success"
                         onClick={e => onClose(e, 'submitButtonClick')}
                     >
                         Submit Rolls
