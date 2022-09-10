@@ -27,6 +27,11 @@ contextBridge.exposeInMainWorld('settings', {
         ipcRenderer.on(ipcActions.SETTINGS.ON_UPDATE, (event, ...args) => handler(...args)),
 });
 
+contextBridge.exposeInMainWorld('playerCharacters', {
+    write: playerCharacter =>
+        ipcRenderer.invoke('message', { type: ipcActions.PCS.WRITE, payload: playerCharacter }),
+});
+
 contextBridge.exposeInMainWorld('system', {
-    openInBrowser: (url) => shell.openExternal(url),
+    openInBrowser: url => shell.openExternal(url),
 });

@@ -17,5 +17,10 @@ module.exports = {
         GET_TYPES: 'settings:get-types',
         GET_AREAS: 'settings:get-areas',
         ON_UPDATE: 'settings:on-update'
+    },
+    PCS: {
+        GET: 'pcs:get',
+        WRITE: 'pcs:write',
+        DELETE: 'pcs:delete'
     }
 };

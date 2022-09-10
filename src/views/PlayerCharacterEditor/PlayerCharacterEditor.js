@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 
 import DraggableViewBase from '../../components/DraggableViewBase/DraggableViewBase';
 import { Button } from '@mui/material';
@@ -17,6 +16,21 @@ const PcEditor = () => {
     const [actionPoints, setActionPoints] = useState(3);
     const [initiativeRating, setInitiativeRating] = useState(0);
     const [luckPoints, setLuckPoints] = useState(0);
+
+    const onSave = async () => {
+        console.log(window);
+        await window.playerCharacters.write({
+            playerName,
+            characterName,
+            hitPoints,
+            magicka,
+            staminaPoints,
+            actionPoints,
+            initiativeRating,
+            luckPoints,
+        });
+        window.close();
+    }
 
     return (
         <DraggableViewBase title="PC Editor (New)">
@@ -98,7 +112,7 @@ const PcEditor = () => {
                         <Button sx={{ mr: 2 }} variant="outlined" onClick={() => window.close()}>
                             Cancel
                         </Button>
-                        <Button variant="contained">Save</Button>
+                        <Button variant="contained" onClick={onSave}>Save</Button>
                     </Grid>
                 </Grid>
             </Box>

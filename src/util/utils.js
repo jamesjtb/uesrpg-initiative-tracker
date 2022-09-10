@@ -1,6 +1,8 @@
 import { v4 as uuid } from 'uuid';
 
-const rollDice = (sides, qty=1) => {
+export { uuid };
+
+export const rollDice = (sides, qty=1) => {
   const minRoll = 1;
   const rolls = [];
   let total = 0;
@@ -12,6 +14,4 @@ const rollDice = (sides, qty=1) => {
   return {rolls, total}
 }
 
-const delay = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export {rollDice, uuid, delay};
+export const delay = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));

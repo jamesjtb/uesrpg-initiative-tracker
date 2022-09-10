@@ -5,6 +5,7 @@ class MessageHandler {
     appController = require('./controllers/app-controller');
     filestoreController = require('./controllers/filestore-controller');
     settingsController = require('./controllers/settings-controller');
+    pcController = require('./controllers/pc-controller');
     constructor(mainWindow) {
         this.mainWindow = mainWindow;
     }
@@ -32,6 +33,9 @@ class MessageHandler {
                 return await this.settingsController.get(action.payload);
             case this.ipcActions.SETTINGS.UPDATE:
                 return await this.settingsController.update(action.payload, this.mainWindow);
+            // Player Character Actions
+            case this.ipcActions.PCS.WRITE:
+                return await this.pcController.write(action.payload);
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }
