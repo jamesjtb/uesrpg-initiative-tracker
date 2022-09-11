@@ -19,7 +19,7 @@ module.exports = {
         ON_UPDATE: 'settings:on-update'
     },
     PCS: {
-        GET: 'pcs:get',
+        GETALL: 'pcs:getall',
         WRITE: 'pcs:write',
         DELETE: 'pcs:delete'
     }

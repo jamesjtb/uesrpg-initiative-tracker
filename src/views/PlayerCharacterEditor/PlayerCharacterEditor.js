@@ -16,6 +16,7 @@ const PcEditor = () => {
     const [actionPoints, setActionPoints] = useState(3);
     const [initiativeRating, setInitiativeRating] = useState(0);
     const [luckPoints, setLuckPoints] = useState(0);
+    const [xpAmount, setXpAmount] = useState(0);
 
     const onSave = async () => {
         console.log(window);
@@ -28,14 +29,25 @@ const PcEditor = () => {
             actionPoints,
             initiativeRating,
             luckPoints,
+            xpAmount,
         });
         window.close();
-    }
+    };
 
     return (
         <DraggableViewBase title="PC Editor (New)">
             <Box sx={{ ml: 5, mr: 5, mt: 3 }}>
                 <Grid container>
+                    <Grid sx={{ mb: 2 }} xs={8} />
+                    <Grid sx={{ mb: 2 }} xs={4}>
+                        <TextField
+                            sx={{ width: '85%' }}
+                            label="XP"
+                            variant="standard"
+                            value={xpAmount}
+                            onChange={e => setXpAmount(parseInt(e.target.value || 0))}
+                        />
+                    </Grid>
                     <Grid sx={{ mb: 2 }} display="flex" justifyContent="center" xs={4}>
                         <TextField
                             sx={{ width: '85%' }}
@@ -112,7 +124,9 @@ const PcEditor = () => {
                         <Button sx={{ mr: 2 }} variant="outlined" onClick={() => window.close()}>
                             Cancel
                         </Button>
-                        <Button variant="contained" onClick={onSave}>Save</Button>
+                        <Button variant="contained" onClick={onSave}>
+                            Save
+                        </Button>
                     </Grid>
                 </Grid>
             </Box>

@@ -36,6 +36,8 @@ class MessageHandler {
             // Player Character Actions
             case this.ipcActions.PCS.WRITE:
                 return await this.pcController.write(action.payload);
+            case this.ipcActions.PCS.GETALL:
+                return await this.pcController.getAll();
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }

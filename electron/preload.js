@@ -30,6 +30,7 @@ contextBridge.exposeInMainWorld('settings', {
 contextBridge.exposeInMainWorld('playerCharacters', {
     write: playerCharacter =>
         ipcRenderer.invoke('message', { type: ipcActions.PCS.WRITE, payload: playerCharacter }),
+    getAll: () => ipcRenderer.invoke('message', { type: ipcActions.PCS.GETALL }),
 });
 
 contextBridge.exposeInMainWorld('system', {
