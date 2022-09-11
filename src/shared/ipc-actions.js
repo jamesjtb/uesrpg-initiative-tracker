@@ -9,18 +9,19 @@ module.exports = {
     },
     FILESTORE: {
         SAVE_COMBATANTS: 'saveCombatants',
-        LOAD_FILE: 'loadFile'
+        LOAD_FILE: 'loadFile',
     },
     SETTINGS: {
         GET: 'settings:get',
         UPDATE: 'settings:update',
         GET_TYPES: 'settings:get-types',
         GET_AREAS: 'settings:get-areas',
-        ON_UPDATE: 'settings:on-update'
+        ON_UPDATE: 'settings:on-update',
     },
     PCS: {
         GETALL: 'pcs:getall',
         WRITE: 'pcs:write',
-        DELETE: 'pcs:delete'
+        DELETE: 'pcs:delete',
+        ON_UPDATE: 'pcs.on-update',
     }
 };

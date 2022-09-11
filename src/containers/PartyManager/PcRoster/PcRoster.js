@@ -43,6 +43,10 @@ const PcRoster = () => {
         getPcRoster();
     }, [getPcRoster]);
 
+    window.playerCharacters.onUpdate(() => {
+        getPcRoster();
+    });
+
     return (
         <>
             <Divider sx={{ mb: 1 }}>

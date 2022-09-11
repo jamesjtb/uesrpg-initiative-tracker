@@ -35,7 +35,7 @@ class MessageHandler {
                 return await this.settingsController.update(action.payload, this.mainWindow);
             // Player Character Actions
             case this.ipcActions.PCS.WRITE:
-                return await this.pcController.write(action.payload);
+                return await this.pcController.write(action.payload, this.mainWindow);
             case this.ipcActions.PCS.GETALL:
                 return await this.pcController.getAll();
             default:
