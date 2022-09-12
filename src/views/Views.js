@@ -7,7 +7,9 @@ import PlayerCharacterEditor from './PlayerCharacterEditor/PlayerCharacterEditor
 const Views = () => {
     return (
         <Routes>
-            <Route path="/pceditor" element={<PlayerCharacterEditor />} />
+            <Route path="/pceditor" element={<PlayerCharacterEditor />}>
+                <Route path=":pcId" element={<PlayerCharacterEditor />} />
+            </Route>
         </Routes>
     );
 };

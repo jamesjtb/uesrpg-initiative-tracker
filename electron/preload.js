@@ -31,6 +31,8 @@ contextBridge.exposeInMainWorld('playerCharacters', {
     write: playerCharacter =>
         ipcRenderer.invoke('message', { type: ipcActions.PCS.WRITE, payload: playerCharacter }),
     getAll: () => ipcRenderer.invoke('message', { type: ipcActions.PCS.GETALL }),
+    get: _id => ipcRenderer.invoke('message', { type: ipcActions.PCS.GET, payload: _id }),
+    delete: _id => ipcRenderer.invoke('message', { type: ipcActions.PCS.DELETE, payload: _id }),
     onUpdate: handler =>
         ipcRenderer.on(ipcActions.PCS.ON_UPDATE, (event, ...args) => handler(...args)),
 });

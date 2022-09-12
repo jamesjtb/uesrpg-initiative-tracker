@@ -58,7 +58,9 @@ function createWindow() {
                 overrideBrowserWindowOptions: {
                     webPreferences: {
                         preload: path.join(__dirname, 'preload.js'),
-                    }
+                    },
+                    frame: false,
+                    resizable: false,
                 }
             }
         }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Grid from '@mui/material/Unstable_Grid2';
 import TextField from '@mui/material/TextField';
@@ -7,7 +7,11 @@ import Box from '@mui/material/Box';
 import DraggableViewBase from '../../components/DraggableViewBase/DraggableViewBase';
 import { Button } from '@mui/material';
 
+import { useParams } from 'react-router-dom';
+
 const PcEditor = () => {
+    const { pcId } = useParams();
+
     const [playerName, setPlayerName] = useState('');
     const [characterName, setCharacterName] = useState('');
     const [hitPoints, setHitPoints] = useState(0);
@@ -19,8 +23,7 @@ const PcEditor = () => {
     const [xpAmount, setXpAmount] = useState(0);
 
     const onSave = async () => {
-        console.log(window);
-        await window.playerCharacters.write({
+        const playerCharacter = {
             playerName,
             characterName,
             hitPoints,
@@ -30,12 +33,32 @@ const PcEditor = () => {
             initiativeRating,
             luckPoints,
             xpAmount,
-        });
+            active: false,
+        }
+        if (pcId) playerCharacter._id = pcId;
+        await window.playerCharacters.write(playerCharacter);
         window.close();
     };
 
+    useEffect(() => {
+        (async () => {
+            if (pcId) {
+                const pc = await window.playerCharacters.get(pcId);
+                setPlayerName(pc.playerName);
+                setCharacterName(pc.characterName);
+                setHitPoints(pc.hitPoints);
+                setMagicka(pc.magicka);
+                setStaminaPoints(pc.staminaPoints);
+                setActionPoints(pc.actionPoints);
+                setInitiativeRating(pc.initiativeRating);
+                setLuckPoints(pc.luckPoints);
+                setXpAmount(pc.xpAmount);
+            }
+        })();
+    }, [pcId]);
+
     return (
-        <DraggableViewBase title="PC Editor (New)">
+        <DraggableViewBase title={`PC Editor ${pcId ? `(${characterName})` : '(New)'}`}>
             <Box sx={{ ml: 5, mr: 5, mt: 3 }}>
                 <Grid container>
                     <Grid sx={{ mb: 2 }} xs={8} />

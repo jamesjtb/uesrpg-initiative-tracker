@@ -16,6 +16,8 @@ import Add from '@mui/icons-material/Add';
 
 import { styled } from '@mui/material/styles';
 
+import PcActions from '../PcActions/PcActions';
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.secondary.main,
@@ -64,7 +66,7 @@ const PcRoster = () => {
                                     window.open(
                                         '/views/pceditor',
                                         '_blank',
-                                        'top=0,left=0,height=395,width=675,frame=false,resizable=false,'
+                                        'top=0,left=0,height=395,width=675'
                                     )
                                 }
                                 size="large"
@@ -79,6 +81,7 @@ const PcRoster = () => {
                                 <StyledTableCell align="center">Player</StyledTableCell>
                                 <StyledTableCell align="left">Character Name</StyledTableCell>
                                 <StyledTableCell align="center">XP</StyledTableCell>
+                                <StyledTableCell />
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -91,7 +94,10 @@ const PcRoster = () => {
                                         <Typography component="span">{pc.characterName}</Typography>
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <Typography component="span">{pc.xpAmount}</Typography>
+                                        <Typography component="span">{pc.xpAmount || 0}</Typography>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        <PcActions pc={pc} />
                                     </StyledTableCell>
                                 </TableRow>
                             ))}

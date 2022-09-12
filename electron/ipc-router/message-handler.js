@@ -38,6 +38,10 @@ class MessageHandler {
                 return await this.pcController.write(action.payload, this.mainWindow);
             case this.ipcActions.PCS.GETALL:
                 return await this.pcController.getAll();
+            case this.ipcActions.PCS.DELETE:
+                return await this.pcController.delete(action.payload, this.mainWindow);
+            case this.ipcActions.PCS.GET:
+                return await this.pcController.get(action.payload);
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }

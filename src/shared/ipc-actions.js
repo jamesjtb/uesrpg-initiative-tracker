@@ -20,6 +20,7 @@ module.exports = {
     },
     PCS: {
         GETALL: 'pcs:getall',
+        GET: 'pcs:get',
         WRITE: 'pcs:write',
         DELETE: 'pcs:delete',
         ON_UPDATE: 'pcs.on-update',
