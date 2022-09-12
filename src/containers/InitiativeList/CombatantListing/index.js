@@ -250,9 +250,9 @@ const CombatantListing = ({ combatant }) => {
             {/* PC Indicator/NPC Color */}
             <CompactTableCell align="right">
                 {combatant.type === combatantTypes.PC ? (
-                    <PeopleAlt />
+                    <PeopleAlt fontSize="small" />
                 ) : combatant.color ? (
-                    <SquareRoundedIcon htmlColor={combatant.color} />
+                    <SquareRoundedIcon fontSize="small" htmlColor={combatant.color} />
                 ) : null}
             </CompactTableCell>
             {/* Name */}

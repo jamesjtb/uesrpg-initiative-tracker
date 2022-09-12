@@ -70,6 +70,7 @@ const PcRoster = () => {
                                     )
                                 }
                                 size="large"
+                                color="primary"
                             >
                                 <Add fontSize="inherit" />
                             </IconButton>

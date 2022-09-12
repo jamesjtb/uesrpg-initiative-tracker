@@ -24,13 +24,13 @@ const PcActions = ({ pc }) => {
     return (
         <>
             <Tooltip title="Edit" enterNextDelay={700} leaveDelay={200} disableInteractive>
-                <IconButton size="small" onClick={openPcEditor}>
-                    <QuillInk />
+                <IconButton color="primary" size="small" onClick={openPcEditor}>
+                    <QuillInk fontSize="inherit" />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Delete" enterNextDelay={700} leaveDelay={200} disableInteractive>
-                <IconButton size="small" onClick={deletePc}>
-                    <Clear />
+                <IconButton color="primary" size="small" onClick={deletePc}>
+                    <Clear fontSize="inherit" />
                 </IconButton>
             </Tooltip>
         </>

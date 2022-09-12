@@ -2,10 +2,10 @@ import Icon from '@mui/material/Icon';
 
 import '../../../node_modules/rpg-awesome/css/rpg-awesome.min.css';
 
-export const Load = () => <Icon baseClassName="ra ra-load" />;
+export const Load = (props) => <Icon baseClassName="ra ra-load" {...props} />;
 
-export const Save = () => <Icon baseClassName="ra ra-save" />;
+export const Save = (props) => <Icon baseClassName="ra ra-save" {...props} />;
 
-export const Gears = () => <Icon baseClassName="ra ra-gears" />;
+export const Gears = (props) => <Icon baseClassName="ra ra-gears" {...props} />;
 
-export const Cog = () => <Icon baseClassName="ra ra-cog" />;
+export const Cog = (props) => <Icon baseClassName="ra ra-cog" {...props} />;

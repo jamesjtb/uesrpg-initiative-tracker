@@ -2,6 +2,6 @@ import Icon from '@mui/material/Icon';
 
 import '../../../node_modules/rpg-awesome/css/rpg-awesome.min.css';
 
-export const Skull = () => <Icon baseClassName="ra ra-skull" />;
+export const Skull = (props) => <Icon baseClassName="ra ra-skull" {...props} />;
 
-export const Cycle = () => <Icon baseClassName="ra ra-cycle" />;
+export const Cycle = (props) => <Icon baseClassName="ra ra-cycle" {...props} />;
