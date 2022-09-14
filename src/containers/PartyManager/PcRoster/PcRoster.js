@@ -18,6 +18,8 @@ import { styled } from '@mui/material/styles';
 
 import PcActions from '../PcActions/PcActions';
 
+import { openChildWindow } from '../../../util/utils';
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.secondary.main,
@@ -63,11 +65,7 @@ const PcRoster = () => {
                         <Tooltip title="Add New Player Character">
                             <IconButton
                                 onClick={() =>
-                                    window.open(
-                                        '/views/pceditor',
-                                        '_blank',
-                                        'top=0,left=0,height=395,width=675'
-                                    )
+                                    openChildWindow('/views/pceditor', { height: 395, width: 675 })
                                 }
                                 size="large"
                                 color="primary"

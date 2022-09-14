@@ -7,6 +7,8 @@ import Clear from '@mui/icons-material/Clear';
 
 import { QuillInk } from '../../../components/rpg-awesome/inventory';
 
+import { openChildWindow } from '../../../util/utils';
+
 const PcActions = ({ pc }) => {
     
     const deletePc = () => {
@@ -14,11 +16,10 @@ const PcActions = ({ pc }) => {
     };
 
     const openPcEditor = () => {
-        window.open(
-            `/views/pceditor/${pc._id}`,
-            '_blank',
-            'top=0,left=0,height=395,width=675',
-        );
+        openChildWindow(`/views/pceditor/${pc._id}`, {
+            height: 395,
+            width: 675
+        });
     };
 
     return (

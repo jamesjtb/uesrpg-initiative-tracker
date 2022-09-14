@@ -61,6 +61,8 @@ function createWindow() {
                     },
                     frame: false,
                     resizable: false,
+                    parent: mainWindow,
+                    modal: true,
                 }
             }
         }
