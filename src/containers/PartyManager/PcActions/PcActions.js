@@ -4,13 +4,14 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 import Clear from '@mui/icons-material/Clear';
+import Add from '@mui/icons-material/Add';
+import HorizontalRule from '@mui/icons-material/HorizontalRule';
 
 import { QuillInk } from '../../../components/rpg-awesome/inventory';
 
 import { openChildWindow } from '../../../util/utils';
 
 const PcActions = ({ pc }) => {
-    
     const deletePc = () => {
         window.playerCharacters.delete(pc._id);
     };
@@ -23,14 +24,28 @@ const PcActions = ({ pc }) => {
         });
     };
 
+    const togglePcActive = () => {
+        window.playerCharacters.write({ ...pc, active: !pc.active });
+    };
+
     return (
         <>
-            <Tooltip title="Edit" enterNextDelay={700} leaveDelay={200} disableInteractive>
+            <Tooltip
+                title={pc.active ? 'Remove from Active Party' : 'Add to Active Party'}
+                enterNextDelay={200}
+                leaveDelay={200}
+                disableInteractive
+            >
+                <IconButton color="primary" size="small" onClick={togglePcActive}>
+                    {pc.active ? <HorizontalRule fontSize="inherit" /> : <Add fontSize="inherit" />}
+                </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit" enterNextDelay={200} leaveDelay={200} disableInteractive>
                 <IconButton color="primary" size="small" onClick={openPcEditor}>
                     <QuillInk fontSize="inherit" />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Delete" enterNextDelay={700} leaveDelay={200} disableInteractive>
+            <Tooltip title="Delete" enterNextDelay={200} leaveDelay={200} disableInteractive>
                 <IconButton color="primary" size="small" onClick={deletePc}>
                     <Clear fontSize="inherit" />
                 </IconButton>
