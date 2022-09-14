@@ -51,7 +51,7 @@ function createWindow() {
     // Open the DevTools.
     if (isDev) mainWindow.webContents.openDevTools({ mode: 'detach' });
 
-    mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    mainWindow.webContents.setWindowOpenHandler(({ url, features }) => {
         if (url.includes('views')) {
             return {
                 action: 'allow',
@@ -61,8 +61,7 @@ function createWindow() {
                     },
                     frame: false,
                     resizable: false,
-                    parent: mainWindow,
-                    modal: true,
+                    parent: features.includes('modal=true') ? mainWindow : null,
                 }
             }
         }

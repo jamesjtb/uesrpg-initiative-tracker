@@ -18,7 +18,8 @@ const PcActions = ({ pc }) => {
     const openPcEditor = () => {
         openChildWindow(`/views/pceditor/${pc._id}`, {
             height: 395,
-            width: 675
+            width: 675,
+            modal: true,
         });
     };
 

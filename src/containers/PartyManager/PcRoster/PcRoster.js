@@ -65,7 +65,7 @@ const PcRoster = () => {
                         <Tooltip title="Add New Player Character">
                             <IconButton
                                 onClick={() =>
-                                    openChildWindow('/views/pceditor', { height: 395, width: 675 })
+                                    openChildWindow('/views/pceditor', { height: 395, width: 675, modal: true })
                                 }
                                 size="large"
                                 color="primary"
