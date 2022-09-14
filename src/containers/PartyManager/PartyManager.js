@@ -39,7 +39,7 @@ const Party = () => {
                     Active Party Members
                 </Typography>
             </Divider>
-            <Box sx={{ height: '30vh' }}>
+            <Box sx={{ height: '30vh', overflow: 'auto' }}>
                 <PcList pcs={pcs.filter(pc => pc.active === true)} />
             </Box>
             <Divider sx={{ mb: 1 }}>
@@ -54,7 +54,11 @@ const Party = () => {
                         <Tooltip title="Add New Player Character">
                             <IconButton
                                 onClick={() =>
-                                    openChildWindow('/views/pceditor', { height: 395, width: 675, modal: true })
+                                    openChildWindow('/views/pceditor', {
+                                        height: 395,
+                                        width: 675,
+                                        modal: true,
+                                    })
                                 }
                                 size="large"
                                 color="primary"
@@ -63,8 +67,10 @@ const Party = () => {
                             </IconButton>
                         </Tooltip>
                     </Grid>
-                    <PcList pcs={pcs.filter(pc => pc.active === false)} />
                 </Grid>
+                <Box sx={{ overflow: 'auto' }}>
+                    <PcList pcs={pcs} />
+                </Box>
             </Box>
         </Container>
     );
