@@ -3,28 +3,12 @@ import React from 'react';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 
 import PcActions from '../PcActions/PcActions';
 
-import { styled } from '@mui/material/styles';
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.secondary.main,
-        color: theme.palette.secondary.contrastText,
-        padding: `${theme.spacing(0.5)}`,
-    },
-    [`&.${tableCellClasses.body}`]: {
-        borderBottom: `2px solid ${theme.palette.secondary.main}`,
-        borderTop: `2px solid ${theme.palette.secondary.main}`,
-        padding: `0 ${theme.spacing(0.5)}`,
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-    },
-}));
+import { StyledTableCell } from '../../../components/StyledComponents/TableCell';
 
 const PcList = ({ pcs }) => {
     return (
