@@ -9,6 +9,8 @@ import Clear from '@mui/icons-material/Clear';
 
 import { styled } from '@mui/material/styles';
 
+import parchmentBackground from '../../assets/parchment.jpg';
+
 const TitleBar = styled(Box)(({ theme }) => ({
     WebkitAppRegion: 'drag',
     height: 30,
@@ -19,14 +21,20 @@ const TitleBar = styled(Box)(({ theme }) => ({
 
 const DraggableViewBase = ({ children, title }) => {
     return (
-        <>
+        <Box sx={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
             <TitleBar>
                 <Grid sx={{ height: '100%' }} container>
                     <Grid display="flex" justifyContent="center" alignItems="center" xs={4} />
                     <Grid display="flex" justifyContent="center" alignItems="center" xs={4}>
                         <Typography variant="body2">{title}</Typography>
                     </Grid>
-                    <Grid sx={{ pr: 1 }} display="flex" justifyContent="right" alignItems="center" xs={4}>
+                    <Grid
+                        sx={{ pr: 1 }}
+                        display="flex"
+                        justifyContent="right"
+                        alignItems="center"
+                        xs={4}
+                    >
                         <IconButton
                             sx={{ WebkitAppRegion: 'no-drag' }}
                             color="inherit"
@@ -38,8 +46,20 @@ const DraggableViewBase = ({ children, title }) => {
                     </Grid>
                 </Grid>
             </TitleBar>
-            <Box>{children}</Box>
-        </>
+            <Box
+                sx={{
+                    height: 'calc(100vh - 30px)',
+                    maxHeight: 'calc(100vh - 30px)',
+                    overflow: 'auto',
+                    backgroundImage: `url(${parchmentBackground})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center center',
+                }}
+            >
+                {children}
+            </Box>
+        </Box>
     );
 };
 
