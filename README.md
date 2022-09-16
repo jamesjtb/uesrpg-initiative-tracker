@@ -1,5 +1,5 @@
 # UESRPG Companion
-The UESRPG Companion is a companion app designed to aid in running the Unofficial Elder Scrolls RPG tabletop system; specifically targeting in-person games. This includes saving player parties, saving NPCs and encounters, and tracking resources.
+The UESRPG Companion is a companion app designed to aid in running the Unofficial Elder Scrolls RPG tabletop system; specifically targeting in-person games. This includes saving player parties, saving NPCs and encounters, running encounters, and tracking resources.
 
 ## Scope
 The scope of this companion is to help facilitate smooth gameplay at the physical table while still allowing for the person to person interaction inherent in tabletop gaming. For example, the companion might have a button for casting a spell on a character's spell list; but that button would exist for the purpose of subtracting Magicka Points from the character's available MP or marking that spell as having been cast once as part of an NPC's spellcasting trait, rather than applying damage to a target character on the initiative tracker. This would be left to the DM communicating the damage dealt to the player, or vice versa.
