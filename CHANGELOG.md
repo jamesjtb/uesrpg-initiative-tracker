@@ -2,6 +2,15 @@
 
 List new features, changes, and bug fixes by version
 
+## [0.4.0](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.4.0)
+
+### New Features:
+-   Bestiary
+    - Create, edit, and delete NPCs
+-   Party Manager
+    -   Create, edit, and delete party members
+    -   Manage active party, which automatically adds party members to the initiative tracker
+
 ## [0.3.0](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.3.0)
 
 ### Notes:
