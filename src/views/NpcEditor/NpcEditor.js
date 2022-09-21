@@ -5,10 +5,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-
-import Add from '@mui/icons-material/Add';
 
 import DraggableViewBase from '../../components/DraggableViewBase/DraggableViewBase';
 import StatTable from './StatTable/StatTable';
@@ -51,14 +49,36 @@ const NpcEditor = () => {
     const [specialAbilities, setSpecialAbilities] = useState([]);
     const [traits, setTraits] = useState([]);
     const [unconventionalSkills, setUnconventionalSkills] = useState([]);
-    const [specialHitCharts, setSpecialHitCharts] = useState([]);
-    const addSpecialHitChart = () => setSpecialHitCharts([...specialHitCharts, {}]);
+    // const [specialHitCharts, setSpecialHitCharts] = useState([]);
     const [encounteringText, setEncounteringText] = useState('');
     const [loot, setLoot] = useState([]);
+    const [customNotes, setCustomNotes] = useState([]);
+
+    const onSave = async () => {
+        const npc = {
+            name,
+            flavorText,
+            race,
+            type,
+            threatRating,
+            soulEnergy,
+            stats,
+            equipment,
+            specialAbilities,
+            traits,
+            unconventionalSkills,
+            encounteringText,
+            loot,
+            customNotes,
+        };
+
+        await window.bestiary.write(npc);
+        window.close();
+    };
 
     return (
         <DraggableViewBase title={`NPC Editor`}>
-            <Box sx={{ ml: 5, mr: 5, mt: 3 }}>
+            <Box sx={{ ml: 5, mr: 5, mt: 3, mb: 3, }}>
                 <Grid container sx={{ mb: 1 }} rowSpacing={1} columnSpacing={2}>
                     <Grid xs={6}>
                         <TextField
@@ -144,14 +164,14 @@ const NpcEditor = () => {
                         rules={unconventionalSkills}
                         setRules={setUnconventionalSkills}
                     />
-                    <Box>
+                    {/* <Box>
                         <Typography variant="h5" color="primary" textAlign="center">
                             Special Hit Charts
                             <IconButton onClick={addSpecialHitChart}>
                                 <Add fontSize="inherit" />
                             </IconButton>
                         </Typography>
-                    </Box>
+                    </Box> */}
                     <Divider sx={{ mt: 1, mb: 1 }}>Descriptive Fields</Divider>
                     <Box textAlign="center">
                         <Typography variant="h5" color="primary" textAlign="center">
@@ -166,14 +186,26 @@ const NpcEditor = () => {
                             onChange={e => setEncounteringText(e.target.value)}
                         />
                     </Box>
+                    <NpcRuleList type="single" name="Loot" rules={loot} setRules={setLoot} />
                     <NpcRuleList
                         type="single"
-                        name="Loot"
-                        rules={loot}
-                        setRules={setLoot}
+                        name="Custom Notes"
+                        rules={customNotes}
+                        setRules={setCustomNotes}
                     />
                 </Stack>
             </Box>
+            <Divider />
+            <Grid container alignItems="right" justifyContent="right">
+                <Grid sx={{ margin: 3 }}>
+                    <Button sx={{ mr: 2 }} variant="outlined" onClick={() => window.close()}>
+                        Cancel
+                    </Button>
+                    <Button variant="contained" onClick={onSave}>
+                        Save
+                    </Button>
+                </Grid>
+            </Grid>
         </DraggableViewBase>
     );
 };

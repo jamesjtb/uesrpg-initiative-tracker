@@ -2,15 +2,19 @@ const { app } = require('electron');
 
 const Datastore = require('nedb');
 
-class PlayerCharacterRepository {
-    #db = new Datastore({
-        filename: `${app.getPath('userData')}/playercharacter.db`,
-        autoload: true,
-    });
+class DbRepository {
+    #db;
 
-    write (pc) {
+    constructor (dataType) {
+        this.#db = new Datastore({
+            filename: `${app.getPath('userData')}/${dataType}.db`,
+            autoload: true,
+        });
+    }
+
+    write (data) {
         return new Promise((resolve, reject) => {
-            this.#db.update({ _id: pc._id }, pc, { upsert: true }, (error, result) => {
+            this.#db.update({ _id: data._id }, data, { upsert: true }, (error, result) => {
                 if (error) return reject(error);
                 return resolve(result);
             });
@@ -35,4 +39,4 @@ class PlayerCharacterRepository {
         });
     };
 }
-module.exports = PlayerCharacterRepository;
+module.exports = DbRepository;

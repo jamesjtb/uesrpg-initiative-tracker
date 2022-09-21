@@ -6,12 +6,14 @@ class MessageHandler {
     filestoreController = require('./controllers/filestore-controller');
     settingsController = require('./controllers/settings-controller');
     pcController = require('./controllers/pc-controller');
+    bestiaryController = require('./controllers/bestiary-controller');
+
     constructor(mainWindow) {
         this.mainWindow = mainWindow;
     }
-    async handle (action) {
+    async handle(action) {
         if (isDev) console.log(`Handling message type: ${action.type}`);
-        switch(action.type) {
+        switch (action.type) {
             // App Actions
             case this.ipcActions.APP.QUIT:
                 return this.appController.quitApp();
@@ -23,7 +25,10 @@ class MessageHandler {
                 return await this.appController.saveUserSettings(action.payload);
             // Filestore Actions
             case this.ipcActions.FILESTORE.SAVE_COMBATANTS:
-                return await this.filestoreController.saveCombatants(action.payload, this.mainWindow);
+                return await this.filestoreController.saveCombatants(
+                    action.payload,
+                    this.mainWindow
+                );
             case this.ipcActions.FILESTORE.LOAD_FILE:
                 return await this.filestoreController.loadFile(this.mainWindow);
             // Settings Actions
@@ -42,10 +47,19 @@ class MessageHandler {
                 return await this.pcController.delete(action.payload, this.mainWindow);
             case this.ipcActions.PCS.GET:
                 return await this.pcController.get(action.payload);
+            // Bestiary Actions
+            case this.ipcActions.BESTIARY.WRITE:
+                return await this.bestiaryController.write(action.payload, this.mainWindow);
+            case this.ipcActions.BESTIARY.GETALL:
+                return await this.bestiaryController.getAll();
+            case this.ipcActions.BESTIARY.DELETE:
+                return await this.bestiaryController.delete(action.payload, this.mainWindow);
+            case this.ipcActions.BESTIARY.GET:
+                return await this.bestiaryController.get(action.payload);
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }
     }
 }
 
-module.exports = MessageHandler
+module.exports = MessageHandler;

@@ -1,6 +1,6 @@
-const PlayerCharacterRepository = require('../../lib/player-character-repository');
+const DatabaseRepository = require('../../lib/db');
+const playerCharacterRepo = new DatabaseRepository('playercharacter');
 
-const playerCharacterRepo = new PlayerCharacterRepository();
 const ipcActions = require('../../../src/shared/ipc-actions');
 module.exports = {
     write: async (pc, mainWindow) => {

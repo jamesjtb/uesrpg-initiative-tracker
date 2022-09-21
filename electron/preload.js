@@ -37,6 +37,16 @@ contextBridge.exposeInMainWorld('playerCharacters', {
         ipcRenderer.on(ipcActions.PCS.ON_UPDATE, (event, ...args) => handler(...args)),
 });
 
+contextBridge.exposeInMainWorld('bestiary', {
+    write: npc =>
+        ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.WRITE, payload: npc }),
+    getAll: () => ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.GETALL }),
+    get: _id => ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.GET, payload: _id }),
+    delete: _id => ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.DELETE, payload: _id }),
+    onUpdate: handler =>
+        ipcRenderer.on(ipcActions.BESTIARY.ON_UPDATE, (event, ...args) => handler(...args)),
+});
+
 contextBridge.exposeInMainWorld('system', {
     openInBrowser: url => shell.openExternal(url),
 });

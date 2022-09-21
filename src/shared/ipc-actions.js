@@ -24,5 +24,12 @@ module.exports = {
         WRITE: 'pcs:write',
         DELETE: 'pcs:delete',
         ON_UPDATE: 'pcs.on-update',
+    },
+    BESTIARY: {
+        GETALL: 'bestiary:getall',
+        GET: 'bestiary:get',
+        WRITE: 'bestiary:write',
+        DELETE: 'bestiary:delete',
+        ON_UPDATE: 'bestiary.on-update',
     }
 };
