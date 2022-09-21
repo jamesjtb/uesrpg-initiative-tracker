@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -16,8 +16,22 @@ import TextField from '@mui/material/TextField';
 
 import { openChildWindow } from '../../util/utils';
 import { StyledTableCell } from '../../components/StyledComponents/TableCell';
+import { useEffect } from 'react';
 
 const Bestiary = () => {
+    const [npcs, setNpcs] = useState([]);
+
+    const getNpcs = useCallback(async () => {
+        const npcResult = await window.bestiary.getAll();
+        setNpcs(npcResult);
+    }, [setNpcs]);
+
+    useEffect(() => {
+        getNpcs();
+    }, [getNpcs]);
+
+    window.bestiary.onUpdate(() => getNpcs());
+
     return (
         <Container sx={{ flexGrow: 1 }}>
             <Typography sx={{ mb: 2 }} variant="h4" color="primary">
@@ -47,16 +61,18 @@ const Bestiary = () => {
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>
-                            <Typography component="span">Test</Typography>
+                            <Typography component="span">Name</Typography>
                         </StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow>
-                        <StyledTableCell>
-                            <Typography component="span">Test</Typography>
-                        </StyledTableCell>
-                    </TableRow>
+                    {npcs.map(npc => (
+                        <TableRow key={npc._id}>
+                            <StyledTableCell>
+                                <Typography component="span">{npc.name}</Typography>
+                            </StyledTableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
         </Container>
