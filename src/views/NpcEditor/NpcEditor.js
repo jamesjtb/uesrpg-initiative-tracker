@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -13,6 +14,8 @@ import StatTable from './StatTable/StatTable';
 import NpcRuleList from './NpcRuleList/NpcRuleList';
 
 const NpcEditor = () => {
+    const { npcId } = useParams();
+
     const [name, setName] = useState('');
     const [flavorText, setFlavorText] = useState('');
     const [race, setRace] = useState('');
@@ -71,14 +74,36 @@ const NpcEditor = () => {
             loot,
             customNotes,
         };
-
+        if (npcId) npc._id = npcId;
         await window.bestiary.write(npc);
         window.close();
     };
 
+    useEffect(() => {
+        (async () => {
+            if (npcId) {
+                const npc = await window.bestiary.get(npcId);
+                setName(npc.name);
+                setFlavorText(npc.flavorText);
+                setRace(npc.race);
+                setType(npc.type);
+                setThreatRating(npc.threatRating);
+                setSoulEnergy(npc.soulEnergy);
+                setStats({ ...npc.stats });
+                setEquipment([...npc.equipment]);
+                setSpecialAbilities([...npc.specialAbilities]);
+                setTraits([...npc.traits]);
+                setUnconventionalSkills([...npc.unconventionalSkills]);
+                setEncounteringText(npc.encounteringText);
+                setLoot([...npc.loot]);
+                setCustomNotes([...npc.customNotes]);
+            }
+        })();
+    }, [npcId]);
+
     return (
-        <DraggableViewBase title={`NPC Editor`}>
-            <Box sx={{ ml: 5, mr: 5, mt: 3, mb: 3, }}>
+        <DraggableViewBase title={`NPC Editor ${npcId ? `(${name})` : '(New)'}`}>
+            <Box sx={{ ml: 5, mr: 5, mt: 3, mb: 3 }}>
                 <Grid container sx={{ mb: 1 }} rowSpacing={1} columnSpacing={2}>
                     <Grid xs={6}>
                         <TextField
