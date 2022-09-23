@@ -82,7 +82,7 @@ const NpcEditor = () => {
     useEffect(() => {
         (async () => {
             if (npcId) {
-                const npc = await window.bestiary.get(npcId);
+                const npc = await window.bestiary.getOne(npcId);
                 setName(npc.name);
                 setFlavorText(npc.flavorText);
                 setRace(npc.race);

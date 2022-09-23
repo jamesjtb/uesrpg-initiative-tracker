@@ -41,21 +41,21 @@ class MessageHandler {
             // Player Character Actions
             case this.ipcActions.PCS.WRITE:
                 return await this.pcController.write(action.payload, this.mainWindow);
-            case this.ipcActions.PCS.GETALL:
-                return await this.pcController.getAll();
-            case this.ipcActions.PCS.DELETE:
-                return await this.pcController.delete(action.payload, this.mainWindow);
             case this.ipcActions.PCS.GET:
                 return await this.pcController.get(action.payload);
+            case this.ipcActions.PCS.DELETE:
+                return await this.pcController.delete(action.payload, this.mainWindow);
+            case this.ipcActions.PCS.GETONE:
+                return await this.pcController.getOne(action.payload);
             // Bestiary Actions
             case this.ipcActions.BESTIARY.WRITE:
                 return await this.bestiaryController.write(action.payload, this.mainWindow);
-            case this.ipcActions.BESTIARY.GETALL:
-                return await this.bestiaryController.getAll();
-            case this.ipcActions.BESTIARY.DELETE:
-                return await this.bestiaryController.delete(action.payload, this.mainWindow);
             case this.ipcActions.BESTIARY.GET:
                 return await this.bestiaryController.get(action.payload);
+            case this.ipcActions.BESTIARY.DELETE:
+                return await this.bestiaryController.delete(action.payload, this.mainWindow);
+            case this.ipcActions.BESTIARY.GETONE:
+                return await this.bestiaryController.getOne(action.payload);
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }

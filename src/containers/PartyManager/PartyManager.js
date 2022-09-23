@@ -18,7 +18,7 @@ const Party = () => {
     const [pcs, setPcs] = useState([]);
 
     const getPcRoster = useCallback(async () => {
-        const pcsResult = await window.playerCharacters.getAll();
+        const pcsResult = await window.playerCharacters.get();
         setPcs(pcsResult);
     }, [setPcs]);
 

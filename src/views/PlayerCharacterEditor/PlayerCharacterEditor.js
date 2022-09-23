@@ -43,7 +43,7 @@ const PcEditor = () => {
     useEffect(() => {
         (async () => {
             if (pcId) {
-                const pc = await window.playerCharacters.get(pcId);
+                const pc = await window.playerCharacters.getOne(pcId);
                 setPlayerName(pc.playerName);
                 setCharacterName(pc.characterName);
                 setHitPoints(pc.hitPoints);

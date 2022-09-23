@@ -21,9 +21,9 @@ class DbRepository {
         });
     }
 
-    read (query) {
+    read (filter, sort) {
         return new Promise((resolve, reject) => {
-            this.#db.find(query, (error, results) => {
+            this.#db.find(filter).sort(sort).exec((error, results) => {
                 if (error) return reject(error);
                 return resolve(results);
             });

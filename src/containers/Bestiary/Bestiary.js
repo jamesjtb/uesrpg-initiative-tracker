@@ -19,7 +19,7 @@ const Bestiary = () => {
     const [npcs, setNpcs] = useState([]);
 
     const getNpcs = useCallback(async () => {
-        const npcResult = await window.bestiary.getAll();
+        const npcResult = await window.bestiary.get(null, { name: 1 });
         setNpcs(npcResult);
     }, [setNpcs]);
 

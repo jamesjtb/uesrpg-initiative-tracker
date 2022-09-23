@@ -30,8 +30,8 @@ contextBridge.exposeInMainWorld('settings', {
 contextBridge.exposeInMainWorld('playerCharacters', {
     write: playerCharacter =>
         ipcRenderer.invoke('message', { type: ipcActions.PCS.WRITE, payload: playerCharacter }),
-    getAll: () => ipcRenderer.invoke('message', { type: ipcActions.PCS.GETALL }),
-    get: _id => ipcRenderer.invoke('message', { type: ipcActions.PCS.GET, payload: _id }),
+    get: (filter, sort) => ipcRenderer.invoke('message', { type: ipcActions.PCS.GET, payload: { filter, sort } }),
+    getOne: _id => ipcRenderer.invoke('message', { type: ipcActions.PCS.GETONE, payload: _id }),
     delete: _id => ipcRenderer.invoke('message', { type: ipcActions.PCS.DELETE, payload: _id }),
     onUpdate: handler =>
         ipcRenderer.on(ipcActions.PCS.ON_UPDATE, (event, ...args) => handler(...args)),
@@ -40,8 +40,8 @@ contextBridge.exposeInMainWorld('playerCharacters', {
 contextBridge.exposeInMainWorld('bestiary', {
     write: npc =>
         ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.WRITE, payload: npc }),
-    getAll: () => ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.GETALL }),
-    get: _id => ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.GET, payload: _id }),
+    get: (filter, sort) => ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.GET, payload: {filter, sort} }),
+    getOne: _id => ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.GETONE, payload: _id }),
     delete: _id => ipcRenderer.invoke('message', { type: ipcActions.BESTIARY.DELETE, payload: _id }),
     onUpdate: handler =>
         ipcRenderer.on(ipcActions.BESTIARY.ON_UPDATE, (event, ...args) => handler(...args)),

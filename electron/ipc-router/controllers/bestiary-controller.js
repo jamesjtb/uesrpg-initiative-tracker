@@ -8,8 +8,8 @@ module.exports = {
         mainWindow.webContents.send(ipcActions.BESTIARY.ON_UPDATE);
         return result;
     },
-    getAll: async () => await bestiaryRepo.read(),
-    get: async (_id) => (await bestiaryRepo.read({_id}))[0],
+    get: async (payload) => await bestiaryRepo.read(payload.filter, payload.sort),
+    getOne: async (_id) => (await bestiaryRepo.read({_id}))[0],
     delete: async (_id, mainWindow) => {
         const result = await bestiaryRepo.delete(_id);
         mainWindow.webContents.send(ipcActions.BESTIARY.ON_UPDATE);

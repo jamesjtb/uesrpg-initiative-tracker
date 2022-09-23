@@ -19,15 +19,15 @@ module.exports = {
         ON_UPDATE: 'settings:on-update',
     },
     PCS: {
-        GETALL: 'pcs:getall',
         GET: 'pcs:get',
+        GETONE: 'pcs:getone',
         WRITE: 'pcs:write',
         DELETE: 'pcs:delete',
         ON_UPDATE: 'pcs.on-update',
     },
     BESTIARY: {
-        GETALL: 'bestiary:getall',
         GET: 'bestiary:get',
+        GETONE: 'bestiary:getone',
         WRITE: 'bestiary:write',
         DELETE: 'bestiary:delete',
         ON_UPDATE: 'bestiary.on-update',
