@@ -30,6 +30,7 @@ const SingleInput = ({ rule, setRule, onDelete }) => {
                         variant="standard"
                         fullWidth
                         multiline
+                        maxRows={100}
                         placeholder="Loot Description"
                         value={rule}
                         onChange={e => setRule(e.target.value)}
@@ -71,6 +72,7 @@ const InputPair = ({ rule, setRule, onDelete }) => {
                         variant="standard"
                         fullWidth
                         multiline
+                        maxRows={100}
                         placeholder="Description"
                         value={rule.description}
                         onChange={e => setRule({ ...rule, description: e.target.value })}

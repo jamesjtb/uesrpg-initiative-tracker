@@ -51,6 +51,7 @@ const NpcEditor = () => {
     const [equipment, setEquipment] = useState([]);
     const [specialAbilities, setSpecialAbilities] = useState([]);
     const [traits, setTraits] = useState([]);
+    const [spells, setSpells] = useState([]);
     const [unconventionalSkills, setUnconventionalSkills] = useState([]);
     // const [specialHitCharts, setSpecialHitCharts] = useState([]);
     const [encounteringText, setEncounteringText] = useState('');
@@ -69,6 +70,7 @@ const NpcEditor = () => {
             equipment,
             specialAbilities,
             traits,
+            spells,
             unconventionalSkills,
             encounteringText,
             loot,
@@ -93,6 +95,7 @@ const NpcEditor = () => {
                 setEquipment([...npc.equipment]);
                 setSpecialAbilities([...npc.specialAbilities]);
                 setTraits([...npc.traits]);
+                setSpells([...npc.spells]);
                 setUnconventionalSkills([...npc.unconventionalSkills]);
                 setEncounteringText(npc.encounteringText);
                 setLoot([...npc.loot]);
@@ -121,6 +124,7 @@ const NpcEditor = () => {
                             multiline
                             variant="standard"
                             fullWidth
+                            maxRows={100}
                             value={flavorText}
                             onChange={e => setFlavorText(e.target.value)}
                         />
@@ -184,6 +188,12 @@ const NpcEditor = () => {
                         setRules={setTraits}
                     />
                     <NpcRuleList
+                        type="single"
+                        name="Spells"
+                        rules={spells}
+                        setRules={setSpells}
+                    />
+                    <NpcRuleList
                         type="skill"
                         name="Unconventional Skills"
                         rules={unconventionalSkills}
@@ -205,7 +215,8 @@ const NpcEditor = () => {
                         <TextField
                             sx={{ width: '80%' }}
                             placeholder="What to expect in combat against this NPC"
-                            multiline
+                            multiline              
+                            maxRows={100}
                             variant="standard"
                             value={encounteringText}
                             onChange={e => setEncounteringText(e.target.value)}
