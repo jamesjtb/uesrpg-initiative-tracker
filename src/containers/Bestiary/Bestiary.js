@@ -63,10 +63,12 @@ const Bestiary = () => {
                     npcs={npcs.slice(pageSize * currentPage - pageSize, pageSize * currentPage)}
                 />
                 <Pagination
+                    sx={{ mt: 2 }}
                     size="large"
                     count={Math.ceil(npcs.length / pageSize) || 1}
                     page={currentPage}
                     onChange={(e, page) => setCurrentPage(page)}
+                    color="primary"
                 />
             </Stack>
         </Container>

@@ -35,7 +35,7 @@ const NpcList = ({ npcs }) => {
                         <StyledTableCell align="center">
                             <Typography component="span">{npc.threatRating}</Typography>
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="center">
                             <NpcVariantMenu />
                         </StyledTableCell>
                         <StyledTableCell align="right">
