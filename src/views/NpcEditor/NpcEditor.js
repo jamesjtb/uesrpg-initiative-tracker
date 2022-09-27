@@ -77,7 +77,11 @@ const NpcEditor = () => {
             customNotes,
         };
         if (npcId) npc._id = npcId;
-        await window.bestiary.write(npc);
+        try {
+            await window.bestiary.write(npc);
+        } catch (e) {
+            console.error(e);
+        }
         window.close();
     };
 

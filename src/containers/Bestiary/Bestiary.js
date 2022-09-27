@@ -23,7 +23,7 @@ const Bestiary = () => {
     const pageSize = 20;
 
     const getNpcs = useCallback(async () => {
-        const npcResult = await window.bestiary.get(null, { name: 1 });
+        const npcResult = await window.bestiary.get({ isVariant: false }, { name: 1 });
         setNpcs(npcResult);
     }, [setNpcs]);
 

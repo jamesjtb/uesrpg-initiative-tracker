@@ -2,6 +2,11 @@ const DatabaseRepository = require('../../lib/db');
 const bestiaryRepo = new DatabaseRepository('bestiary');
 
 const ipcActions = require('../../../src/shared/ipc-actions');
+
+bestiaryRepo.ensureIndex({ fieldName: 'name', unique: 'true' });
+bestiaryRepo.ensureIndex({ fieldName: 'isVariant' });
+bestiaryRepo.ensureIndex({ fieldName: 'parentId', sparse: true });
+
 module.exports = {
     write: async (pc, mainWindow) => {
         const result = await bestiaryRepo.write(pc);

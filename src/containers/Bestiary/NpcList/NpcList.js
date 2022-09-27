@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { StyledTableCell } from '../../../components/StyledComponents/TableCell';
 
 import NpcActions from '../NpcActions/NpcActions';
+import NpcVariantMenu from '../NpcVariantMenu/NpcVariantMenu';
 
 const NpcList = ({ npcs }) => {
     return (
@@ -18,6 +19,7 @@ const NpcList = ({ npcs }) => {
                     <StyledTableCell align="center">Name</StyledTableCell>
                     <StyledTableCell align="center">Type</StyledTableCell>
                     <StyledTableCell align="center">Threat Rating</StyledTableCell>
+                    <StyledTableCell />
                     <StyledTableCell />
                 </TableRow>
             </TableHead>
@@ -32,6 +34,9 @@ const NpcList = ({ npcs }) => {
                         </StyledTableCell>
                         <StyledTableCell align="center">
                             <Typography component="span">{npc.threatRating}</Typography>
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            <NpcVariantMenu />
                         </StyledTableCell>
                         <StyledTableCell align="right">
                             <NpcActions npc={npc} />
