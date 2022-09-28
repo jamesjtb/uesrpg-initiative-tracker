@@ -1,16 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
+import Popover from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Add from '@mui/icons-material/Add';
 
-const NpcVariantMenu = () => {
+import NpcActions from '../NpcActions/NpcActions';
+
+import { openChildWindow } from '../../../util/utils';
+const NpcVariantMenu = ({ parentId }) => {
     const [anchor, setAnchor] = useState(null);
     const open = Boolean(anchor);
+
+    const [variants, setVariants] = useState([]);
+
+    const getVariants = useCallback(async () => {
+        const variantResult = await window.bestiary.get({ parentId }, { name: 1 });
+        setVariants([...variantResult]);
+    }, [setVariants, parentId]);
+
+    useEffect(() => {
+        getVariants();
+    }, [getVariants]);
+
+    window.bestiary.onUpdate(() => getVariants());
+
+    const onAddNewVariantClick = () => {
+        openChildWindow(`/views/npceditor/variant/${parentId}`, {
+            modal: true,
+        });
+        setAnchor(null);
+    };
+
     return (
         <>
             <Button
@@ -18,16 +45,20 @@ const NpcVariantMenu = () => {
                 endIcon={<KeyboardArrowDownIcon size="inherit" />}
                 onClick={e => setAnchor(e.currentTarget)}
             >
-                VARIANTS (NONE)
+                VARIANTS ({variants.length || 'NONE'})
             </Button>
-            <Menu
-                anchorEl={anchor}
-                open={open}
-                onClose={() => setAnchor(null)}
-            >   
+            <Popover anchorEl={anchor} open={open} onClose={() => setAnchor(null)}>
+                {variants.map(variant => (
+                    <ListItem key={variant._id}>
+                        <Typography>{variant.name}</Typography>                        
+                        <NpcActions npc={variant} />
+                    </ListItem>
+                ))}
                 <Divider />
-                <MenuItem>Add New Variant <Add /></MenuItem>
-            </Menu>
+                <MenuItem onClick={onAddNewVariantClick}>
+                    Add New Variant <Add />
+                </MenuItem>
+            </Popover>
         </>
     );
 };

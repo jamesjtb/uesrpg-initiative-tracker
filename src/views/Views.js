@@ -13,6 +13,7 @@ const Views = () => {
             </Route>
             <Route path="/npceditor" element={<NpcEditor />}>
                 <Route path=":npcId" element={<NpcEditor />} />
+                <Route path="variant/:parentId" element={<NpcEditor />} />
             </Route>
         </Routes>
     );

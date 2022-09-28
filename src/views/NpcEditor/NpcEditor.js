@@ -14,7 +14,7 @@ import StatTable from './StatTable/StatTable';
 import NpcRuleList from './NpcRuleList/NpcRuleList';
 
 const NpcEditor = () => {
-    const { npcId } = useParams();
+    const { npcId, parentId } = useParams();
 
     const [name, setName] = useState('');
     const [flavorText, setFlavorText] = useState('');
@@ -58,6 +58,9 @@ const NpcEditor = () => {
     const [loot, setLoot] = useState([]);
     const [customNotes, setCustomNotes] = useState([]);
 
+    const [isVariant, setIsVariant] = useState(null);
+    const [parentIdState, setParentIdState] = useState(parentId);
+
     const onSave = async () => {
         const npc = {
             name,
@@ -75,6 +78,8 @@ const NpcEditor = () => {
             encounteringText,
             loot,
             customNotes,
+            isVariant: isVariant || false,
+            parentId: parentIdState,
         };
         if (npcId) npc._id = npcId;
         try {
@@ -87,9 +92,10 @@ const NpcEditor = () => {
 
     useEffect(() => {
         (async () => {
-            if (npcId) {
-                const npc = await window.bestiary.getOne(npcId);
-                setName(npc.name);
+            if (npcId || parentId) {
+                const npc = await window.bestiary.getOne(npcId || parentId);
+
+                setName(parentId ? `${npc.name} (variant)` : npc.name);
                 setFlavorText(npc.flavorText);
                 setRace(npc.race);
                 setType(npc.type);
@@ -104,12 +110,15 @@ const NpcEditor = () => {
                 setEncounteringText(npc.encounteringText);
                 setLoot([...npc.loot]);
                 setCustomNotes([...npc.customNotes]);
+
+                setIsVariant(parentId || npc.parentId ? true : false);
+                setParentIdState(parentId || npc.parentId);
             }
         })();
-    }, [npcId]);
+    }, [npcId, parentId]);
 
     return (
-        <DraggableViewBase title={`NPC Editor ${npcId ? `(${name})` : '(New)'}`}>
+        <DraggableViewBase title={`NPC Editor ${npcId ? `(${name})` : parentId ? ('(New Variant)') : '(New)'}`}>
             <Box sx={{ ml: 5, mr: 5, mt: 3, mb: 3 }}>
                 <Grid container sx={{ mb: 1 }} rowSpacing={1} columnSpacing={2}>
                     <Grid xs={6}>

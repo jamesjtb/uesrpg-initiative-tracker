@@ -48,7 +48,6 @@ function App() {
                     setSettingsModalOpen={setSettingsModalOpen}
                     onTriggerUpdate={() => setTriggerUpdate(true)}
                 />
-
                 <Box
                     className={classes.ContentContainer}
                     component="main"

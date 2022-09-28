@@ -16,7 +16,7 @@ export const rollDice = (sides, qty=1) => {
 
 export const delay = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const openChildWindow = async (path, opts) => {
+export const openChildWindow = async (path, opts = {}) => {
     // Figure out the best center coords to put the child window, but only if positions are not given.
     if (!opts.x && !opts.y) {
         const newChildDimensions = {
