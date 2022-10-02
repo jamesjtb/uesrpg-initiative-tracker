@@ -28,7 +28,7 @@ const NpcActions = ({ npc }) => {
     return (
         <>
             <Tooltip
-                title={"Add to encounter"}
+                title={"Add to Encounter Builder"}
                 enterNextDelay={200}
                 leaveDelay={200}
                 disableInteractive

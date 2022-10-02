@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AppMenuItem from './AppMenuItem/AppMenuItem';
 
 import { Skull, Cycle } from '../../components/rpg-awesome/rpg-icons';
-import { CrossedSwords } from '../../components/rpg-awesome/weapons-and-armor';
+import { Anvil, CrossedSwords } from '../../components/rpg-awesome/weapons-and-armor';
 import { Gears } from '../../components/rpg-awesome/electronics';
 import { DoubleTeam } from '../../components/rpg-awesome/players';
 
@@ -134,8 +134,13 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
                 </AppMenuItem>
                 <Divider />
                 <NavLink to="/">
-                    <AppMenuItem appMenuOpen={open} displayText="Encounters">
+                    <AppMenuItem appMenuOpen={open} displayText="Initiative">
                         <CrossedSwords />
+                    </AppMenuItem>
+                </NavLink>
+                <NavLink to="/encounter-builder">
+                    <AppMenuItem appMenuOpen={open} displayText="Encounter Builder">
+                        <Anvil />
                     </AppMenuItem>
                 </NavLink>
                 <NavLink to="/party">

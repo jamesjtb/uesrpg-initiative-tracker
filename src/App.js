@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 
 import AppMenu from './containers/AppMenu/AppMenu';
 import InitiativeList from './containers/InitiativeList';
+import EncounterBuilder from './containers/EncounterBuilder/EncounterBuilder';
 import Bestiary from './containers/Bestiary/Bestiary';
 import PartyManager from './containers/PartyManager/PartyManager';
 import InitiativeModal from './containers/InitiativeModal';
@@ -55,6 +56,7 @@ function App() {
                 >
                     <Routes>
                         <Route path="/" element={<InitiativeList />} />
+                        <Route path="encounter-builder" element={<EncounterBuilder />} />
                         <Route path="bestiary" element={<Bestiary />} />
                         <Route path="party" element={<PartyManager />} />
                     </Routes>

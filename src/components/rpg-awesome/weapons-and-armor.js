@@ -15,3 +15,5 @@ export const BoltShield = (props) => <Icon baseClassName="ra ra-bolt-shield" {..
 export const AxeSwing = (props) => <Icon baseClassName="ra ra-axe-swing" {...props} />;
 
 export const SpinningSword = (props) => <Icon baseClassName="ra ra-spinning-sword" {...props} />;
+
+export const Anvil = (props) => <Icon baseClassName="ra ra-anvil" {...props} />;
