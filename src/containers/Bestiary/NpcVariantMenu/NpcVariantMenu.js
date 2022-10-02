@@ -7,6 +7,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Add from '@mui/icons-material/Add';
@@ -48,12 +49,16 @@ const NpcVariantMenu = ({ parentId }) => {
                 VARIANTS ({variants.length || 'NONE'})
             </Button>
             <Popover anchorEl={anchor} open={open} onClose={() => setAnchor(null)}>
-                {variants.map(variant => (
-                    <ListItem key={variant._id}>
-                        <Typography>{variant.name}</Typography>                        
-                        <NpcActions npc={variant} />
-                    </ListItem>
-                ))}
+                <List>
+                    {variants.map(variant => (
+                        <ListItem key={variant._id}>
+                            <Grid container>
+                                <Grid xs="auto"><Typography>{variant.name}</Typography></Grid>
+                                <Grid><NpcActions npc={variant} /></Grid>                                
+                            </Grid>
+                        </ListItem>
+                    ))}
+                </List>
                 <Divider />
                 <MenuItem onClick={onAddNewVariantClick}>
                     Add New Variant <Add />
