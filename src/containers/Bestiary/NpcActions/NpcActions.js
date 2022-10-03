@@ -4,9 +4,9 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 import Clear from '@mui/icons-material/Clear';
-import Add from '@mui/icons-material/Add';
 
 import { QuillInk } from '../../../components/rpg-awesome/inventory';
+import { Anvil, CrossedSwords } from '../../../components/rpg-awesome/weapons-and-armor';
 import useConfirmation from '../../../components/useConfirmation/useConfirmation';
 
 import { openChildWindow } from '../../../util/utils';
@@ -27,6 +27,7 @@ const NpcActions = ({ npc }) => {
     };
 
     const addNpcToEncounter = () => {};
+    const addNpcToInitiative= () => {};
 
     return (
         <>
@@ -37,7 +38,17 @@ const NpcActions = ({ npc }) => {
                 disableInteractive
             >
                 <IconButton color="primary" size="small" onClick={addNpcToEncounter}>
-                    <Add fontSize="inherit" />
+                    <Anvil fontSize="inherit" />
+                </IconButton>
+            </Tooltip>
+            <Tooltip
+                title={'Add to Initiative Tracker'}
+                enterNextDelay={200}
+                leaveDelay={200}
+                disableInteractive
+            >
+                <IconButton color="primary" size="small" onClick={addNpcToInitiative}>
+                    <CrossedSwords fontSize="inherit" />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Edit" enterNextDelay={200} leaveDelay={200} disableInteractive>
