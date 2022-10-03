@@ -7,12 +7,17 @@ import Clear from '@mui/icons-material/Clear';
 import Add from '@mui/icons-material/Add';
 
 import { QuillInk } from '../../../components/rpg-awesome/inventory';
+import useConfirmation from '../../../components/useConfirmation/useConfirmation';
 
 import { openChildWindow } from '../../../util/utils';
 
 const NpcActions = ({ npc }) => {
-    const deleteNpc = () => {
-        window.bestiary.delete(npc._id);
+    const [getConfirmation, Confirmation] = useConfirmation();
+
+    const deleteNpc = async () => {
+        if (await getConfirmation(`Delete ${npc.name}?`)) {
+            await window.bestiary.delete(npc._id);
+        }
     };
 
     const openNpcEditor = () => {
@@ -21,14 +26,12 @@ const NpcActions = ({ npc }) => {
         });
     };
 
-    const addNpcToEncounter = () => {
-        
-    };
+    const addNpcToEncounter = () => {};
 
     return (
         <>
             <Tooltip
-                title={"Add to Encounter Builder"}
+                title={'Add to Encounter Builder'}
                 enterNextDelay={200}
                 leaveDelay={200}
                 disableInteractive
@@ -47,6 +50,7 @@ const NpcActions = ({ npc }) => {
                     <Clear fontSize="inherit" />
                 </IconButton>
             </Tooltip>
+            <Confirmation />
         </>
     );
 };

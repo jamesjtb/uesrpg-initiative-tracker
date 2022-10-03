@@ -8,12 +8,17 @@ import Add from '@mui/icons-material/Add';
 import HorizontalRule from '@mui/icons-material/HorizontalRule';
 
 import { QuillInk } from '../../../components/rpg-awesome/inventory';
+import useConfirmation from '../../../components/useConfirmation/useConfirmation';
 
 import { openChildWindow } from '../../../util/utils';
 
 const PcActions = ({ pc }) => {
-    const deletePc = () => {
-        window.playerCharacters.delete(pc._id);
+    const [getConfirmation, Confirmation] = useConfirmation();
+
+    const deletePc = async () => {
+        if ((await getConfirmation(`Delete ${pc.playerName}'s player character ${pc.characterName}?`))) {
+            await window.playerCharacters.delete(pc._id);
+        }
     };
 
     const openPcEditor = () => {
@@ -50,6 +55,7 @@ const PcActions = ({ pc }) => {
                     <Clear fontSize="inherit" />
                 </IconButton>
             </Tooltip>
+            <Confirmation />
         </>
     );
 };
