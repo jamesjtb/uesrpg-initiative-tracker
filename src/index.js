@@ -20,9 +20,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
 
 const Router = process.env.NODE_ENV === 'development' ? BrowserRouter : HashRouter;
+console.log(Router);
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+console.log(window.location.pathname);
 root.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
@@ -30,7 +32,7 @@ root.render(
             <Router>
                 <Routes>
                     <Route path="/*" element={<App />} />
-                    <Route path="views/*" element={<Views />} />
+                    <Route path="/views/*" element={<Views />} />
                 </Routes>
             </Router>
         </ThemeProvider>

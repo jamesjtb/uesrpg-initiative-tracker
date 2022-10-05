@@ -5,7 +5,7 @@ module.exports = {
         USERSETTINGS: {
             LOAD: "app:usersettings:load",
             SAVE: "app:usersettings:save",
-        }
+        },
     },
     FILESTORE: {
         SAVE_COMBATANTS: 'saveCombatants',

@@ -21,7 +21,7 @@ const NpcActions = ({ npc }) => {
     };
 
     const openNpcEditor = () => {
-        openChildWindow(`/views/npceditor/${npc._id}`, {
+        openChildWindow(`views/npceditor/${npc._id}`, {
             modal: true,
         });
     };

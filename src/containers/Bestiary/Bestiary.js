@@ -83,7 +83,7 @@ const Bestiary = () => {
                                 <IconButton
                                     color="primary"
                                     onClick={() =>
-                                        openChildWindow('/views/npceditor', {
+                                        openChildWindow('views/npceditor', {
                                             modal: true,
                                         })
                                     }

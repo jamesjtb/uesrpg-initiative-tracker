@@ -37,7 +37,8 @@
     "dev": "concurrently -k \"set BROWSER=none&& npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
     "pack": "mkdir build\\src & robocopy src\\shared build\\src\\shared /s & robocopy electron build\\electron /s",
-    "build-electron": "electron-builder build --win -c.extraMetadata.main=build/electron/electron.js --publish never"
+    "build-electron": "electron-builder build --win -c.extraMetadata.main=build/electron/electron.js --publish never",
+    "compile": "npm run build-react & npm run pack & npm run build-electron"
   },
   "eslintConfig": {
     "extends": [

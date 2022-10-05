@@ -54,7 +54,7 @@ const Party = () => {
                         <Tooltip title="Add New Player Character">
                             <IconButton
                                 onClick={() =>
-                                    openChildWindow('/views/pceditor', {
+                                    openChildWindow('views/pceditor', {
                                         height: 395,
                                         width: 675,
                                         modal: true,

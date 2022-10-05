@@ -1,4 +1,6 @@
-const isDev = require('electron-is-dev');
+const { app } = require('electron');
+const url = require('url');
+const path = require('path');
 
 class MessageHandler {
     ipcActions = require('../../src/shared/ipc-actions');
@@ -12,7 +14,7 @@ class MessageHandler {
         this.mainWindow = mainWindow;
     }
     async handle(action) {
-        if (isDev) console.log(`Handling message type: ${action.type}`);
+        if (!app.isPackaged) console.log(`Handling message type: ${action.type}`);
         switch (action.type) {
             // App Actions
             case this.ipcActions.APP.QUIT:
@@ -23,6 +25,14 @@ class MessageHandler {
                 return await this.appController.loadUserSettings();
             case this.ipcActions.APP.USERSETTINGS.SAVE:
                 return await this.appController.saveUserSettings(action.payload);
+            case this.ipcActions.APP.GET_ROOT_PATH:                
+                return app.isPackaged
+                ? url.format({
+                      pathname: path.join(__dirname, '../index.html'),
+                      protocol: 'file:',
+                      slashes: true,
+                  })
+                : 'http://localhost:3000';
             // Filestore Actions
             case this.ipcActions.FILESTORE.SAVE_COMBATANTS:
                 return await this.filestoreController.saveCombatants(

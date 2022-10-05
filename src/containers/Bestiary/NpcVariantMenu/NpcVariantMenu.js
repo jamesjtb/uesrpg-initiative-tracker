@@ -33,7 +33,7 @@ const NpcVariantMenu = ({ parentId }) => {
     window.bestiary.onUpdate(() => getVariants());
 
     const onAddNewVariantClick = () => {
-        openChildWindow(`/views/npceditor/variant/${parentId}`, {
+        openChildWindow(`views/npceditor/variant/${parentId}`, {
             modal: true,
         });
         setAnchor(null);

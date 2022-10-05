@@ -32,9 +32,5 @@ export const openChildWindow = async (path, opts = {}) => {
         opts.x = parentMiddlePoint.x - newChildDimensions.width / 2;
         opts.y = parentMiddlePoint.y - newChildDimensions.height / 2;
     }
-    let optsString = '';
-    for (const key in opts) {
-        optsString += `${key}=${opts[key]},`;
-    }
-    window.open(path, '_blank', optsString);
+    window.system.openChildWindow(path, opts);
 };
