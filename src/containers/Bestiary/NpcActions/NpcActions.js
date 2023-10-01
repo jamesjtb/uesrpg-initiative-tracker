@@ -26,8 +26,11 @@ const NpcActions = ({ npc }) => {
         });
     };
 
-    const addNpcToEncounter = () => {};
-    const addNpcToInitiative= () => {};
+    const openLoadoutEditor = (targetModule) => {
+        openChildWindow(`views/loadouteditor/${npc._id}?targetModule=${targetModule}`, {
+            modal: true,
+        });
+    };
 
     return (
         <>
@@ -37,7 +40,7 @@ const NpcActions = ({ npc }) => {
                 leaveDelay={200}
                 disableInteractive
             >
-                <IconButton color="primary" size="small" onClick={addNpcToEncounter}>
+                <IconButton color="primary" size="small" onClick={() => openLoadoutEditor('encounter-builder')}>
                     <Anvil fontSize="inherit" />
                 </IconButton>
             </Tooltip>
@@ -47,7 +50,7 @@ const NpcActions = ({ npc }) => {
                 leaveDelay={200}
                 disableInteractive
             >
-                <IconButton color="primary" size="small" onClick={addNpcToInitiative}>
+                <IconButton color="primary" size="small" onClick={() => openLoadoutEditor('initiative-tracker')}>
                     <CrossedSwords fontSize="inherit" />
                 </IconButton>
             </Tooltip>

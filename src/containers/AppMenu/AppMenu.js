@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
@@ -8,8 +8,6 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 
-import Save from '@mui/icons-material/Save';
-import Folder from '@mui/icons-material/Folder';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import AppMenuItem from './AppMenuItem/AppMenuItem';
@@ -18,9 +16,6 @@ import { Skull, Cycle } from '../../components/rpg-awesome/rpg-icons';
 import { Anvil, CrossedSwords } from '../../components/rpg-awesome/weapons-and-armor';
 import { Gears } from '../../components/rpg-awesome/electronics';
 import { DoubleTeam } from '../../components/rpg-awesome/players';
-
-import { CombatContext } from '../../contextProviders/combat';
-import { combatantTypes } from '../../contextProviders/combat/values';
 
 export const drawerWidth = 240;
 
@@ -74,37 +69,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'open' })
 );
 
 const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
-    const { combatState, setCombatants } = useContext(CombatContext);
-
-    const saveToFile = async type => {
-        await window.fs.saveCombatants(
-            type,
-            combatState.combatants.filter(c => c.type === type)
-        );
-    };
-
-    const loadFile = async () => {
-        const result = await window.fs.loadFile();
-        if (result.type === 'error') throw new Error(`Error loading file: ${result.errorReason}`); // TODO: inform the user
-        switch (result.type) {
-            case '3e-party':
-                // TODO: Inform the user that any currently tracked player combatants will be removed in loading the file
-                setCombatants([
-                    ...combatState.combatants.filter(c => c.type !== combatantTypes.PC),
-                    ...result.data,
-                ]);
-                break;
-            case '3e-encounter':
-                // TODO: Inform the user that any currently tracked player combatants will be removed in loading the file
-                setCombatants([
-                    ...combatState.combatants.filter(c => c.type !== combatantTypes.NPC),
-                    ...result.data,
-                ]);
-                break;
-            default:
-                throw new Error('Unknown data type returned from main process.'); // TODO: inform the user
-        }
-    };
 
     return (
         <Drawer variant="permanent" open={open}>
@@ -115,24 +79,6 @@ const AppDrawer = ({ open, toggle, setSettingsModalOpen, onTriggerUpdate }) => {
             </DrawerHeader>
             <Divider />
             <List>
-                <AppMenuItem appMenuOpen={open} onClick={loadFile} displayText="Load from File">
-                    <Folder />
-                </AppMenuItem>
-                <AppMenuItem
-                    appMenuOpen={open}
-                    onClick={() => saveToFile(combatantTypes.PC)}
-                    displayText="Save Party To File"
-                >
-                    <Save />
-                </AppMenuItem>
-                <AppMenuItem
-                    appMenuOpen={open}
-                    onClick={() => saveToFile(combatantTypes.NPC)}
-                    displayText="Save Encounter To File"
-                >
-                    <Save />
-                </AppMenuItem>
-                <Divider />
                 <NavLink to="/">
                     <AppMenuItem appMenuOpen={open} displayText="Initiative">
                         <CrossedSwords />

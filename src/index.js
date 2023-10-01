@@ -20,11 +20,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
 
 const Router = process.env.NODE_ENV === 'development' ? BrowserRouter : HashRouter;
-console.log(Router);
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-console.log(window.location.pathname);
 root.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>

@@ -15,11 +15,11 @@ class SettingsRepository {
             },
         },
         combat: {
-            initiativeVersion: {
-                display: 'Initiative Version',
+            apRefreshType: {
+                display: 'AP Refresh Type',
                 type: this.#settingTypes.MULTISELECT,
-                options: ['Manual AP Refresh', 'UESRPG 3e v2', 'UESRPG 3e v3'],
-                value: 'UESRPG 3e v2',
+                options: ['Manual', 'Start of Round', 'Start of Turn'],
+                value: 'Start of Round',
             },
         },
     };

@@ -65,7 +65,7 @@ const InitiativeControlCard = () => {
                         advanceTurn({
                             byTurns: 1,
                             combatants: combatState.combatants,
-                            apRefreshType: combatSettings.initiativeVersion.value,
+                            apRefreshType: combatSettings.apRefreshType.value,
                         })
                     }
                 >
