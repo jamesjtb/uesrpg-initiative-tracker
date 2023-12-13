@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import HorizontalRule from '@mui/icons-material/HorizontalRule';
 import Add from '@mui/icons-material/Add';
 
+
+
 const SingleInput = ({ rule, setRule, onDelete }) => {
     return (
         <ListItem
@@ -130,7 +132,7 @@ const NpcRuleList = ({ type = 'standard', name, rules, setRules }) => {
         setRules([
             ...rules,
             type === 'standard'
-                ? { name: '', description: '' }
+                ? { id: new Date().valueOf(), name: '', description: '' }
                 : type === 'skill'
                 ? { name: '', targetNumber: '' }
                 : type === 'single'

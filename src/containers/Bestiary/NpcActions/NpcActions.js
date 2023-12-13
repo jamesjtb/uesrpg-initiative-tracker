@@ -32,6 +32,8 @@ const NpcActions = ({ npc }) => {
         });
     };
 
+    const addToEncounterBuilder = () => {}
+
     return (
         <>
             <Tooltip

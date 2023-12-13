@@ -10,6 +10,7 @@ List new features, changes, and bug fixes by version
 -   Party Manager
     -   Create, edit, and delete party members
     -   Manage active party, which automatically adds party members to the initiative tracker
+-   
 
 ## [0.3.0](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.3.0)
 
@@ -37,6 +38,9 @@ This version uses a new settings format in the backend. As a result, your settin
 -   Added Initiative Total to Combatant Listing if combat is running
     -   Clicking the Initiative Total for a Combatant Listing will allow the user to edit the combatant's initiative total.
 -   At combat stop, set all initiative totals to null
+-   Renamed "Initiative Version" setting to "AP Refresh Type"
+    -   Renamed "3e v2 Initiative" to "Start of Round"
+    -   Renamed "3e v3 Initiative" to "Start of Turn"
 
 ## [0.2.0](https://github.com/jamesjtb/uesrpg-companion/releases/tag/v0.2.0)
 
