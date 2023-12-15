@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography';
 
 import Add from '@mui/icons-material/Add';
 
-import EncounterList from './EncounterList/EncounterList';
 import { openChildWindow } from '../../util/utils';
+import EncounterList from './EncounterList/EncounterList';
 
 const Encounters = () => {
     const [encounters, setEncounters] = useState([]);
@@ -23,10 +23,14 @@ const Encounters = () => {
                     Encounter Builder
                 </Typography>
                 <Box sx={{ mb: 2, width: '100%' }}>
-                <Grid container>
-                        <Grid xs={10} textAlign="left" sx={{ '& > :not(style)': { mr: 1, ml: 1 } }}>
-                        </Grid>
-                        <Grid xs={2} textAlign="right">
+                    <Grid container>
+                        <Grid
+                            item
+                            xs={10}
+                            textAlign="left"
+                            sx={{ '& > :not(style)': { mr: 1, ml: 1 } }}
+                        ></Grid>
+                        <Grid item xs={2} textAlign="right">
                             <Tooltip title="Add New NPC">
                                 <IconButton
                                     color="primary"

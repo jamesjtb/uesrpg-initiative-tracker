@@ -24,15 +24,13 @@ const Router = process.env.NODE_ENV === 'development' ? BrowserRouter : HashRout
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
-    <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Router>
-                <Routes>
-                    <Route path="/*" element={<App />} />
-                    <Route path="/views/*" element={<Views />} />
-                </Routes>
-            </Router>
-        </ThemeProvider>
-    </React.StrictMode>
+    <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+            <Routes>
+                <Route path="/*" element={<App />} />
+                <Route path="/views/*" element={<Views />} />
+            </Routes>
+        </Router>
+    </ThemeProvider>
 );

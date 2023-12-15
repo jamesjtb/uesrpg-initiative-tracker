@@ -1,6 +1,6 @@
 const { app } = require('electron');
 
-const Datastore = require('nedb');
+const Datastore = require('@seald-io/nedb');
 
 class DbRepository {
     #db;
@@ -12,13 +12,10 @@ class DbRepository {
         });
     }
 
-    write(data) {
-        return new Promise((resolve, reject) => {
-            this.#db.update({ _id: data._id }, data, { upsert: true }, (error, result) => {
-                if (error) return reject(error);
-                return resolve(result);
-            });
-        });
+    // this is somehow writing duplicate data on each write
+    async write(data) {
+        console.log(data._id);
+        return await (this.#db.updateAsync({ _id: data._id }, data, { upsert: true }))
     }
 
     read(filter, sort) {

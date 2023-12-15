@@ -51,6 +51,15 @@ contextBridge.exposeInMainWorld('bestiary', {
         ipcRenderer.on(ipcActions.BESTIARY.ON_UPDATE, (event, ...args) => handler(...args)),
 });
 
+contextBridge.exposeInMainWorld('activeEncounter', {
+    write: activeEncounter =>
+        ipcRenderer.invoke('message', {
+            type: ipcActions.ACTIVE_ENCOUNTER.WRITE,
+            payload: activeEncounter,
+        }),
+    get: () => ipcRenderer.invoke('message', {type: ipcActions.ACTIVE_ENCOUNTER.GET}),
+});
+
 contextBridge.exposeInMainWorld('system', {
     openInBrowser: url => shell.openExternal(url),
     openChildWindow: (path, browserOptions) =>

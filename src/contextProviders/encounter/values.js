@@ -1,3 +1,4 @@
 export const encounterActions = {
+    SET: 'SET',
     ADD_COMBATANT: 'ADD_COMBATANT',
 }

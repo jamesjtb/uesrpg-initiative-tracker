@@ -31,5 +31,10 @@ module.exports = {
         WRITE: 'bestiary:write',
         DELETE: 'bestiary:delete',
         ON_UPDATE: 'bestiary.on-update',
+    },
+    ACTIVE_ENCOUNTER: {
+        GET: 'activeEncounter:get',
+        WRITE: 'activeEncounter:write',
+        ON_UPDATE: 'activeEncounter.on-update',
     }
 };

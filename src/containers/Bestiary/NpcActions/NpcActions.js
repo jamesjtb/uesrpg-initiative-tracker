@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -8,11 +8,13 @@ import Clear from '@mui/icons-material/Clear';
 import { QuillInk } from '../../../components/rpg-awesome/inventory';
 import { Anvil, CrossedSwords } from '../../../components/rpg-awesome/weapons-and-armor';
 import useConfirmation from '../../../components/useConfirmation/useConfirmation';
+import { EncounterContext } from '../../../contextProviders/encounter';
 
 import { openChildWindow } from '../../../util/utils';
 
 const NpcActions = ({ npc }) => {
     const [getConfirmation, Confirmation] = useConfirmation();
+    const { addCombatant } = useContext(EncounterContext);
 
     const deleteNpc = async () => {
         if (await getConfirmation(`Delete ${npc.name}?`)) {
@@ -26,13 +28,23 @@ const NpcActions = ({ npc }) => {
         });
     };
 
-    const openLoadoutEditor = (targetModule) => {
+    const openLoadoutEditor = targetModule => {
         openChildWindow(`views/loadouteditor/${npc._id}?targetModule=${targetModule}`, {
             modal: true,
         });
     };
 
-    const addToEncounterBuilder = () => {}
+    const addToEncounterBuilder = () => {
+        addCombatant({
+            id: new Date().valueOf(),
+            name: npc.name,
+            npcId: npc._id,
+            loadout: {
+                equipmentIds: [],
+                spellIds: [],
+            },
+        });
+    };
 
     return (
         <>
@@ -42,7 +54,7 @@ const NpcActions = ({ npc }) => {
                 leaveDelay={200}
                 disableInteractive
             >
-                <IconButton color="primary" size="small" onClick={() => openLoadoutEditor('encounter-builder')}>
+                <IconButton color="primary" size="small" onClick={() => addToEncounterBuilder()}>
                     <Anvil fontSize="inherit" />
                 </IconButton>
             </Tooltip>
@@ -52,7 +64,11 @@ const NpcActions = ({ npc }) => {
                 leaveDelay={200}
                 disableInteractive
             >
-                <IconButton color="primary" size="small" onClick={() => openLoadoutEditor('initiative-tracker')}>
+                <IconButton
+                    color="primary"
+                    size="small"
+                    onClick={() => openLoadoutEditor('initiative-tracker')}
+                >
                     <CrossedSwords fontSize="inherit" />
                 </IconButton>
             </Tooltip>

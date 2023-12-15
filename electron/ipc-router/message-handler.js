@@ -3,12 +3,13 @@ const url = require('url');
 const path = require('path');
 
 class MessageHandler {
-    ipcActions = require('../../src/shared/ipc-actions');
     appController = require('./controllers/app-controller');
-    filestoreController = require('./controllers/filestore-controller');
-    settingsController = require('./controllers/settings-controller');
-    pcController = require('./controllers/pc-controller');
     bestiaryController = require('./controllers/bestiary-controller');
+    activeEncounterController = require('./controllers/active-encounter-controller');
+    filestoreController = require('./controllers/filestore-controller');
+    ipcActions = require('../../src/shared/ipc-actions');
+    pcController = require('./controllers/pc-controller');
+    settingsController = require('./controllers/settings-controller');
 
     constructor(mainWindow) {
         this.mainWindow = mainWindow;
@@ -66,6 +67,11 @@ class MessageHandler {
                 return await this.bestiaryController.delete(action.payload, this.mainWindow);
             case this.ipcActions.BESTIARY.GETONE:
                 return await this.bestiaryController.getOne(action.payload);
+            // Active Encounter Actions
+            case this.ipcActions.ACTIVE_ENCOUNTER.WRITE:
+                return await this.activeEncounterController.write(action.payload);
+            case this.ipcActions.ACTIVE_ENCOUNTER.GET:
+                return await this.activeEncounterController.get();
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }

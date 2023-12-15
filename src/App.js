@@ -17,6 +17,7 @@ import Updater from './containers/Updater';
 import parchmentBackground from './assets/parchment.jpg';
 
 import { CombatProvider } from './contextProviders/combat';
+import { EncounterProvider } from './contextProviders/encounter';
 
 function App() {
     const [settingsModalOpen, setSettingsModalOpen] = useState(false);
@@ -43,26 +44,28 @@ function App() {
             }}
         >
             <CombatProvider>
-                <AppMenu
-                    open={appMenuOpen}
-                    toggle={() => setAppMenuOpen(!appMenuOpen)}
-                    setSettingsModalOpen={setSettingsModalOpen}
-                    onTriggerUpdate={() => setTriggerUpdate(true)}
-                />
-                <Box
-                    className={classes.ContentContainer}
-                    component="main"
-                    sx={{ flexGrow: 1, overflowY: 'auto' }}
-                >
-                    <Routes>
-                        <Route path="/" element={<InitiativeList />} />
-                        <Route path="encounter-builder" element={<Encounters />} />
-                        <Route path="bestiary" element={<Bestiary />} />
-                        <Route path="party" element={<PartyManager />} />
-                    </Routes>
-                </Box>
-                <InitiativeModal />
-                <SettingsModal open={settingsModalOpen} setOpen={setSettingsModalOpen} />
+                <EncounterProvider>
+                    <AppMenu
+                        open={appMenuOpen}
+                        toggle={() => setAppMenuOpen(!appMenuOpen)}
+                        setSettingsModalOpen={setSettingsModalOpen}
+                        onTriggerUpdate={() => setTriggerUpdate(true)}
+                    />
+                    <Box
+                        className={classes.ContentContainer}
+                        component="main"
+                        sx={{ flexGrow: 1, overflowY: 'auto' }}
+                    >
+                        <Routes>
+                            <Route path="/" element={<InitiativeList />} />
+                            <Route path="encounter-builder" element={<Encounters />} />
+                            <Route path="bestiary" element={<Bestiary />} />
+                            <Route path="party" element={<PartyManager />} />
+                        </Routes>
+                    </Box>
+                    <InitiativeModal />
+                    <SettingsModal open={settingsModalOpen} setOpen={setSettingsModalOpen} />
+                </EncounterProvider>
             </CombatProvider>
             <Updater
                 triggerUpdate={triggerUpdate}
