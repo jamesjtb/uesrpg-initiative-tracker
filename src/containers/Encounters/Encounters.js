@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Add from '@mui/icons-material/Add';
 
 import { openChildWindow } from '../../util/utils';
-import EncounterList from './EncounterList/EncounterList';
+import EncounterBuilder from './EncounterBuilder/EncounterBuilder';
 
 const Encounters = () => {
     const [encounters, setEncounters] = useState([]);
@@ -19,10 +19,10 @@ const Encounters = () => {
     return (
         <Container sx={{ flexGrow: 1 }}>
             <Stack alignItems="center" justifyContent="center">
-                <Typography variant="h4" color="primary">
-                    Encounter Builder
-                </Typography>
                 <Box sx={{ mb: 2, width: '100%' }}>
+                    <Typography variant="h4" color="primary">
+                        Encounter Builder
+                    </Typography>
                     <Grid container>
                         <Grid
                             item
@@ -46,7 +46,7 @@ const Encounters = () => {
                         </Grid>
                     </Grid>
                 </Box>
-                <EncounterList encounters={encounters} />
+                <EncounterBuilder encounters={encounters} />
             </Stack>
         </Container>
     );

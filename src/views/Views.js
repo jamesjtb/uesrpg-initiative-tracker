@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
-import EncounterBuilder from './EncounterBuilder/EncounterBuilder';
 import LoadoutEditor from './LoadoutEditor/LoadoutEditor';
 import NpcEditor from './NpcEditor/NpcEditor';
 
@@ -16,9 +15,6 @@ const Views = () => {
             <Route path="npceditor" element={<NpcEditor />}>
                 <Route path=":npcId" element={<NpcEditor />} />
                 <Route path="variant/:parentId" element={<NpcEditor />} />
-            </Route>
-            <Route path="encountereditor" element={<EncounterBuilder />}>
-                <Route path="encounterId" element={<EncounterBuilder />} />
             </Route>
             <Route path="loadouteditor/:npcId" element={<LoadoutEditor />} />
         </Routes>

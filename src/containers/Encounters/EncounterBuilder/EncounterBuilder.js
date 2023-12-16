@@ -7,26 +7,29 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { StyledTableCell } from '../../../components/StyledComponents/TableCell';
 import { EncounterContext } from '../../../contextProviders/encounter';
+import CombatantActions from './CombatantActions';
 
-const EncounterList = () => {
+const EncounterBuilder = () => {
     const { encounterState } = useContext(EncounterContext);
     return (
         <Table size="small">
             <TableHead>
                 <TableRow>
-                    <StyledTableCell align="center">Name</StyledTableCell>
-                    <StyledTableCell align="center">Label Color</StyledTableCell>
+                    <StyledTableCell align="left">Name</StyledTableCell>
+                    <StyledTableCell align="right">Label Color</StyledTableCell>
+                    <StyledTableCell align="right" />
                 </TableRow>
             </TableHead>
             <TableBody>
                 {encounterState?.combatants?.map(combatant => (
                     <TableRow key={combatant.id}>
-                        <StyledTableCell align="center">
+                        <StyledTableCell align="left">
                             <Typography component="span">{combatant.name}</Typography>
                         </StyledTableCell>
-                        <StyledTableCell align="center">
+                        <StyledTableCell align="right">
                             <Typography component="span">something</Typography>
                         </StyledTableCell>
+                        <StyledTableCell align="right"><CombatantActions combatant={combatant} /></StyledTableCell>
                     </TableRow>
                 ))}
             </TableBody>
@@ -34,4 +37,4 @@ const EncounterList = () => {
     );
 };
 
-export default EncounterList;
+export default EncounterBuilder;
