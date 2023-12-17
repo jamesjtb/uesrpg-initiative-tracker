@@ -5,8 +5,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import Clear from '@mui/icons-material/Clear';
 
-import { QuillInk } from '../../../../components/rpg-awesome/inventory';
-import { CrossedSwords } from '../../../../components/rpg-awesome/weapons-and-armor';
+import { CrossedSwords, Anvil } from '../../../../components/rpg-awesome/weapons-and-armor';
 import useConfirmation from '../../../../components/useConfirmation/useConfirmation';
 import { EncounterContext } from '../../../../contextProviders/activeEncounter';
 
@@ -38,7 +37,7 @@ const CombatantActions = ({ combatant }) => {
             </Tooltip>
             <Tooltip title="Edit Loadout" enterNextDelay={200} leaveDelay={200} disableInteractive>
                 <IconButton color="primary" size="small" onClick={() => console.log('Edit')}>
-                    <QuillInk fontSize="inherit" />
+                    <Anvil fontSize="inherit" />
                 </IconButton>
             </Tooltip>
             <Tooltip
