@@ -17,7 +17,7 @@ import Updater from './containers/Updater';
 import parchmentBackground from './assets/parchment.jpg';
 
 import { CombatProvider } from './contextProviders/combat';
-import { EncounterProvider } from './contextProviders/encounter';
+import { EncounterProvider } from './contextProviders/activeEncounter';
 
 function App() {
     const [settingsModalOpen, setSettingsModalOpen] = useState(false);

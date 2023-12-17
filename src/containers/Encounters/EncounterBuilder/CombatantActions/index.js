@@ -8,11 +8,17 @@ import Clear from '@mui/icons-material/Clear';
 import { QuillInk } from '../../../../components/rpg-awesome/inventory';
 import { CrossedSwords } from '../../../../components/rpg-awesome/weapons-and-armor';
 import useConfirmation from '../../../../components/useConfirmation/useConfirmation';
-import { EncounterContext } from '../../../../contextProviders/encounter';
+import { EncounterContext } from '../../../../contextProviders/activeEncounter';
 
 const CombatantActions = ({ combatant }) => {
     const [getConfirmation, Confirmation] = useConfirmation();
-    const { deleteCombatant } = useContext(EncounterContext);
+    const { removeCombatant } = useContext(EncounterContext);
+
+    const handleRemoveCombatant = async () => {
+        if (await getConfirmation(`Remove ${combatant.name}?`)) {
+            await removeCombatant(combatant.id);
+        }
+    };
 
     return (
         <>
@@ -22,7 +28,11 @@ const CombatantActions = ({ combatant }) => {
                 leaveDelay={200}
                 disableInteractive
             >
-                <IconButton color="primary" size="small" onClick={() => console.log('Add to Initiative')}>
+                <IconButton
+                    color="primary"
+                    size="small"
+                    onClick={() => console.log('Add to Initiative')}
+                >
                     <CrossedSwords fontSize="inherit" />
                 </IconButton>
             </Tooltip>
@@ -31,8 +41,13 @@ const CombatantActions = ({ combatant }) => {
                     <QuillInk fontSize="inherit" />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Remove Combatant" enterNextDelay={200} leaveDelay={200} disableInteractive>
-                <IconButton color="primary" size="small" onClick={() => console.log('Delete')}>
+            <Tooltip
+                title="Remove Combatant"
+                enterNextDelay={200}
+                leaveDelay={200}
+                disableInteractive
+            >
+                <IconButton color="primary" size="small" onClick={handleRemoveCombatant}>
                     <Clear fontSize="inherit" />
                 </IconButton>
             </Tooltip>

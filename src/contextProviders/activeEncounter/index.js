@@ -31,11 +31,16 @@ export const EncounterProvider = props => {
         dispatch({ type: encounterActions.ADD_COMBATANT, payload: combatant });
     };
 
+    const removeCombatant = combatantId => {
+        dispatch({ type: encounterActions.REMOVE_COMBATANT, payload: combatantId });
+    }
+
     return (
         <EncounterContext.Provider
             value={{
                 encounterState: state,
                 addCombatant,
+                removeCombatant,
             }}
         >
             {props.children}

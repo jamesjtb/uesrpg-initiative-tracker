@@ -6,12 +6,19 @@ const addCombatant = (oldState, combatant) => {
     return newEncounter;
 };
 
+const removeCombatant = (oldState, combatantId) => {
+    const newEncounter = {...oldState, combatants: [...oldState.combatants.filter(c => c.id !== combatantId)]}
+    window.activeEncounter.write(newEncounter);
+    return newEncounter;
+}
+
 const set = (_, encounter) => {
     return encounter
 };
 
 const actionTypesMap = {
     [encounterActions.ADD_COMBATANT]: addCombatant,
+    [encounterActions.REMOVE_COMBATANT]: removeCombatant,
     [encounterActions.SET]: set,
 };
 

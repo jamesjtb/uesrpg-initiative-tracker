@@ -8,7 +8,7 @@ import Clear from '@mui/icons-material/Clear';
 import { QuillInk } from '../../../components/rpg-awesome/inventory';
 import { Anvil, CrossedSwords } from '../../../components/rpg-awesome/weapons-and-armor';
 import useConfirmation from '../../../components/useConfirmation/useConfirmation';
-import { EncounterContext } from '../../../contextProviders/encounter';
+import { EncounterContext } from '../../../contextProviders/activeEncounter';
 
 import { openChildWindow } from '../../../util/utils';
 

@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { StyledTableCell } from '../../../components/StyledComponents/TableCell';
-import { EncounterContext } from '../../../contextProviders/encounter';
+import { EncounterContext } from '../../../contextProviders/activeEncounter';
 import CombatantActions from './CombatantActions';
 
 const EncounterBuilder = () => {
