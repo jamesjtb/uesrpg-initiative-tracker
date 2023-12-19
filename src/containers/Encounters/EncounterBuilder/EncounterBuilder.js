@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +11,17 @@ import CombatantActions from './CombatantActions';
 
 const EncounterBuilder = () => {
     const { encounterState } = useContext(EncounterContext);
+    const [npcStatblocks, setNpcStatblocks] = useState({});
+    
+    useEffect(() => {
+        (async () => {
+            for (const combatant of encounterState.combatants) {
+                const statblock = await window.bestiary.getOne(combatant.npcId);
+                setNpcStatblocks(n => ({...n, [combatant.npcId]: statblock}));
+            }
+        })();
+    }, [encounterState.combatants]);
+
     return (
         <Table size="small">
             <TableHead>
@@ -29,7 +40,7 @@ const EncounterBuilder = () => {
                         <StyledTableCell align="right">
                             <Typography component="span">something</Typography>
                         </StyledTableCell>
-                        <StyledTableCell align="right"><CombatantActions combatant={combatant} /></StyledTableCell>
+                        <StyledTableCell align="right"><CombatantActions combatant={combatant} statblock={npcStatblocks[combatant.npcId]} /></StyledTableCell>
                     </TableRow>
                 ))}
             </TableBody>

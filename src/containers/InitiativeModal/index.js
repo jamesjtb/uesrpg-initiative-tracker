@@ -27,6 +27,7 @@ const InitiativeModal = () => {
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+        borderRadius: 2
     };
 
     const { combatState, startCombat, stopCombat, setCombatants, editCombatant } =
