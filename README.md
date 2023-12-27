@@ -12,8 +12,9 @@ If you're unfamiliar with the process of contributing, you can follow the instru
 ### Setting Up Your Local Dev Environment
 Development is, at this time, only set up for a Windows environment; specifically in powershell. Elevated permissions (running as Administrator) should not be required. If you would like to set up development (and/or distributable workflow) on a different environment, please leave the existing windows npm scripts intact on the resulting pull request.
 1. You will need to install node.js on your local machine. Make sure to download the LTS version from [nodejs.org](https://nodejs.org).
+    - Consider using [nvm for windows](https://github.com/coreybutler/nvm-windows/releases) to manage your node versions on windows.
 2. Once you've cloned the project onto your machine, use `npm install` from the project's root directory to install the dependencies of the project.
-3. To run the UESRPG Companion in development mode, use `npm run dev`.
+3. To run the UESRPG Companion in development mode, use `npm run start:dev`.
 
 ## Building From Source
 1. Build the react source code by running `npm run build-react`
