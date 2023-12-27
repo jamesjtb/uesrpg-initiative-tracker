@@ -9,6 +9,7 @@ import { CrossedSwords, Anvil } from '../../../../components/rpg-awesome/weapons
 import useConfirmation from '../../../../components/useConfirmation/useConfirmation';
 import { EncounterContext } from '../../../../contextProviders/activeEncounter';
 import LoadoutModal from '../../../LoadoutModal';
+import { RaIcon } from '../../../../components/rpg-awesome';
 
 const CombatantActions = ({ combatant, statblock }) => {
     const [isLoadoutModalOpen, setIsLoadoutModalOpen] = useState(false);
@@ -41,7 +42,7 @@ const CombatantActions = ({ combatant, statblock }) => {
             </Tooltip>
             <Tooltip title="Edit Loadout" enterNextDelay={200} leaveDelay={200} disableInteractive>
                 <IconButton color="primary" size="small" onClick={() => setIsLoadoutModalOpen(true)}>
-                    <Anvil fontSize="inherit" />
+                    <RaIcon iconName="ra-forging" fontSize="inherit" />
                 </IconButton>
             </Tooltip>
             <Tooltip
