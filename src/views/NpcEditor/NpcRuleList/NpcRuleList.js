@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -14,6 +14,11 @@ import Add from '@mui/icons-material/Add';
 
 
 const SingleInput = ({ rule, setRule, onDelete }) => {
+    
+    const handleChange = (value) => {
+        setRule({...rule, description: value})
+    }
+
     return (
         <ListItem
             disableGutters
@@ -33,9 +38,9 @@ const SingleInput = ({ rule, setRule, onDelete }) => {
                         fullWidth
                         multiline
                         maxRows={100}
-                        placeholder="Loot Description"
-                        value={rule}
-                        onChange={e => setRule(e.target.value)}
+                        placeholder="Description"
+                        value={rule.description}
+                        onChange={e => handleChange(e.target.value)}
                     />
                 </Grid>
             </Grid>
@@ -44,6 +49,15 @@ const SingleInput = ({ rule, setRule, onDelete }) => {
 };
 
 const InputPair = ({ rule, setRule, onDelete }) => {
+    
+    const handleNameChange = (value) => {
+        setRule({ ...rule, name: value })
+    }
+
+    const handleDescriptionChange = (value) => {
+        setRule({ ...rule, description: value })
+    }
+
     return (
         <ListItem
             disableGutters
@@ -63,7 +77,7 @@ const InputPair = ({ rule, setRule, onDelete }) => {
                         fullWidth
                         placeholder="Name"
                         value={rule.name}
-                        onChange={e => setRule({ ...rule, name: e.target.value })}
+                        onChange={e => handleNameChange(e.target.value)}
                     />
                 </Grid>
                 <Grid xs={0.5} textAlign="center">
@@ -77,7 +91,7 @@ const InputPair = ({ rule, setRule, onDelete }) => {
                         maxRows={100}
                         placeholder="Description"
                         value={rule.description}
-                        onChange={e => setRule({ ...rule, description: e.target.value })}
+                        onChange={e => handleDescriptionChange(e.target.value )}
                     />
                 </Grid>
             </Grid>
@@ -136,7 +150,7 @@ const NpcRuleList = ({ type = 'standard', name, rules, setRules }) => {
                 : type === 'skill'
                 ? { name: '', targetNumber: '' }
                 : type === 'single'
-                ? ''
+                ? { id: new Date().valueOf(), description: ''}
                 : null,
         ]);
     return (

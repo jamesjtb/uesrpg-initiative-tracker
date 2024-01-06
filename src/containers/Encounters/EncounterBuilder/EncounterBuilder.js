@@ -17,7 +17,7 @@ const EncounterBuilder = () => {
         (async () => {
             for (const combatant of encounterState.combatants) {
                 const statblock = await window.bestiary.getOne(combatant.npcId);
-                setNpcStatblocks(n => ({...n, [combatant.npcId]: statblock}));
+                if (encounterState?.combatants) setNpcStatblocks(n => ({...n, [combatant.npcId]: statblock}));
             }
         })();
     }, [encounterState.combatants]);

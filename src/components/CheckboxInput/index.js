@@ -7,16 +7,13 @@ import Checkbox from '@mui/material/Checkbox';
 const CheckboxInput = ({ name, value, onChange }) => {
     const handleCheck = e => {
         onChange(e.target.checked);
-    }
+    };
     return (
-        <Stack direction="row" spacing={2}>
+        <Stack sx={{ display: 'flex', alignItems: 'center' }} direction="row" spacing={2}>
+            <Checkbox checked={value} onChange={handleCheck} />
             <Typography variant="subtitle1">{name}</Typography>
-            <Checkbox
-                checked={value}
-                onChange={handleCheck}
-            />
         </Stack>
-    )
+    );
 };
 
 export default CheckboxInput;

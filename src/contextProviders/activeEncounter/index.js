@@ -6,25 +6,29 @@ import { encounterActions } from './values';
 export const EncounterContext = createContext();
 
 export const EncounterProvider = props => {
-    const [state, dispatch] = useReducer(encounterReducer, undefined);
+    const [state, dispatch] = useReducer(encounterReducer, {
+        _id: `${new Date().valueOf()}`,
+        name: 'New Encounter',
+        description: '',
+        displayPath: '/',
+        combatants: [],
+    });
 
     useEffect(() => {
-        if (!state) {
-            (async () => {
-                const existingActiveEncounter = await window.activeEncounter.get();
-                dispatch({
-                    type: encounterActions.SET,
-                    payload: existingActiveEncounter ?? {
-                        _id: `${new Date().valueOf()}`,
-                        name: 'New Encounter',
-                        description: '',
-                        displayPath: '/',
-                        combatants: [],
-                    },
-                });
-                console.log('Active Encounter Initialized!');
-            })();
-        }
+        (async () => {
+            const existingActiveEncounter = await window.activeEncounter.get();
+            dispatch({
+                type: encounterActions.SET,
+                payload: existingActiveEncounter ?? {
+                    _id: `${new Date().valueOf()}`,
+                    name: 'New Encounter',
+                    description: '',
+                    displayPath: '/',
+                    combatants: [],
+                },
+            });
+            console.log('Active Encounter Initialized!');
+        })();
     }, []);
 
     const addCombatant = combatant => {
@@ -33,7 +37,7 @@ export const EncounterProvider = props => {
 
     const removeCombatant = combatantId => {
         dispatch({ type: encounterActions.REMOVE_COMBATANT, payload: combatantId });
-    }
+    };
 
     return (
         <EncounterContext.Provider
