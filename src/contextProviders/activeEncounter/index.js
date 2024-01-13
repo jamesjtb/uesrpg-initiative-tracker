@@ -35,6 +35,10 @@ export const EncounterProvider = props => {
         dispatch({ type: encounterActions.ADD_COMBATANT, payload: combatant });
     };
 
+    const editCombatant = combatant => {
+        dispatch({ type: encounterActions.EDIT_COMBATANT, payload: combatant});
+    }
+
     const removeCombatant = combatantId => {
         dispatch({ type: encounterActions.REMOVE_COMBATANT, payload: combatantId });
     };
@@ -44,6 +48,7 @@ export const EncounterProvider = props => {
             value={{
                 encounterState: state,
                 addCombatant,
+                editCombatant,
                 removeCombatant,
             }}
         >

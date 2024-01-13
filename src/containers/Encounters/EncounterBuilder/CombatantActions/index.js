@@ -5,7 +5,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import Clear from '@mui/icons-material/Clear';
 
-import { CrossedSwords, Anvil } from '../../../../components/rpg-awesome/weapons-and-armor';
+import { CrossedSwords } from '../../../../components/rpg-awesome/weapons-and-armor';
 import useConfirmation from '../../../../components/useConfirmation/useConfirmation';
 import { EncounterContext } from '../../../../contextProviders/activeEncounter';
 import LoadoutModal from '../../../LoadoutModal';
@@ -23,9 +23,13 @@ const CombatantActions = ({ combatant, statblock }) => {
         }
     };
 
+    const handleLoadoutModalClose = async () => {
+        setIsLoadoutModalOpen(false);
+    }
+
     return (
         <>
-            <LoadoutModal isOpen={isLoadoutModalOpen} combatant={combatant} statblock={statblock} onClose={() => setIsLoadoutModalOpen(false)} />
+            <LoadoutModal isOpen={isLoadoutModalOpen} combatant={combatant} statblock={statblock} onClose={handleLoadoutModalClose} />
             <Tooltip
                 title={'Add to Initiative Tracker'}
                 enterNextDelay={200}

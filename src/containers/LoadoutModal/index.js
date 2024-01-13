@@ -1,5 +1,7 @@
-import { Box, Modal, Typography } from '@mui/material';
+import { Box, Button, Modal, Typography } from '@mui/material';
 import CheckboxInput from '../../components/CheckboxInput';
+import { useContext } from 'react';
+import { EncounterContext } from '../../contextProviders/activeEncounter';
 
 const loadoutItemTypes = {
     SPELL: 'spellIds',
@@ -7,6 +9,7 @@ const loadoutItemTypes = {
 };
 
 const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
+    const { editCombatant } = useContext(EncounterContext);
     const style = {
         position: 'absolute',
         top: '50%',
@@ -23,7 +26,9 @@ const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
     };
 
     const addToLoadout = (type, value) => {
-        combatant.loadout[type].push(value);
+        const updatedCombatant = JSON.parse(JSON.stringify(combatant));
+        updatedCombatant.loadout[type].push(value);
+        editCombatant(updatedCombatant);
     };
 
     return (
@@ -58,6 +63,7 @@ const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
                         onChange={() => addToLoadout(loadoutItemTypes.SPELL, e.id)}
                     />
                 ))}
+                <Button onClick={onClose}>Done</Button>
             </Box>
         </Modal>
     );

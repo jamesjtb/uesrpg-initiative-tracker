@@ -6,19 +6,34 @@ const addCombatant = (oldState, combatant) => {
     return newEncounter;
 };
 
-const removeCombatant = (oldState, combatantId) => {
-    const newEncounter = {...oldState, combatants: [...oldState.combatants.filter(c => c.id !== combatantId)]}
+const editCombatant = (oldState, newCombatant) => {
+    const newEncounter = {
+        ...oldState,
+        combatants: [
+            ...oldState.combatants.map(c => (c._id === newCombatant._id ? newCombatant : c)),
+        ],
+    };
     window.activeEncounter.write(newEncounter);
     return newEncounter;
-}
+};
+
+const removeCombatant = (oldState, combatantId) => {
+    const newEncounter = {
+        ...oldState,
+        combatants: [...oldState.combatants.filter(c => c.id !== combatantId)],
+    };
+    window.activeEncounter.write(newEncounter);
+    return newEncounter;
+};
 
 const set = (_, encounter) => {
-    return encounter
+    return encounter;
 };
 
 const actionTypesMap = {
     [encounterActions.ADD_COMBATANT]: addCombatant,
     [encounterActions.REMOVE_COMBATANT]: removeCombatant,
+    [encounterActions.EDIT_COMBATANT]: editCombatant,
     [encounterActions.SET]: set,
 };
 
