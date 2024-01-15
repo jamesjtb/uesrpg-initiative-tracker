@@ -30,7 +30,6 @@ const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
         updatedCombatant.loadout[type].push(value);
         editCombatant(updatedCombatant);
     };
-
     return (
         <Modal open={isOpen} onClose={onClose}>
             <Box sx={style}>
@@ -46,7 +45,7 @@ const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
                     <CheckboxInput
                         key={e.id}
                         name={e.name}
-                        value={combatant?.equipment?.includes(e.id)}
+                        value={combatant?.loadout?.equipmentIds?.includes(e.id)}
                         onChange={() => addToLoadout(loadoutItemTypes.EQUIPMENT, e.id)}
                     />
                 ))}
@@ -59,7 +58,7 @@ const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
                     <CheckboxInput
                         key={e.id}
                         name={e.description}
-                        value={combatant?.spells?.includes(e.id)}
+                        value={combatant?.loadout?.spellIds?.includes(e.id)}
                         onChange={() => addToLoadout(loadoutItemTypes.SPELL, e.id)}
                     />
                 ))}

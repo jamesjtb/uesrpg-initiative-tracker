@@ -10,7 +10,7 @@ const editCombatant = (oldState, newCombatant) => {
     const newEncounter = {
         ...oldState,
         combatants: [
-            ...oldState.combatants.map(c => (c._id === newCombatant._id ? newCombatant : c)),
+            ...oldState.combatants.map(c => (c.id === newCombatant.id ? newCombatant : c)),
         ],
     };
     window.activeEncounter.write(newEncounter);
