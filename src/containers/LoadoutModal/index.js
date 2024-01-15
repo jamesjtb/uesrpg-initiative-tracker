@@ -25,11 +25,15 @@ const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
         borderRadius: 2,
     };
 
-    const addToLoadout = (type, value) => {
+    const toggleInLoadout = (type, value) => {
         const updatedCombatant = JSON.parse(JSON.stringify(combatant));
-        updatedCombatant.loadout[type].push(value);
+        const existingIndex = updatedCombatant.loadout[type].indexOf(value);
+        existingIndex === -1
+            ? updatedCombatant.loadout[type].push(value)
+            : updatedCombatant.loadout[type].splice(existingIndex, 1);
         editCombatant(updatedCombatant);
     };
+
     return (
         <Modal open={isOpen} onClose={onClose}>
             <Box sx={style}>
@@ -46,7 +50,7 @@ const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
                         key={e.id}
                         name={e.name}
                         value={combatant?.loadout?.equipmentIds?.includes(e.id)}
-                        onChange={() => addToLoadout(loadoutItemTypes.EQUIPMENT, e.id)}
+                        onChange={() => toggleInLoadout(loadoutItemTypes.EQUIPMENT, e.id)}
                     />
                 ))}
                 {statblock?.spells?.length > 0 ? (
@@ -59,7 +63,7 @@ const LoadoutModal = ({ isOpen, combatant, statblock, onClose }) => {
                         key={e.id}
                         name={e.description}
                         value={combatant?.loadout?.spellIds?.includes(e.id)}
-                        onChange={() => addToLoadout(loadoutItemTypes.SPELL, e.id)}
+                        onChange={() => toggleInLoadout(loadoutItemTypes.SPELL, e.id)}
                     />
                 ))}
                 <Button onClick={onClose}>Done</Button>
