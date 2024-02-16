@@ -12,7 +12,6 @@ class DbRepository {
         });
     }
 
-    // this is somehow writing duplicate data on each write
     async write(data) {
         console.log(data._id);
         return await (this.#db.updateAsync({ _id: data._id }, data, { upsert: true }))
