@@ -10,6 +10,7 @@ import { EncounterContext } from '../../../contextProviders/activeEncounter';
 import CombatantActions from './CombatantActions';
 import { Box, Divider, Grid, IconButton, Tooltip } from '@mui/material';
 import { Save } from '../../../components/rpg-awesome/electronics';
+import EncounterCombatant from './EncounterCombatant/EncounterCombatant';
 
 const EncounterBuilder = () => {
     const { encounterState } = useContext(EncounterContext);
@@ -41,7 +42,7 @@ const EncounterBuilder = () => {
                         sx={{ '& > :not(style)': { mr: 1, ml: 1 } }}
                     ></Grid>
                     <Grid item xs={2} textAlign="right">
-                        <Tooltip title="Add New NPC">
+                        <Tooltip title="Save Encounter">
                             <IconButton color="primary" onClick={() => []}>
                                 <Save fontSize="inherit" />
                             </IconButton>
@@ -53,26 +54,13 @@ const EncounterBuilder = () => {
                 <TableHead>
                     <TableRow>
                         <StyledTableCell align="left">Name</StyledTableCell>
-                        <StyledTableCell align="right">Label Color</StyledTableCell>
+                        <StyledTableCell align="center">Label Color</StyledTableCell>
                         <StyledTableCell align="right" />
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {encounterState?.combatants?.map(combatant => (
-                        <TableRow key={combatant.id}>
-                            <StyledTableCell align="left">
-                                <Typography component="span">{combatant.name}</Typography>
-                            </StyledTableCell>
-                            <StyledTableCell align="right">
-                                <Typography component="span">something</Typography>
-                            </StyledTableCell>
-                            <StyledTableCell align="right">
-                                <CombatantActions
-                                    combatant={combatant}
-                                    statblock={npcStatblocks[combatant.npcId]}
-                                />
-                            </StyledTableCell>
-                        </TableRow>
+                        <EncounterCombatant key={combatant.id} combatant={combatant} npcStatblocks={npcStatblocks} />
                     ))}
                 </TableBody>
             </Table>
