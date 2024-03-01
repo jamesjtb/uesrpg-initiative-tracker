@@ -7,10 +7,10 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { StyledTableCell } from '../../../components/StyledComponents/TableCell';
 import { EncounterContext } from '../../../contextProviders/activeEncounter';
-import CombatantActions from './CombatantActions';
 import { Box, Divider, Grid, IconButton, Tooltip } from '@mui/material';
 import { Save } from '../../../components/rpg-awesome/electronics';
 import EncounterCombatant from './EncounterCombatant/EncounterCombatant';
+import { CrossedSwords } from '../../../components/rpg-awesome/weapons-and-armor';
 
 const EncounterBuilder = () => {
     const { encounterState } = useContext(EncounterContext);
@@ -45,6 +45,11 @@ const EncounterBuilder = () => {
                         <Tooltip title="Save Encounter">
                             <IconButton color="primary" onClick={() => []}>
                                 <Save fontSize="inherit" />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Add All to Initiative Tracker">
+                            <IconButton color="primary" onClick={() => []}>
+                                <CrossedSwords fontSize="inherit" />
                             </IconButton>
                         </Tooltip>
                     </Grid>

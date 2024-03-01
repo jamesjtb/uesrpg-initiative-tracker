@@ -2,13 +2,19 @@ import { TableRow, Typography } from '@mui/material';
 import { StyledTableCell } from '../../../../components/StyledComponents/TableCell';
 import CombatantActions from '../CombatantActions';
 import ColorSelector from '../../../../components/ColorSelector';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { EncounterContext } from '../../../../contextProviders/activeEncounter';
 
 const EncounterCombatant = ({ combatant, npcStatblocks }) => {
     const [selectedColor, setSelectedColor] = useState(combatant.labelColor);
+    const { editCombatant } = useContext(EncounterContext);
 
     const handleColorSelect = e => {
-        setSelectedColor(e.target.value);
+        const colorValue = e.target.value;
+        editCombatant({...combatant, labelColor: colorValue})
+
+        setSelectedColor(colorValue);
+
     };
 
     return (
