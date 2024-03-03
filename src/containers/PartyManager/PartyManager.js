@@ -9,6 +9,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 
 import Add from '@mui/icons-material/Add';
+import { CrossedSwords } from '../../components/rpg-awesome/weapons-and-armor';
 
 import PcList from './PcList/PcList';
 
@@ -39,6 +40,13 @@ const Party = () => {
                     Active Party Members
                 </Typography>
             </Divider>
+            <Grid item xs={2} textAlign="right">
+                        <Tooltip title="Add All to Initiative Tracker">
+                            <IconButton color="primary" onClick={() => []}>
+                                <CrossedSwords fontSize="inherit" />
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
             <Box sx={{ height: '30vh', overflow: 'auto' }}>
                 <PcList pcs={pcs.filter(pc => pc.active === true)} />
             </Box>
