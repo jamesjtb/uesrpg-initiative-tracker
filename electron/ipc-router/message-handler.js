@@ -15,7 +15,7 @@ class MessageHandler {
         this.mainWindow = mainWindow;
     }
     async handle(action) {
-        if (!app.isPackaged) console.log(`Handling message type: ${action.type}`);
+        if (!app.isPackaged) console.log(`----\nIPC Message\n    TYPE: "${action.type}"\n    PAYLOAD: ${JSON.stringify(action.payload)}\n----`);
         switch (action.type) {
             // App Actions
             case this.ipcActions.APP.QUIT:
