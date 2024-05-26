@@ -82,7 +82,7 @@ const EncounterBuilder = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <SaveDialog />
+            {SaveDialog}
         </Box>
     );
 };
