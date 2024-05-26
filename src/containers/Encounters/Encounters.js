@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import EncounterBuilder from './EncounterBuilder/EncounterBuilder';
+import EncounterList from './EncounterList/EncounterList';
 import { Typography } from '@mui/material';
 
 const Encounters = () => {
@@ -15,6 +16,7 @@ const Encounters = () => {
             </Typography>
             <Stack alignItems="center" justifyContent="center">
                 <EncounterBuilder encounters={encounters} />
+                <EncounterList />
             </Stack>
         </Container>
     );

@@ -30,11 +30,17 @@ module.exports = {
         GETONE: 'bestiary:getone',
         WRITE: 'bestiary:write',
         DELETE: 'bestiary:delete',
-        ON_UPDATE: 'bestiary.on-update',
+        ON_UPDATE: 'bestiary:on-update',
     },
     ACTIVE_ENCOUNTER: {
         GET: 'activeEncounter:get',
         WRITE: 'activeEncounter:write',
-        ON_UPDATE: 'activeEncounter.on-update',
-    }
+        ON_UPDATE: 'activeEncounter:on-update',
+    },
+    ENCOUNTER_STORE: {
+        GET: 'encounterStore:get',
+        GETONE: 'encounterStore:getone',
+        WRITE: 'encounterStore:write',
+        DELETE: 'encounterStore:delete',
+    },
 };

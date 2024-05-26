@@ -72,6 +72,15 @@ class MessageHandler {
                 return await this.activeEncounterController.write(action.payload);
             case this.ipcActions.ACTIVE_ENCOUNTER.GET:
                 return await this.activeEncounterController.get();
+            // Encounter Store Actions
+            case this.ipcActions.ENCOUNTER_STORE.WRITE:
+                return await this.encounterStoreController.write(action.payload);
+            case this.ipcActions.ENCOUNTER_STORE.GET:
+                return await this.encounterStoreController.get(action.payload);
+            case this.ipcActions.ENCOUNTER_STORE.DELETE:
+                return await this.encounterStoreController.delete(action.payload);
+            case this.ipcActions.ENCOUNTER_STORE.GETONE:
+                return await this.encounterStoreController.getOne(action.payload);
             default:
                 console.error(`Unrecognized message: ${JSON.stringify(action, null, 2)}`);
         }
