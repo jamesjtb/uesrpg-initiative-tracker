@@ -1,9 +1,25 @@
-import { Save } from '@mui/icons-material'
-import { Box, Divider, Grid, IconButton, Table, TableBody, TableHead, TableRow, Tooltip, Typography } from '@mui/material'
-import { CrossedSwords } from '../../../components/rpg-awesome/weapons-and-armor'
-import { StyledTableCell } from '../../../components/StyledComponents/TableCell'
+import { Add, Save } from '@mui/icons-material';
+import {
+    Box,
+    Divider,
+    Grid,
+    IconButton,
+    Table,
+    TableBody,
+    TableHead,
+    TableRow,
+    Tooltip,
+    Typography,
+} from '@mui/material';
+import { useContext } from 'react';
+import { CrossedSwords } from '../../../components/rpg-awesome/weapons-and-armor';
+import { StyledTableCell } from '../../../components/StyledComponents/TableCell';
+import { EncounterListContext } from '../../../contextProviders/encounterList';
+import EncounterRow from './EncounterRow';
 
 const EncounterList = () => {
+    const { encounterList } = useContext(EncounterListContext);
+
     return (
         <Box sx={{ overflow: 'auto', width: '100%' }}>
             <Box sx={{ width: '100%' }}>
@@ -20,14 +36,9 @@ const EncounterList = () => {
                         sx={{ '& > :not(style)': { mr: 1, ml: 1 } }}
                     ></Grid>
                     <Grid item xs={2} textAlign="right">
-                        <Tooltip title="Save Encounter">
+                        <Tooltip title="Add New Encounter">
                             <IconButton color="primary" onClick={() => []}>
-                                <Save fontSize="inherit" />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Add All to Initiative Tracker">
-                            <IconButton color="primary" onClick={() => []}>
-                                <CrossedSwords fontSize="inherit" />
+                                <Add fontSize="inherit" />
                             </IconButton>
                         </Tooltip>
                     </Grid>
@@ -37,14 +48,17 @@ const EncounterList = () => {
                 <TableHead>
                     <TableRow>
                         <StyledTableCell align="left">Name</StyledTableCell>
-                        <StyledTableCell align="left">Description</StyledTableCell>
+                        <StyledTableCell align="left">Combatants</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
+                    {encounterList.map(encounter => (
+                        <EncounterRow encounter={encounter} />
+                    ))}
                 </TableBody>
             </Table>
         </Box>
-    )
+    );
 };
 
 export default EncounterList;
