@@ -43,6 +43,10 @@ export const EncounterProvider = props => {
         dispatch({ type: encounterActions.REMOVE_COMBATANT, payload: combatantId });
     };
 
+    const setEncounterName = name => {
+        dispatch({ type: encounterActions.SET_NAME, payload: name });
+    }
+
     return (
         <EncounterContext.Provider
             value={{
@@ -50,6 +54,7 @@ export const EncounterProvider = props => {
                 addCombatant,
                 editCombatant,
                 removeCombatant,
+                setEncounterName,
             }}
         >
             {props.children}

@@ -3,4 +3,5 @@ export const encounterActions = {
     ADD_COMBATANT: 'ADD_COMBATANT',
     EDIT_COMBATANT: 'EDIT_COMBATANT',
     REMOVE_COMBATANT: 'REMOVE_COMBATANT',
+    SET_NAME: 'SET_NAME',
 };

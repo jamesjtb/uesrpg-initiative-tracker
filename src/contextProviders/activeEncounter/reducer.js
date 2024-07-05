@@ -30,11 +30,18 @@ const set = (_, encounter) => {
     return encounter;
 };
 
+const setEncounterName = (oldState, name) => {
+    const newEncounter = { ...oldState, name };
+    window.activeEncounter.write(newEncounter);
+    return newEncounter;
+};
+
 const actionTypesMap = {
     [encounterActions.ADD_COMBATANT]: addCombatant,
     [encounterActions.REMOVE_COMBATANT]: removeCombatant,
     [encounterActions.EDIT_COMBATANT]: editCombatant,
     [encounterActions.SET]: set,
+    [encounterActions.SET_NAME]: setEncounterName,
 };
 
 export const encounterReducer = (oldState, action) => {

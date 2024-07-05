@@ -60,6 +60,15 @@ contextBridge.exposeInMainWorld('activeEncounter', {
     get: () => ipcRenderer.invoke('message', {type: ipcActions.ACTIVE_ENCOUNTER.GET}),
 });
 
+contextBridge.exposeInMainWorld('encounterList', {
+    write: encounterList =>
+        ipcRenderer.invoke('message', {
+            type: ipcActions.ENCOUNTER_STORE.WRITE,
+            payload: encounterList,
+        }),
+    get: () => ipcRenderer.invoke('message', { type: ipcActions.ENCOUNTER_STORE.GET }),
+});
+
 contextBridge.exposeInMainWorld('system', {
     openInBrowser: url => shell.openExternal(url),
     openChildWindow: (path, browserOptions) =>

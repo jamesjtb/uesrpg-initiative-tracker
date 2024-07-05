@@ -6,6 +6,7 @@ class MessageHandler {
     appController = require('./controllers/app-controller');
     bestiaryController = require('./controllers/bestiary-controller');
     activeEncounterController = require('./controllers/active-encounter-controller');
+    encounterStoreController = require('./controllers/encounter-store-controller');
     filestoreController = require('./controllers/filestore-controller');
     ipcActions = require('../../src/shared/ipc-actions');
     pcController = require('./controllers/pc-controller');

@@ -22,8 +22,9 @@ const useSaveDialog = () => {
     const [resolver, setResolver] = useState({ resolve: null });
     const [documentType, setDocumentType] = useState('');
 
-    const getSaveName = useCallback(async (documentType) => {
+    const getSaveName = useCallback(async (documentType, encounterName) => {
         setDocumentType(documentType);
+        setName(encounterName);
         setOpen(true);
         const [promise, resolve] = createPromise();
         setResolver({ resolve });
